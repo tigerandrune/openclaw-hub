@@ -182,7 +182,7 @@
   "settings.name": "名前",
   "settings.name.placeholder": "あなたの名前",
   "settings.dashboardTitle": "ダッシュボードタイトル",
-  "settings.dashboardTitle.placeholder": "例：Tigerのコマンドセンター",
+  "settings.dashboardTitle.placeholder": "例：マイコマンドセンター",
   "bookmarks.typeUrl": "URL",
   "bookmarks.typeAction": "アクション",
   "bookmarks.allActionsPinned": "すべてのアクションがピン留め済み",

@@ -182,7 +182,7 @@
   "settings.name": "Nome",
   "settings.name.placeholder": "Seu nome",
   "settings.dashboardTitle": "Título do painel",
-  "settings.dashboardTitle.placeholder": "ex. Centro de comando do Tiger",
+  "settings.dashboardTitle.placeholder": "ex. Meu Centro de comando",
   "bookmarks.typeUrl": "URL",
   "bookmarks.typeAction": "Ação",
   "bookmarks.allActionsPinned": "Todas as ações fixadas",

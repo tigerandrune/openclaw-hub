@@ -182,7 +182,7 @@
   "settings.name": "姓名",
   "settings.name.placeholder": "你的名字",
   "settings.dashboardTitle": "仪表板标题",
-  "settings.dashboardTitle.placeholder": "例如：Tiger的指挥中心",
+  "settings.dashboardTitle.placeholder": "例如：我的指挥中心",
   "bookmarks.typeUrl": "URL",
   "bookmarks.typeAction": "操作",
   "bookmarks.allActionsPinned": "所有操作已固定",

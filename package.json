@@ -35,5 +35,23 @@
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "vite": "^5.1.0"
-  }
+  },
+  "author": "Tiger × Rune (https://tigerandrune.dev)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tigerandrune/openclaw-hub.git"
+  },
+  "homepage": "https://github.com/tigerandrune/openclaw-hub#readme",
+  "bugs": {
+    "url": "https://github.com/tigerandrune/openclaw-hub/issues"
+  },
+  "keywords": [
+    "openclaw",
+    "dashboard",
+    "ai",
+    "personal",
+    "privacy",
+    "plugins"
+  ]
 }

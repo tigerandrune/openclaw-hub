@@ -117,7 +117,7 @@ function setupPluginAPI(pluginId) {
     pluginId,
     theme,
     language,
-    hubData: {}, // TODO: populate from discover API
+    hubData: {}, // Future: populate from discover API
     getPluginConfig: (id) => {
       try {
         const stored = localStorage.getItem(`plugin-config:${id}`);
@@ -135,11 +135,11 @@ function setupPluginAPI(pluginId) {
     },
     notify: ({ title, message, type }) => {
       console.log(`[plugin:${pluginId}] notification:`, { title, message, type });
-      // TODO: hook into a toast system
+      // Future: hook into a toast system
     },
     registerCleanup: (fn) => cleanups.push(fn),
     registerAction: (id, label, handler) => {
-      // TODO: hook into command palette
+      // Future: hook into command palette
       console.log(`[plugin:${pluginId}] registered action:`, id, label);
     },
   };

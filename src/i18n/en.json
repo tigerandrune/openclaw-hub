@@ -182,7 +182,7 @@
   "settings.name": "Name",
   "settings.name.placeholder": "Your name",
   "settings.dashboardTitle": "Dashboard Title",
-  "settings.dashboardTitle.placeholder": "e.g. Tiger's Command Center",
+  "settings.dashboardTitle.placeholder": "e.g. My Command Center",
   "bookmarks.typeUrl": "URL",
   "bookmarks.typeAction": "Action",
   "bookmarks.allActionsPinned": "All actions pinned",

@@ -182,7 +182,7 @@
   "settings.name": "Namn",
   "settings.name.placeholder": "Ditt namn",
   "settings.dashboardTitle": "Dashboardtitel",
-  "settings.dashboardTitle.placeholder": "t.ex. Tigers Kommandocentral",
+  "settings.dashboardTitle.placeholder": "t.ex. Mitt Kommandocentral",
   "bookmarks.typeUrl": "URL",
   "bookmarks.typeAction": "Åtgärd",
   "bookmarks.allActionsPinned": "Alla åtgärder fästa",

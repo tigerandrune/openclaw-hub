@@ -182,7 +182,7 @@
   "settings.name": "Name",
   "settings.name.placeholder": "Dein Name",
   "settings.dashboardTitle": "Dashboard-Titel",
-  "settings.dashboardTitle.placeholder": "z.B. Tigers Kommandozentrale",
+  "settings.dashboardTitle.placeholder": "z.B. Meine Kommandozentrale",
   "bookmarks.typeUrl": "URL",
   "bookmarks.typeAction": "Aktion",
   "bookmarks.allActionsPinned": "Alle Aktionen angepinnt",
