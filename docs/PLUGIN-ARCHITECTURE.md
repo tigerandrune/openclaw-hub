@@ -1,6 +1,6 @@
 # Plugin Architecture — Design Doc
 
-**Status:** Design (pre-implementation)
+**Status:** Implemented ✅
 **Author:** Tiger × Rune
 **Date:** 2026-03-30
 

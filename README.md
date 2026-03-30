@@ -6,94 +6,109 @@ A personal dashboard for [OpenClaw](https://github.com/openclaw/openclaw) — mo
 
 ## Features
 
-- 🏠 **Home** — Customizable widget dashboard with drag-and-drop reorder
+- 🏠 **Home** — Widget dashboard with drag-and-drop reorder
 - 📊 **Activity** — Session timeline, usage heatmap, channel breakdown
 - 💰 **Costs** — Spending trends, model breakdown, daily/weekly/monthly views
 - 🔧 **Services** — PM2 processes, installed plugins, skills, memory stats
 - 🔔 **Notifications** — Alert history with severity filtering
-- ⚙️ **Settings** — Themes, accent colors, profiles, export/import config
-- ⌨️ **Command Palette** — Ctrl+K to search, navigate, and run actions
+- ⚙️ **Settings** — Themes, accent colors, profiles, plugins, export/import
+- ⌨️ **Command Palette** — `Ctrl+K` to search, navigate, and run actions
 - 🧩 **Plugin System** — Drop a folder, get a widget. JSX compiled on the fly.
 - 👥 **Multi-User** — Profile switching with per-user config
-- 🌐 **i18n** — English, Swedish, German, French, Spanish, Portuguese, Japanese, Chinese
+- 🌐 **8 Languages** — English, Swedish, German, French, Spanish, Portuguese, Japanese, Chinese
 - 📱 **Responsive** — Desktop sidebar, tablet collapse, mobile bottom nav
 
 ## Quick Start
 
 ```bash
-# Clone
 git clone https://github.com/openclaw/openclaw-hub.git
 cd openclaw-hub
-
-# Install
 npm install
-
-# Build frontend
 npm run build
-
-# Start (production)
-node server/index.js
-
-# Or with PM2
-pm2 start server/index.js --name openclaw-hub
+npm start
 ```
 
-The dashboard runs on `http://localhost:3100` by default. Set `PORT` env var to change it.
+Open `http://localhost:3100`. The setup wizard walks you through configuration.
+
+**With PM2 (recommended for production):**
+
+```bash
+pm2 start server/index.js --name openclaw-hub
+pm2 save
+```
+
+Set `PORT` environment variable to change the default port.
 
 ## Setup Wizard
 
-On first launch, a setup wizard walks you through:
+On first launch, you'll configure:
 
 1. **Name** — What to call you
 2. **Language** — Pick from 8 languages
 3. **Theme** — Dark, light, midnight, or sunset + accent color
 4. **Widgets** — Choose which widgets appear on Home
 5. **Sidebar** — Full labels or compact icons
-6. **Quick Actions** — Pin frequently used actions
+6. **Quick Actions** — Pin frequently used actions to Home
 7. **Profiles** — Enable multi-user mode (optional)
 8. **Summary** — Review and launch
 
+Everything can be changed later in Settings.
+
 ## Plugins
 
-Plugins live in `~/.openclaw/hub-plugins/`. Each plugin is a folder with:
+Plugins live in `~/.openclaw/hub-plugins/`. Each plugin is a folder with two files:
 
 ```
 ~/.openclaw/hub-plugins/
   my-plugin/
-    manifest.json    # Name, description, version, permissions
-    widget.jsx       # React component (compiled to ESM on the fly)
+    manifest.json    # Name, description, version, settings schema
+    widget.jsx       # React component (compiled to ESM automatically)
 ```
 
-### Plugin API
-
-Plugins import from `@openclaw-hub/api`:
+### Creating a Plugin
 
 ```jsx
-import { useTheme, useConfig, useHubData, useTranslations, useLanguage } from '@openclaw-hub/api';
+// widget.jsx
+import { useTheme, useConfig, useTranslations } from '@openclaw-hub/api';
 
 const i18n = {
-  en: { title: 'My Plugin' },
-  sv: { title: 'Mitt Plugin' },
+  en: { title: 'My Plugin', greeting: 'Hello' },
+  sv: { title: 'Mitt Plugin', greeting: 'Hej' },
 };
 
 export default function MyPlugin() {
-  const theme = useTheme();        // { accent, text, muted, surface, ... }
-  const [config] = useConfig('my-plugin');  // Per-plugin settings
-  const t = useTranslations(i18n); // Localized strings
+  const theme = useTheme();
+  const [config] = useConfig('my-plugin');
+  const t = useTranslations(i18n);
 
-  return <div style={{ color: theme.accent }}>{t('title')}</div>;
+  return <div style={{ color: theme.accent }}>{t('greeting')}</div>;
 }
 ```
 
-See [docs/creating-plugins.md](docs/creating-plugins.md) for the full guide.
+See [`examples/plugins/clock/`](examples/plugins/clock/) for a complete working example, or read the full guide: [docs/creating-plugins.md](docs/creating-plugins.md).
 
-### Example Plugin
+### Plugin API
 
-The `examples/plugins/clock/` directory contains a complete example plugin — a clock widget with 12/24h toggle and 8-language support. Copy it to get started:
+| Hook | Returns | Description |
+|------|---------|-------------|
+| `useTheme()` | `{ accent, text, muted, surface, ... }` | Current Hub theme colors |
+| `useConfig(id)` | `[config, saveConfig]` | Per-plugin persistent settings |
+| `useHubData(path)` | `{ data, loading, error }` | Fetch from Hub API |
+| `useLanguage()` | `string` | Current language code (`'en'`, `'sv'`, ...) |
+| `useTranslations(i18n)` | `(key) => string` | Translation function with fallback |
 
-```bash
-cp -r examples/plugins/clock ~/.openclaw/hub-plugins/clock
-```
+Full API reference: [docs/plugin-api.md](docs/plugin-api.md)
+
+### Widget Sizes
+
+Plugins declare their size in `manifest.json`:
+
+| Size | Grid Behavior |
+|------|--------------|
+| `small` | 1 column |
+| `medium` | 1 column (default) |
+| `large` | 2 columns |
+| `full` | Full width |
 
 ### Community Plugins
 
@@ -101,64 +116,83 @@ cp -r examples/plugins/clock ~/.openclaw/hub-plugins/clock
 |--------|-------------|------|
 | **Kanban Board** | Drag-and-drop task board | [openclaw-hub-kanban](https://github.com/openclaw/openclaw-hub-kanban) |
 
-## Widget Sizes
+## Troubleshooting
 
-Plugins declare their size in `manifest.json`:
+```bash
+# Quick check — does everything work?
+npm test
 
-| Size | Grid Behavior |
-|------|--------------|
-| `small` | 1 column |
-| `medium` | 1 column |
-| `large` | 2 columns |
-| `full` | Full width |
+# Detailed report with system diagnostics
+npm run test:diagnose
+
+# Verbose — see every test result
+npm run test:verbose
+
+# Machine-readable output (for AI agents)
+JSON_OUTPUT=1 npm test
+```
+
+The test suite doubles as a diagnostic tool. If something's broken, the output tells you (or your AI assistant) exactly what and why.
+
+## Security
+
+Hub ships with security headers (CSP, X-Frame-Options, CORS), plugin sandboxing, and path traversal protection out of the box.
+
+It has **no built-in authentication** — on your own machine, you are the auth. For remote access, use Cloudflare Tunnel (free) or Tailscale.
+
+Read the full guide: [SECURITY.md](SECURITY.md)
 
 ## Tech Stack
 
 - **Frontend**: React 19, Vite, Framer Motion, dnd-kit, Lucide icons
-- **Backend**: Express, ESBuild (plugin compilation)
+- **Backend**: Express, esbuild (plugin compilation)
 - **Storage**: JSON files in `~/.openclaw/`
-- **Zero dependencies on external services**
-
-## Security
-
-- **Security headers**: CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy
-- **No external requests**: All assets bundled, no CDN, no fonts loaded externally
-- **Plugin sandboxing**: ID validation, path traversal protection, permission declarations
-- **CORS**: Enabled for local development only
-
-See [docs/plugin-security.md](docs/plugin-security.md) for the plugin security model.
+- **Tests**: 33 built-in tests (server, security, API, plugins, assets)
+- **Zero external dependencies at runtime**
 
 ## Project Structure
 
 ```
 ├── server/
-│   ├── index.js              # Express server
-│   ├── routes/               # API endpoints
+│   ├── index.js                  # Express server + security headers
+│   ├── routes/                   # API endpoints (config, system, gateway, plugins, ...)
 │   └── lib/
-│       ├── plugin-compiler.js    # ESBuild JSX → ESM
-│       └── plugin-api-source.js  # @openclaw-hub/api module
+│       ├── plugin-compiler.js    # esbuild JSX → ESM compilation
+│       └── plugin-api-source.js  # @openclaw-hub/api module source
 ├── src/
-│   ├── components/           # React components
-│   │   ├── CommandPalette.jsx
-│   │   ├── Layout.jsx
-│   │   ├── PluginWidget.jsx
-│   │   └── widgets/          # Built-in widgets
-│   ├── context/              # Theme, Config, I18n providers
-│   ├── hooks/                # useApi, etc.
-│   ├── i18n/                 # Translation files (8 languages)
-│   └── pages/                # Route pages
-├── docs/                     # Documentation
-└── dist/                     # Built frontend (served by Express)
+│   ├── components/
+│   │   ├── CommandPalette.jsx    # Ctrl+K spotlight search
+│   │   ├── Layout.jsx            # Shell with sidebar/bottom nav
+│   │   ├── PluginWidget.jsx      # Dynamic plugin loader + error boundary
+│   │   └── widgets/              # Built-in dashboard widgets
+│   ├── context/                  # Theme, Config, I18n providers
+│   ├── hooks/                    # useApi, etc.
+│   ├── i18n/                     # 8 language files (289 keys each)
+│   └── pages/                    # Route pages (Home, Activity, Costs, ...)
+├── examples/plugins/             # Example plugin (clock)
+├── test/                         # Test & diagnostic suite
+├── docs/                         # Architecture, API, security docs
+├── SECURITY.md                   # Security guide + remote access
+└── dist/                         # Built frontend (served by Express)
 ```
 
-## Configuration
+## Documentation
 
-All config lives in `~/.openclaw/hub-config.json` (or `hub-config-{profile}.json` for multi-user). Fully exportable and importable from Settings.
+| Doc | Description |
+|-----|-------------|
+| [SECURITY.md](SECURITY.md) | Security model, remote access, plugin safety |
+| [docs/creating-plugins.md](docs/creating-plugins.md) | Plugin authoring guide |
+| [docs/plugin-api.md](docs/plugin-api.md) | Plugin API reference |
+| [docs/plugin-security.md](docs/plugin-security.md) | Plugin permission model |
+| [docs/PLUGIN-ARCHITECTURE.md](docs/PLUGIN-ARCHITECTURE.md) | Architecture design doc |
+| [docs/MULTI-PROFILE.md](docs/MULTI-PROFILE.md) | Multi-user profile system |
 
 ## Contributing
 
 This is an [OpenClaw](https://github.com/openclaw/openclaw) community project. Issues and PRs welcome.
 
+Join the discussion: [OpenClaw Discord](https://discord.com/invite/clawd)
+
 ## License
 
-MIT
+MIT — [Tiger × Rune](https://tigerandrune.dev)
