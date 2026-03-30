@@ -6,6 +6,12 @@ OpenClaw Hub is a personal dashboard for [OpenClaw](https://github.com/openclaw/
 
 No analytics. No telemetry. No CDN. No external requests. Not even fonts loaded from Google. Everything runs locally, everything stays local.
 
+<!-- TODO: Add screenshots
+![Home Dashboard](docs/screenshots/home.png)
+![Command Palette](docs/screenshots/command-palette.png)
+![Setup Wizard](docs/screenshots/wizard.png)
+-->
+
 ---
 
 ## What You Get
@@ -32,8 +38,10 @@ No analytics. No telemetry. No CDN. No external requests. Not even fonts loaded 
 
 ## Get Started
 
+**Requirements:** Node.js 18+ and a running [OpenClaw](https://github.com/openclaw/openclaw) instance.
+
 ```bash
-git clone https://github.com/openclaw/openclaw-hub.git
+git clone https://github.com/tigerandrune/openclaw-hub.git
 cd openclaw-hub
 npm install
 npm run build
@@ -81,7 +89,7 @@ export default function MyPlugin() {
 }
 ```
 
-There's a complete example in [`examples/plugins/clock/`](examples/plugins/clock/), and the [Kanban Board](https://github.com/openclaw/openclaw-hub-kanban) is a real plugin people actually use.
+There's a complete example in [`examples/plugins/clock/`](examples/plugins/clock/), and the [Kanban Board](https://github.com/tigerandrune/openclaw-hub-kanban) is a real plugin people actually use.
 
 📖 **Docs:** [Creating Plugins](docs/creating-plugins.md) · [Plugin API](docs/plugin-api.md) · [Plugin Security](docs/plugin-security.md) · [Architecture](docs/PLUGIN-ARCHITECTURE.md)
 
