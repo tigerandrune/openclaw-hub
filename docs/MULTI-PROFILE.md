@@ -64,7 +64,7 @@ Each profile config contains the same structure as the current `hub-config.json`
 
 Active profile is determined by (in priority order):
 
-1. **URL parameter**: `?profile=tuva` — useful for bookmarks or shared links
+1. **URL parameter**: `?profile=sam` — useful for bookmarks or shared links
 2. **localStorage**: `openclaw-hub-profile` — remembers last used profile
 3. **Default**: Falls back to `"default"` profile (reads `hub-config.json`)
 
@@ -87,8 +87,8 @@ List all profiles.
 ```json
 {
   "profiles": [
-    { "id": "default", "name": "Tiger", "avatar": "T", "createdAt": "..." },
-    { "id": "tuva", "name": "Tuva", "avatar": "T", "createdAt": "..." }
+    { "id": "default", "name": "Alex", "avatar": "T", "createdAt": "..." },
+    { "id": "sam", "name": "Sam", "avatar": "T", "createdAt": "..." }
   ],
   "defaultProfile": "default"
 }
@@ -100,8 +100,8 @@ Create a new profile.
 **Request:**
 ```json
 {
-  "id": "tuva",
-  "name": "Tuva"
+  "id": "sam",
+  "name": "Sam"
 }
 ```
 
@@ -113,7 +113,7 @@ Create a new profile.
 
 **Response:**
 ```json
-{ "ok": true, "profile": { "id": "tuva", "name": "Tuva", "avatar": "T", "createdAt": "..." } }
+{ "ok": true, "profile": { "id": "sam", "name": "Sam", "avatar": "T", "createdAt": "..." } }
 ```
 
 ### DELETE /api/profiles/:id
@@ -129,10 +129,10 @@ Delete a profile and its config file.
 { "ok": true }
 ```
 
-### GET /api/config?profile=tuva
+### GET /api/config?profile=sam
 Existing config endpoint, now accepts optional `profile` query param.
 
-### PUT /api/config?profile=tuva
+### PUT /api/config?profile=sam
 Existing config save endpoint, now accepts optional `profile` query param.
 
 ## UI Components
@@ -143,10 +143,10 @@ Located at the bottom of the sidebar, replaces the current user avatar section:
 
 ```
 ┌─────────────────────┐
-│ 🔵 Tiger        ▾   │  ← Click to expand
+│ 🔵 Alex        ▾   │  ← Click to expand
 ├─────────────────────┤
-│   Tiger     ✓       │  ← Current (checkmark)
-│   Tuva              │  ← Switch to
+│   Alex     ✓       │  ← Current (checkmark)
+│   Sam              │  ← Switch to
 │ ─────────────────── │
 │   + New Profile     │  ← Create
 │   ⚙ Manage          │  ← Goes to Settings

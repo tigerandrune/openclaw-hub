@@ -1,7 +1,7 @@
 # Plugin Architecture — Design Doc
 
 **Status:** Implemented ✅
-**Author:** Tiger × Rune
+**Author:** OpenClaw Community
 **Date:** 2026-03-30
 
 ---

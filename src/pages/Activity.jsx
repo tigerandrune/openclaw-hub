@@ -37,7 +37,7 @@ export default function Activity() {
       pixel: '#a855f7',
       scout: '#22c55e',
       echo: '#6b7280',
-      tuva: '#ec4899',
+      critic: '#ec4899',
       bolt: '#eab308',
       shield: '#ef4444',
     };

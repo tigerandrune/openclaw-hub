@@ -37,7 +37,7 @@ const [config, setConfig] = useConfig('my-plugin');
 console.log(config.city); // "Stockholm"
 
 // Write (merges with existing config)
-setConfig({ city: "Umeå" });
+setConfig({ city: "Stockholm" });
 ```
 
 ### useHubData()
@@ -57,7 +57,7 @@ const data = useHubData();
 // data.channels          → ["discord", "telegram", ...]
 // data.sessions.total    → number
 // data.sessions.today    → number
-// data.user.name         → "Tiger"
+// data.user.name         → "Alex"
 // data.user.theme        → "dark"
 ```
 
