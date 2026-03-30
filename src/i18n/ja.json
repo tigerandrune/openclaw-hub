@@ -267,5 +267,12 @@
   "setup.step7.subtitle": "設定内容の確認",
   "setup.step7.privacy": "データはあなたのマシンに留まります。テレメトリゼロ、外部呼び出しゼロ。",
   "widget.channels": "アクティブチャンネル",
-  "widget.model": "現在のモデル"
+  "widget.model": "現在のモデル",
+  "settings.plugins": "プラグイン",
+  "plugins.warning": "サードパーティのプラグインはダッシュボードにフルアクセスできます。不明な作者のプラグインを有効にする前にソースコードを確認してください。",
+  "plugins.none": "プラグインがインストールされていません",
+  "plugins.installHint": "~/.openclaw/hub-plugins/ にフォルダを置いて開始",
+  "plugins.noPermissions": "権限なし",
+  "plugins.remove": "削除",
+  "plugins.addToHome": "ホームに追加"
 }

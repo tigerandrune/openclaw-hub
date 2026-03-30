@@ -267,5 +267,12 @@
   "setup.step7.subtitle": "以下是我们的配置",
   "setup.step7.privacy": "您的数据保留在您的机器上。零遥测，零外部调用。",
   "widget.channels": "活跃频道",
-  "widget.model": "当前模型"
+  "widget.model": "当前模型",
+  "settings.plugins": "插件",
+  "plugins.warning": "第三方插件拥有对仪表板的完全访问权限。在启用未知作者的插件之前，请检查源代码。",
+  "plugins.none": "未安装插件",
+  "plugins.installHint": "将文件夹放入 ~/.openclaw/hub-plugins/ 即可开始",
+  "plugins.noPermissions": "无权限",
+  "plugins.remove": "移除",
+  "plugins.addToHome": "添加到主页"
 }

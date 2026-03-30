@@ -5,7 +5,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useApi } from '../hooks/useApi';
 import { version as APP_VERSION } from '../../package.json';
 import { languages } from '../i18n';
-import { Check, ChevronUp, ChevronDown, RotateCcw, Palette, Zap, Plus, Trash2, Users, Download, Upload } from 'lucide-react';
+import { Check, ChevronUp, ChevronDown, RotateCcw, Palette, Zap, Plus, Trash2, Users, Download, Upload, Puzzle, AlertTriangle, Eye } from 'lucide-react';
 
 const THEMES = [
   {
@@ -454,6 +454,9 @@ export default function Settings() {
       {/* Profiles Section */}
       <ProfilesSection t={t} savedIndicator={savedIndicator} />
 
+      {/* Plugins Section */}
+      <PluginsSection t={t} config={config} saveConfig={saveConfig} />
+
       {/* System Section */}
       <SettingsSection title={t('settings.system')}>
         <div className="space-y-4">
@@ -714,6 +717,119 @@ function ProfilesSection({ t }) {
           </button>
         )}
       </div>
+    </SettingsSection>
+  );
+}
+
+function PluginsSection({ t, config, saveConfig }) {
+  const { data: plugins, loading } = useApi('/api/plugins', { refreshInterval: 10000 });
+  const widgetOrder = config?.widgetOrder || config?.homeWidgets || [];
+
+  const isOnHome = (pluginId) => widgetOrder.includes(`plugin:${pluginId}`);
+
+  const togglePlugin = (pluginId) => {
+    const key = `plugin:${pluginId}`;
+    if (widgetOrder.includes(key)) {
+      // Remove from home
+      const newOrder = widgetOrder.filter(id => id !== key);
+      saveConfig({ widgetOrder: newOrder, homeWidgets: newOrder });
+    } else {
+      // Add to home
+      const newOrder = [...widgetOrder, key];
+      saveConfig({ widgetOrder: newOrder, homeWidgets: newOrder });
+    }
+  };
+
+  return (
+    <SettingsSection title={t('settings.plugins')}>
+      {/* Warning banner */}
+      <div
+        className="flex items-start gap-3 p-3 rounded-lg border mb-4"
+        style={{ background: 'rgba(245,158,11,0.06)', borderColor: 'rgba(245,158,11,0.2)' }}
+      >
+        <AlertTriangle size={16} style={{ color: '#f59e0b', flexShrink: 0, marginTop: 2 }} />
+        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
+          {t('plugins.warning')}
+        </p>
+      </div>
+
+      {loading && !plugins ? (
+        <div className="space-y-3">
+          {[1, 2].map(i => (
+            <div key={i} className="h-20 rounded-xl animate-pulse" style={{ background: 'var(--surface)' }} />
+          ))}
+        </div>
+      ) : !plugins?.length ? (
+        <div className="text-center py-8">
+          <Puzzle size={24} style={{ color: 'var(--text-muted)', margin: '0 auto 8px' }} />
+          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
+            {t('plugins.none')}
+          </p>
+          <p className="text-xs mt-1" style={{ color: 'var(--text-muted)', opacity: 0.7 }}>
+            {t('plugins.installHint')}
+          </p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {plugins.map(plugin => {
+            const active = isOnHome(plugin.id);
+            return (
+              <div
+                key={plugin.id}
+                className="p-4 rounded-xl border"
+                style={{ background: 'var(--surface)', borderColor: active ? 'var(--accent)' : 'var(--border)' }}
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold flex-shrink-0"
+                    style={{ background: 'rgba(var(--accent-rgb), 0.15)', color: 'var(--accent)' }}
+                  >
+                    {plugin.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold" style={{ color: 'var(--text)' }}>
+                        {plugin.name}
+                      </span>
+                      <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                        v{plugin.version}
+                      </span>
+                    </div>
+                    <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
+                      {plugin.description}
+                    </p>
+                    <div className="flex items-center gap-3 mt-1">
+                      <span className="text-xs" style={{ color: 'var(--text-muted)', opacity: 0.7 }}>
+                        {plugin.author}
+                      </span>
+                      {plugin.permissions.length > 0 && (
+                        <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: 'rgba(245,158,11,0.1)', color: '#f59e0b' }}>
+                          {plugin.permissions.length} permission{plugin.permissions.length > 1 ? 's' : ''}
+                        </span>
+                      )}
+                      {plugin.permissions.length === 0 && (
+                        <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: 'rgba(34,197,94,0.1)', color: '#22c55e' }}>
+                          {t('plugins.noPermissions')}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => togglePlugin(plugin.id)}
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex-shrink-0"
+                    style={{
+                      background: active ? 'rgba(239,68,68,0.1)' : 'rgba(var(--accent-rgb), 0.15)',
+                      color: active ? '#ef4444' : 'var(--accent)',
+                    }}
+                  >
+                    {active ? t('plugins.remove') : t('plugins.addToHome')}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </SettingsSection>
   );
 }

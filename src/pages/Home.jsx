@@ -29,6 +29,7 @@ import BookmarksWidget from '../components/widgets/BookmarksWidget';
 import HeatmapWidget from '../components/widgets/HeatmapWidget';
 import ChannelsWidget from '../components/widgets/ChannelsWidget';
 import ModelWidget from '../components/widgets/ModelWidget';
+import PluginWidget from '../components/PluginWidget';
 
 const WIDGET_MAP = {
   health:    SystemHealthWidget,
@@ -94,7 +95,10 @@ export default function Home() {
   const { data: availableActions } = useApi('/api/actions');
   
   const widgetOrder = config?.widgetOrder ?? config?.homeWidgets ?? ['health', 'gateway', 'notes', 'activity'];
-  const enabledWidgets = widgetOrder.filter(id => WIDGET_MAP[id]);
+  const enabledWidgets = widgetOrder.filter(id => WIDGET_MAP[id] || id.startsWith('plugin:'));
+
+  // Fetch installed plugins for rendering plugin widgets
+  const { data: installedPlugins } = useApi('/api/plugins', { refreshInterval: 30000 });
 
   const greeting = config?.name
     ? `${t(getGreetingKey())}, ${config.name}`
@@ -254,6 +258,15 @@ export default function Home() {
         <SortableContext items={enabledWidgets} strategy={verticalListSortingStrategy}>
           <div className={`widget-grid ${editMode ? 'edit-mode' : ''}`}>
             {enabledWidgets.map(id => {
+              if (id.startsWith('plugin:')) {
+                const pluginId = id.replace('plugin:', '');
+                const manifest = (installedPlugins || []).find(p => p.id === pluginId);
+                return (
+                  <SortableWidget key={id} id={id} editMode={editMode} t={t}>
+                    <PluginWidget pluginId={pluginId} manifest={manifest} />
+                  </SortableWidget>
+                );
+              }
               const Widget = WIDGET_MAP[id];
               return (
                 <SortableWidget key={id} id={id} editMode={editMode} t={t}>

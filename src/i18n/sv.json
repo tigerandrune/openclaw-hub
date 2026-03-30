@@ -267,5 +267,12 @@
   "setup.step7.subtitle": "Här är vad vi har konfigurerat",
   "setup.step7.privacy": "Din data stannar på din maskin. Ingen telemetri, inga externa anrop.",
   "widget.channels": "Aktiva kanaler",
-  "widget.model": "Aktuell modell"
+  "widget.model": "Aktuell modell",
+  "settings.plugins": "Plugins",
+  "plugins.warning": "Tredjeparts-plugins har full åtkomst till instrumentpanelen. Granska källkoden innan du aktiverar plugins från okända författare.",
+  "plugins.none": "Inga plugins installerade",
+  "plugins.installHint": "Lägg en mapp i ~/.openclaw/hub-plugins/ för att komma igång",
+  "plugins.noPermissions": "Inga behörigheter",
+  "plugins.remove": "Ta bort",
+  "plugins.addToHome": "Lägg till på hem"
 }

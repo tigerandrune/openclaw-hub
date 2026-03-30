@@ -267,5 +267,12 @@
   "setup.step7.subtitle": "Here's what we've configured",
   "setup.step7.privacy": "Your data stays on your machine. Zero telemetry, zero external calls.",
   "widget.channels": "Active Channels",
-  "widget.model": "Current Model"
+  "widget.model": "Current Model",
+  "settings.plugins": "Plugins",
+  "plugins.warning": "Third-party plugins run with full access to the dashboard. Review the source code before enabling plugins from unknown authors.",
+  "plugins.none": "No plugins installed",
+  "plugins.installHint": "Drop a folder into ~/.openclaw/hub-plugins/ to get started",
+  "plugins.noPermissions": "No permissions",
+  "plugins.remove": "Remove",
+  "plugins.addToHome": "Add to Home"
 }

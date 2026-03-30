@@ -267,5 +267,12 @@
   "setup.step7.subtitle": "Hier ist, was wir konfiguriert haben",
   "setup.step7.privacy": "Ihre Daten bleiben auf Ihrem Rechner. Keine Telemetrie, keine externen Aufrufe.",
   "widget.channels": "Aktive Kanäle",
-  "widget.model": "Aktuelles Modell"
+  "widget.model": "Aktuelles Modell",
+  "settings.plugins": "Plugins",
+  "plugins.warning": "Drittanbieter-Plugins haben vollen Zugriff auf das Dashboard. Überprüfen Sie den Quellcode, bevor Sie Plugins unbekannter Autoren aktivieren.",
+  "plugins.none": "Keine Plugins installiert",
+  "plugins.installHint": "Legen Sie einen Ordner in ~/.openclaw/hub-plugins/ ab",
+  "plugins.noPermissions": "Keine Berechtigungen",
+  "plugins.remove": "Entfernen",
+  "plugins.addToHome": "Zur Startseite"
 }

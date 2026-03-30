@@ -14,6 +14,7 @@ import activityRoutes from './routes/activity.js';
 import actionsRoutes from './routes/actions.js';
 import costsRoutes from './routes/costs.js';
 import alertsRoutes from './routes/alerts.js';
+import pluginsRoutes from './routes/plugins.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -37,6 +38,7 @@ app.use('/api/activity', activityRoutes);
 app.use('/api/actions', actionsRoutes);
 app.use('/api/costs', costsRoutes);
 app.use('/api/alerts', alertsRoutes);
+app.use('/api/plugins', pluginsRoutes);
 
 // Health check
 app.get('/api/health', (_req, res) => {
