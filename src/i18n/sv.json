@@ -231,5 +231,10 @@
   "home.noWidgets.hint": "Gå till Inställningar → kör om inställningen för att välja widgetar.",
   "home.dragToReorder": "Dra för att ordna om",
   "layout.search": "Sök (Ctrl+K)",
-  "services.mem": "MEM"
+  "services.mem": "MEM",
+  "confirm.cancel": "Avbryt",
+  "confirm.ok": "OK",
+  "confirm.execute": "Kör",
+  "confirm.destructiveTitle": "Är du säker?",
+  "confirm.destructiveMessage": "Detta kommer att köra \"{action}\". Åtgärden kan störa tjänster."
 }

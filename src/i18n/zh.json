@@ -231,5 +231,10 @@
   "home.noWidgets.hint": "前往设置→重新运行设置以选择小组件。",
   "home.dragToReorder": "拖动以重新排列",
   "layout.search": "搜索 (Ctrl+K)",
-  "services.mem": "MEM"
+  "services.mem": "MEM",
+  "confirm.cancel": "取消",
+  "confirm.ok": "确定",
+  "confirm.execute": "执行",
+  "confirm.destructiveTitle": "确定吗？",
+  "confirm.destructiveMessage": "将执行“{action}”。此操作可能会中断服务。"
 }

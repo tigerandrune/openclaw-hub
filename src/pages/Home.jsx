@@ -20,6 +20,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import ConfirmDialog from '../components/ConfirmDialog';
 import SystemHealthWidget from '../components/widgets/SystemHealthWidget';
 import GatewayWidget from '../components/widgets/GatewayWidget';
 import NotesWidget from '../components/widgets/NotesWidget';
@@ -85,6 +86,7 @@ export default function Home() {
   const [actionStates, setActionStates] = useState({});
   const [toastMessage, setToastMessage] = useState('');
   const [editMode, setEditMode] = useState(false);
+  const [confirmAction, setConfirmAction] = useState(null);
   const { data: availableActions } = useApi('/api/actions');
   
   const widgetOrder = config?.widgetOrder ?? config?.homeWidgets ?? ['health', 'gateway', 'notes', 'activity'];
@@ -188,7 +190,13 @@ export default function Home() {
               return (
                 <button
                   key={action.id}
-                  onClick={() => handleQuickAction(action.id)}
+                  onClick={() => {
+                    if (action.destructive) {
+                      setConfirmAction({ id: action.id, name: action.name || action.label });
+                    } else {
+                      handleQuickAction(action.id);
+                    }
+                  }}
                   disabled={isLoading}
                   className="flex items-center gap-2 px-4 py-2 rounded-lg border transition-all hover:bg-opacity-80 disabled:opacity-60"
                   style={{ 
@@ -265,6 +273,21 @@ export default function Home() {
             {t('home.noWidgets.hint')}
           </p>
         </div>
+      )}
+
+      {/* Confirm dialog for destructive actions */}
+      {confirmAction && (
+        <ConfirmDialog
+          title={t('confirm.destructiveTitle')}
+          message={t('confirm.destructiveMessage', { action: confirmAction.name })}
+          confirmLabel={t('confirm.execute')}
+          destructive
+          onConfirm={() => {
+            handleQuickAction(confirmAction.id);
+            setConfirmAction(null);
+          }}
+          onCancel={() => setConfirmAction(null)}
+        />
       )}
 
       {/* Toast Notification */}

@@ -6,6 +6,7 @@ import {
   Bookmark, Plus, X, ExternalLink, Zap,
   RotateCcw, FileText, Activity, Loader2, Check,
 } from 'lucide-react';
+import ConfirmDialog from '../ConfirmDialog';
 
 const ACTION_ICONS = {
   'restart-gateway': RotateCcw,
@@ -21,7 +22,9 @@ export default function BookmarksWidget() {
   const [addType, setAddType] = useState('url'); // 'url' | 'action'
   const [newName, setNewName] = useState('');
   const [newUrl, setNewUrl] = useState('');
-  const [actionStates, setActionStates] = useState({}); // loading/success per action
+  const [actionStates, setActionStates] = useState({}); // loading/success/error per action
+  const [actionError, setActionError] = useState(null); // { actionId, message }
+  const [confirmAction, setConfirmAction] = useState(null); // { actionId, name } for destructive confirm
 
   const bookmarks = config?.bookmarks || [];
 
@@ -58,20 +61,42 @@ export default function BookmarksWidget() {
     saveConfig({ bookmarks: bookmarks.filter(b => b.id !== id) });
   };
 
+  const isDestructive = (actionId) => {
+    return actions.find(a => a.id === actionId)?.destructive === true;
+  };
+
+  const handleActionClick = (actionId, name) => {
+    if (isDestructive(actionId)) {
+      setConfirmAction({ actionId, name });
+    } else {
+      executeAction(actionId);
+    }
+  };
+
   const executeAction = async (actionId) => {
     setActionStates(prev => ({ ...prev, [actionId]: 'loading' }));
+    setActionError(null);
     try {
       const res = await fetch(`/api/actions/${actionId}/execute`, { method: 'POST' });
+      const data = await res.json().catch(() => ({}));
       if (res.ok) {
         setActionStates(prev => ({ ...prev, [actionId]: 'success' }));
         setTimeout(() => setActionStates(prev => ({ ...prev, [actionId]: null })), 2000);
       } else {
         setActionStates(prev => ({ ...prev, [actionId]: 'error' }));
-        setTimeout(() => setActionStates(prev => ({ ...prev, [actionId]: null })), 3000);
+        setActionError({ actionId, message: data.error || t('actions.failed') });
+        setTimeout(() => {
+          setActionStates(prev => ({ ...prev, [actionId]: null }));
+          setActionError(e => e?.actionId === actionId ? null : e);
+        }, 5000);
       }
-    } catch {
+    } catch (err) {
       setActionStates(prev => ({ ...prev, [actionId]: 'error' }));
-      setTimeout(() => setActionStates(prev => ({ ...prev, [actionId]: null })), 3000);
+      setActionError({ actionId, message: err.message || t('actions.failed') });
+      setTimeout(() => {
+        setActionStates(prev => ({ ...prev, [actionId]: null }));
+        setActionError(e => e?.actionId === actionId ? null : e);
+      }, 5000);
     }
   };
 
@@ -216,7 +241,7 @@ export default function BookmarksWidget() {
                 style={{ background: 'var(--background)' }}
               >
                 <button
-                  onClick={() => executeAction(bm.actionId)}
+                  onClick={() => handleActionClick(bm.actionId, bm.name)}
                   disabled={state === 'loading'}
                   className="flex items-center gap-2 flex-1 min-w-0 text-left"
                   style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer' }}
@@ -288,6 +313,38 @@ export default function BookmarksWidget() {
             {t('bookmarks.empty')}
           </p>
         </div>
+      )}
+
+      {/* Action error message */}
+      {actionError && (
+        <div
+          className="mt-2 p-2 rounded-lg text-xs flex items-center gap-2"
+          style={{ background: 'rgba(239,68,68,0.12)', color: '#ef4444' }}
+        >
+          <span className="flex-1">{actionError.message}</span>
+          <button
+            onClick={() => setActionError(null)}
+            className="flex-shrink-0 p-0.5 rounded"
+            style={{ color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer' }}
+          >
+            <X size={12} />
+          </button>
+        </div>
+      )}
+
+      {/* Confirm dialog for destructive actions */}
+      {confirmAction && (
+        <ConfirmDialog
+          title={t('confirm.destructiveTitle')}
+          message={t('confirm.destructiveMessage', { action: confirmAction.name })}
+          confirmLabel={t('confirm.execute')}
+          destructive
+          onConfirm={() => {
+            executeAction(confirmAction.actionId);
+            setConfirmAction(null);
+          }}
+          onCancel={() => setConfirmAction(null)}
+        />
       )}
     </div>
   );

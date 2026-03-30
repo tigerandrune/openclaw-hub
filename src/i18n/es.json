@@ -231,5 +231,10 @@
   "home.noWidgets.hint": "Ve a Ajustes → rehaz la configuración.",
   "home.dragToReorder": "Arrastra para reordenar",
   "layout.search": "Buscar (Ctrl+K)",
-  "services.mem": "MEM"
+  "services.mem": "MEM",
+  "confirm.cancel": "Cancelar",
+  "confirm.ok": "OK",
+  "confirm.execute": "Ejecutar",
+  "confirm.destructiveTitle": "¿Estás seguro?",
+  "confirm.destructiveMessage": "Esto ejecutará \"{action}\". Esta acción puede interrumpir servicios."
 }

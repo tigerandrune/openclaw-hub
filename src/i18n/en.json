@@ -231,5 +231,10 @@
   "home.noWidgets.hint": "Go to Settings → re-run setup to pick widgets.",
   "home.dragToReorder": "Drag to reorder",
   "layout.search": "Search (Ctrl+K)",
-  "services.mem": "MEM"
+  "services.mem": "MEM",
+  "confirm.cancel": "Cancel",
+  "confirm.ok": "OK",
+  "confirm.execute": "Execute",
+  "confirm.destructiveTitle": "Are you sure?",
+  "confirm.destructiveMessage": "This will execute \"{action}\". This action may disrupt services."
 }

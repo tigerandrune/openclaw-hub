@@ -231,5 +231,10 @@
   "home.noWidgets.hint": "Gehen Sie zu Einstellungen → Setup erneut ausführen.",
   "home.dragToReorder": "Ziehen zum Neuordnen",
   "layout.search": "Suche (Strg+K)",
-  "services.mem": "MEM"
+  "services.mem": "MEM",
+  "confirm.cancel": "Abbrechen",
+  "confirm.ok": "OK",
+  "confirm.execute": "Ausführen",
+  "confirm.destructiveTitle": "Sind Sie sicher?",
+  "confirm.destructiveMessage": "Dies führt \"{action}\" aus. Diese Aktion kann Dienste unterbrechen."
 }

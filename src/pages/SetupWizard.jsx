@@ -498,7 +498,7 @@ export default function SetupWizard({ initialConfig = null }) {
     language: initial.language || detectLanguage(),
     theme: initial.theme || 'dark',
     accentColor: initial.accentColor || '#D4A853',
-    widgets: initial.homeWidgets || initial.widgetOrder || ['health', 'gateway', 'notes', 'activity'],
+    widgets: initial.homeWidgets || initial.widgetOrder || ['health', 'gateway', 'notes', 'activity', 'bookmarks', 'heatmap'],
     sidebarStyle: initial.sidebarStyle || 'full',
   });
 

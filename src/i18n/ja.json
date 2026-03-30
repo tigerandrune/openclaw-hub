@@ -231,5 +231,10 @@
   "home.noWidgets.hint": "設定→セットアップをやり直してウィジェットを選択してください。",
   "home.dragToReorder": "ドラッグして並べ替え",
   "layout.search": "検索 (Ctrl+K)",
-  "services.mem": "MEM"
+  "services.mem": "MEM",
+  "confirm.cancel": "キャンセル",
+  "confirm.ok": "OK",
+  "confirm.execute": "実行",
+  "confirm.destructiveTitle": "よろしいですか？",
+  "confirm.destructiveMessage": "「{action}」を実行します。サービスに影響が出る可能性があります。"
 }

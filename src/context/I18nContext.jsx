@@ -6,7 +6,15 @@ const I18nContext = createContext();
 export function I18nProvider({ children, initialLang }) {
   const [lang, setLang] = useState(initialLang ?? detectLanguage());
 
-  const t = useCallback((key) => getString(lang, key), [lang]);
+  const t = useCallback((key, vars) => {
+    let str = getString(lang, key);
+    if (vars) {
+      Object.entries(vars).forEach(([k, v]) => {
+        str = str.replace(new RegExp(`\\{${k}\\}`, 'g'), v);
+      });
+    }
+    return str;
+  }, [lang]);
 
   return (
     <I18nContext.Provider value={{ lang, setLang, t }}>

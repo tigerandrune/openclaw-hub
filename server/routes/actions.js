@@ -20,6 +20,7 @@ const ACTIONS = {
     label: 'Restart Gateway',
     description: 'Restart the OpenClaw gateway service',
     icon: '🔄',
+    destructive: true,
     command: ['openclaw', 'gateway', 'restart']
   },
   'gateway-status': {
@@ -27,6 +28,7 @@ const ACTIONS = {
     label: 'Gateway Status',
     description: 'Check OpenClaw gateway service status',
     icon: '📊',
+    destructive: false,
     command: ['openclaw', 'gateway', 'status']
   },
   'check-logs': {
@@ -34,6 +36,7 @@ const ACTIONS = {
     label: 'Check Logs',
     description: 'View recent OpenClaw gateway logs',
     icon: '📝',
+    destructive: false,
     command: null // Special handling - reads files instead of exec
   }
 };
@@ -92,7 +95,8 @@ router.get('/', (_req, res) => {
     id: action.id,
     label: action.label,
     description: action.description,
-    icon: action.icon
+    icon: action.icon,
+    destructive: action.destructive || false
   }));
 
   res.json(actionList);
