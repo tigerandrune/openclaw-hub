@@ -1,13 +1,31 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useConfig } from '../context/ConfigContext';
 import { useI18n } from '../context/I18nContext';
 import { useApi } from '../hooks/useApi';
-import { Zap, RotateCcw, FileText, Activity, Loader2 } from 'lucide-react';
+import { Zap, RotateCcw, FileText, Activity, Loader2, GripVertical, Lock, Unlock } from 'lucide-react';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import SystemHealthWidget from '../components/widgets/SystemHealthWidget';
 import GatewayWidget from '../components/widgets/GatewayWidget';
 import NotesWidget from '../components/widgets/NotesWidget';
 import RecentActivityWidget from '../components/widgets/RecentActivityWidget';
 import BookmarksWidget from '../components/widgets/BookmarksWidget';
+import HeatmapWidget from '../components/widgets/HeatmapWidget';
 
 const WIDGET_MAP = {
   health:    SystemHealthWidget,
@@ -15,6 +33,7 @@ const WIDGET_MAP = {
   notes:     NotesWidget,
   activity:  RecentActivityWidget,
   bookmarks: BookmarksWidget,
+  heatmap:   HeatmapWidget,
 };
 
 function getGreetingKey() {
@@ -26,11 +45,46 @@ function getGreetingKey() {
   return 'greeting.night';
 }
 
+function SortableWidget({ id, children, editMode }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id, disabled: !editMode });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    position: 'relative',
+  };
+
+  return (
+    <div ref={setNodeRef} style={style} {...attributes}>
+      {editMode && (
+        <div
+          {...listeners}
+          className="absolute top-2 right-2 z-10 p-1.5 rounded-md cursor-grab active:cursor-grabbing transition-all hover:scale-110"
+          style={{ background: 'var(--surface2)', color: 'var(--text-muted)' }}
+          title="Drag to reorder"
+        >
+          <GripVertical size={14} />
+        </div>
+      )}
+      {children}
+    </div>
+  );
+}
+
 export default function Home() {
-  const { config } = useConfig();
+  const { config, saveConfig } = useConfig();
   const { t, lang } = useI18n();
   const [actionStates, setActionStates] = useState({});
   const [toastMessage, setToastMessage] = useState('');
+  const [editMode, setEditMode] = useState(false);
   const { data: availableActions } = useApi('/api/actions');
   
   const widgetOrder = config?.widgetOrder ?? config?.homeWidgets ?? ['health', 'gateway', 'notes', 'activity'];
@@ -45,6 +99,22 @@ export default function Home() {
     month: 'long',
     day: 'numeric',
   });
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 5 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+  );
+
+  const handleDragEnd = useCallback((event) => {
+    const { active, over } = event;
+    if (active.id !== over?.id) {
+      const oldIndex = widgetOrder.indexOf(active.id);
+      const newIndex = widgetOrder.indexOf(over.id);
+      const newOrder = arrayMove(widgetOrder, oldIndex, newIndex);
+      saveConfig({ widgetOrder: newOrder, homeWidgets: newOrder });
+    }
+  }, [widgetOrder, saveConfig]);
 
   const enabledQuickActions = config?.quickActions || [];
   const quickActions = availableActions?.actions?.filter(action => 
@@ -91,6 +161,11 @@ export default function Home() {
     <div className="flex flex-col gap-6 animate-fade-in">
       {/* Greeting */}
       <div className="flex flex-col gap-1 pt-2">
+        {config?.dashboardTitle && (
+          <p className="text-xs font-mono uppercase tracking-widest mb-1" style={{ color: 'var(--accent)' }}>
+            {config.dashboardTitle}
+          </p>
+        )}
         <h1 className="text-2xl md:text-3xl font-bold leading-tight" style={{ color: 'var(--text)' }}>
           {greeting} 👋
         </h1>
@@ -140,13 +215,43 @@ export default function Home() {
         </div>
       )}
 
+      {/* Widget grid header */}
+      {enabledWidgets.length > 0 && (
+        <div className="flex items-center justify-end">
+          <button
+            onClick={() => setEditMode(e => !e)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
+            style={{
+              background: editMode ? 'var(--accent)' : 'var(--surface)',
+              color: editMode ? '#000' : 'var(--text-muted)',
+              border: `1px solid ${editMode ? 'var(--accent)' : 'var(--border)'}`,
+            }}
+          >
+            {editMode ? <Unlock size={12} /> : <Lock size={12} />}
+            {editMode ? t('home.editMode.done') : t('home.editMode.arrange')}
+          </button>
+        </div>
+      )}
+
       {/* Widget grid */}
-      <div className="widget-grid">
-        {enabledWidgets.map(id => {
-          const Widget = WIDGET_MAP[id];
-          return <Widget key={id} />;
-        })}
-      </div>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={enabledWidgets} strategy={verticalListSortingStrategy}>
+          <div className={`widget-grid ${editMode ? 'edit-mode' : ''}`}>
+            {enabledWidgets.map(id => {
+              const Widget = WIDGET_MAP[id];
+              return (
+                <SortableWidget key={id} id={id} editMode={editMode}>
+                  <Widget />
+                </SortableWidget>
+              );
+            })}
+          </div>
+        </SortableContext>
+      </DndContext>
 
       {enabledWidgets.length === 0 && (
         <div

@@ -42,7 +42,6 @@ const PRESET_COLORS = ['#D4A853', '#7c3aed', '#06b6d4', '#22c55e', '#f97316', '#
 const PAGE_OPTIONS = [
   { id: 'activity', key: 'nav.activity' },
   { id: 'costs', key: 'nav.costs' },
-  { id: 'kanban', key: 'nav.tasks' },
   { id: 'services', key: 'nav.services' },
   { id: 'notifications', key: 'nav.alerts' },
 ];
@@ -70,6 +69,10 @@ export default function Settings() {
 
   const handleNameChange = (name) => {
     handleSave({ name }, 'profile');
+  };
+
+  const handleDashboardTitleChange = (dashboardTitle) => {
+    handleSave({ dashboardTitle }, 'profile');
   };
 
   const handleLanguageChange = (language) => {
@@ -156,7 +159,7 @@ export default function Settings() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text)' }}>
-              Name
+              {t('settings.name')}
             </label>
             <input
               type="text"
@@ -168,7 +171,24 @@ export default function Settings() {
                 borderColor: 'var(--border)',
                 color: 'var(--text)'
               }}
-              placeholder="Your name"
+              placeholder={t('settings.name.placeholder')}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text)' }}>
+              {t('settings.dashboardTitle')}
+            </label>
+            <input
+              type="text"
+              value={config.dashboardTitle || ''}
+              onChange={(e) => handleDashboardTitleChange(e.target.value)}
+              className="w-full px-3 py-2 rounded-lg border bg-transparent"
+              style={{
+                background: 'var(--surface)',
+                borderColor: 'var(--border)',
+                color: 'var(--text)'
+              }}
+              placeholder={t('settings.dashboardTitle.placeholder')}
             />
           </div>
           <div>
@@ -369,6 +389,64 @@ export default function Settings() {
               })}
             </div>
           </div>
+        </div>
+      </SettingsSection>
+
+      {/* Budget Section */}
+      <SettingsSection
+        title={t('settings.budget')}
+        saved={savedIndicator === 'budget'}
+      >
+        <div className="space-y-4">
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={config.budget?.enabled || false}
+              onChange={(e) => handleSave({
+                budget: { ...(config.budget || {}), enabled: e.target.checked }
+              }, 'budget')}
+              className="w-4 h-4"
+              style={{ accentColor: 'var(--accent)' }}
+            />
+            <div>
+              <div className="text-sm font-medium" style={{ color: 'var(--text)' }}>
+                {t('settings.budget.enable')}
+              </div>
+              <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                {t('settings.budget.desc')}
+              </div>
+            </div>
+          </label>
+
+          {config.budget?.enabled && (
+            <div>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text)' }}>
+                {t('settings.budget.amount')}
+              </label>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>$</span>
+                <input
+                  type="number"
+                  min="0"
+                  step="1"
+                  value={config.budget?.monthly || ''}
+                  onChange={(e) => handleSave({
+                    budget: { ...(config.budget || {}), monthly: parseFloat(e.target.value) || 0 }
+                  }, 'budget')}
+                  className="w-32 px-3 py-2 rounded-lg border bg-transparent"
+                  style={{
+                    background: 'var(--surface)',
+                    borderColor: 'var(--border)',
+                    color: 'var(--text)'
+                  }}
+                  placeholder="50"
+                />
+                <span className="text-sm" style={{ color: 'var(--text-muted)' }}>
+                  {t('settings.budget.perMonth')}
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </SettingsSection>
 

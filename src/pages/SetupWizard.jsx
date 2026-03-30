@@ -51,6 +51,7 @@ const WIDGETS = [
   { id: 'costs',    label: 'Cost Summary',     icon: DollarSign, desc: 'Spending at a glance' },
   { id: 'services', label: 'Services',         icon: Server,     desc: 'PM2 processes and plugins' },
   { id: 'bookmarks', label: 'Bookmarks',       icon: FileText,   desc: 'Quick-access links' },
+  { id: 'heatmap',   label: 'Activity Heatmap', icon: Activity,   desc: 'GitHub-style activity grid' },
 ];
 
 // ── Wizard slide variants ─────────────────────────────────────────────────────

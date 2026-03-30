@@ -159,4 +159,51 @@ router.get('/summary', (req, res) => {
   }
 });
 
+// GET /api/activity/heatmap - Hourly activity heatmap (last 4 weeks)
+router.get('/heatmap', (req, res) => {
+  const weeks = parseInt(req.query.weeks) || 4;
+  const now = new Date();
+  const cutoff = new Date(now.getTime() - weeks * 7 * 24 * 60 * 60 * 1000);
+
+  // grid[dayOfWeek][hour] = count
+  const grid = Array.from({ length: 7 }, () => Array(24).fill(0));
+  let total = 0;
+
+  if (!existsSync(AGENTS_DIR)) {
+    return res.json({ grid, total: 0, weeks });
+  }
+
+  try {
+    const agentDirs = readdirSync(AGENTS_DIR);
+
+    for (const agentName of agentDirs) {
+      const sessionsPath = join(AGENTS_DIR, agentName, 'sessions');
+      if (!existsSync(sessionsPath)) continue;
+
+      const files = readdirSync(sessionsPath).filter(f => f.endsWith('.jsonl'));
+
+      for (const file of files) {
+        try {
+          const firstLine = readFileSync(join(sessionsPath, file), 'utf8').split('\n')[0];
+          if (!firstLine.trim()) continue;
+          const meta = JSON.parse(firstLine);
+          if (meta.type !== 'session' || !meta.timestamp) continue;
+
+          const d = new Date(meta.timestamp);
+          if (d < cutoff) continue;
+
+          const day = d.getDay(); // 0=Sun
+          const hour = d.getHours();
+          grid[day][hour]++;
+          total++;
+        } catch { /* skip bad files */ }
+      }
+    }
+
+    res.json({ grid, total, weeks });
+  } catch (error) {
+    res.status(500).json({ error: error.message, grid, total: 0, weeks });
+  }
+});
+
 export default router;

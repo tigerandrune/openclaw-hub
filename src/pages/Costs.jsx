@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useApi } from '../hooks/useApi';
+import { useConfig } from '../context/ConfigContext';
 import { useI18n } from '../context/I18nContext';
-import { DollarSign, TrendingUp, Cpu, Clock, BarChart3, Zap } from 'lucide-react';
+import { DollarSign, TrendingUp, Cpu, Clock, BarChart3, Zap, Target } from 'lucide-react';
 
 export default function Costs() {
   const { t } = useI18n();
+  const { config } = useConfig();
   const { data: summary, loading: summaryLoading } = useApi('/api/costs/summary');
   const { data: daily, loading: dailyLoading } = useApi('/api/costs/daily?days=14');
   const { data: byAgent } = useApi('/api/costs/by-agent');
@@ -85,6 +87,15 @@ export default function Costs() {
           <DollarSign size={48} className="mx-auto mb-3 opacity-30" style={{ color: 'var(--text-muted)' }} />
           <p style={{ color: 'var(--text-muted)' }}>{t('costs.noData')}</p>
         </div>
+      )}
+
+      {/* Budget Gauge — only shows if user set a budget */}
+      {config?.budget?.enabled && config?.budget?.monthly > 0 && summary?.thisMonth?.cost != null && (
+        <BudgetGauge
+          spent={summary.thisMonth.cost}
+          budget={config.budget.monthly}
+          t={t}
+        />
       )}
 
       {/* Daily Usage Chart */}
@@ -252,6 +263,52 @@ function BreakdownTable({ rows, columns }) {
           ))}
         </tbody>
       </table>
+    </div>
+  );
+}
+
+function BudgetGauge({ spent, budget, t }) {
+  const pct = Math.min((spent / budget) * 100, 100);
+  const isOver = spent > budget;
+  const isWarning = pct >= 80 && !isOver;
+  const barColor = isOver ? '#ef4444' : isWarning ? '#f97316' : 'var(--accent)';
+
+  return (
+    <div className="p-6 rounded-xl border" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <Target size={16} style={{ color: barColor }} />
+          <h2 className="text-sm font-semibold" style={{ color: 'var(--text)' }}>
+            {t('budget.title')}
+          </h2>
+        </div>
+        <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+          {t('budget.monthly')}
+        </span>
+      </div>
+      <div className="flex items-end gap-3 mb-3">
+        <span className="text-3xl font-bold" style={{ color: 'var(--text)' }}>
+          ${spent.toFixed(2)}
+        </span>
+        <span className="text-sm pb-1" style={{ color: 'var(--text-muted)' }}>
+          / ${budget.toFixed(2)}
+        </span>
+      </div>
+      {/* Bar */}
+      <div className="w-full h-3 rounded-full overflow-hidden" style={{ background: 'var(--border)' }}>
+        <div
+          className="h-full rounded-full transition-all duration-500"
+          style={{ width: `${pct}%`, background: barColor }}
+        />
+      </div>
+      <div className="flex items-center justify-between mt-2">
+        <span className="text-xs" style={{ color: barColor }}>
+          {pct.toFixed(0)}% {t('budget.used')}
+        </span>
+        <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+          ${Math.max(0, budget - spent).toFixed(2)} {t('budget.remaining')}
+        </span>
+      </div>
     </div>
   );
 }

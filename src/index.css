@@ -137,6 +137,19 @@ body {
   }
 }
 
+/* ── Heatmap ── */
+.heatmap-cell[data-level="0"] { background: var(--border); }
+.heatmap-cell[data-level="1"] { background: color-mix(in srgb, var(--accent) 25%, var(--border)); }
+.heatmap-cell[data-level="2"] { background: color-mix(in srgb, var(--accent) 50%, var(--border)); }
+.heatmap-cell[data-level="3"] { background: color-mix(in srgb, var(--accent) 75%, var(--border)); }
+.heatmap-cell[data-level="4"] { background: var(--accent); }
+
+/* ── Edit mode ── */
+.widget-grid.edit-mode .widget-card {
+  border-style: dashed;
+  border-color: var(--accent);
+}
+
 /* ── Progress bar ── */
 
 .progress-bar {
