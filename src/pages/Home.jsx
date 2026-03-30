@@ -51,7 +51,7 @@ function getGreetingKey() {
   return 'greeting.night';
 }
 
-function SortableWidget({ id, children, editMode, t }) {
+function SortableWidget({ id, children, editMode, t, className = '' }) {
   const {
     attributes,
     listeners,
@@ -69,7 +69,7 @@ function SortableWidget({ id, children, editMode, t }) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes}>
+    <div ref={setNodeRef} style={style} className={className} {...attributes}>
       {editMode && (
         <div
           {...listeners}
@@ -262,7 +262,7 @@ export default function Home() {
                 const pluginId = id.replace('plugin:', '');
                 const manifest = (installedPlugins || []).find(p => p.id === pluginId);
                 return (
-                  <SortableWidget key={id} id={id} editMode={editMode} t={t}>
+                  <SortableWidget key={id} id={id} editMode={editMode} t={t} className={`widget-size-${manifest?.size || 'medium'}`}>
                     <PluginWidget pluginId={pluginId} manifest={manifest} />
                   </SortableWidget>
                 );

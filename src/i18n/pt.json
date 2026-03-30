@@ -263,9 +263,6 @@
   "setup.profiles.multiUser": "Várias pessoas",
   "setup.profiles.multiUserDesc": "Cada pessoa tem seu próprio tema, widgets e configurações",
   "setup.profiles.changeLater": "Você pode mudar isso a qualquer momento nas Configurações",
-  "setup.step7.title": "Tudo pronto!",
-  "setup.step7.subtitle": "Aqui está o que configuramos",
-  "setup.step7.privacy": "Seus dados ficam na sua máquina. Zero telemetria, zero chamadas externas.",
   "widget.channels": "Canais ativos",
   "widget.model": "Modelo atual",
   "settings.plugins": "Plugins",
@@ -278,5 +275,17 @@
   "commandPalette.hint": "Comece a digitar para pesquisar",
   "commandPalette.navigate": "navegar",
   "commandPalette.select": "selecionar",
-  "commandPalette.toggle": "alternar"
+  "commandPalette.toggle": "alternar",
+  "setup.stepActions.title": "Fixar ações rápidas",
+  "setup.stepActions.subtitle": "Estes atalhos aparecem na sua página inicial.",
+  "setup.stepActions.hint": "Você pode alterá-los a qualquer momento nas Configurações",
+  "setup.step8.title": "Tudo pronto!",
+  "setup.step8.subtitle": "Aqui está o que configuramos",
+  "setup.step8.privacy": "Tudo fica na sua máquina. Nenhum dado sai, sem contas, sem rastreamento. Nunca.",
+  "setup.summary.quickActions": "Ações rápidas",
+  "setup.summary.pinned": "fixadas",
+  "setup.summary.nonePinned": "Nenhuma fixada",
+  "setup.summary.multiUser": "Multiusuário",
+  "setup.summary.enabled": "Ativado",
+  "setup.summary.justMe": "Só eu"
 }

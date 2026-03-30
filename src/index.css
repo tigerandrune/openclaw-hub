@@ -137,6 +137,19 @@ body {
   }
 }
 
+/* ── Widget sizes (for plugins) ── */
+.widget-size-small  { grid-column: span 1; }
+.widget-size-medium { grid-column: span 1; }
+.widget-size-large  { grid-column: span 2; }
+.widget-size-full   { grid-column: 1 / -1; }
+
+@media (max-width: 640px) {
+  .widget-size-large,
+  .widget-size-full {
+    grid-column: 1 / -1;
+  }
+}
+
 /* ── Heatmap ── */
 .heatmap-cell[data-level="0"] { background: var(--border); }
 .heatmap-cell[data-level="1"] { background: color-mix(in srgb, var(--accent) 25%, var(--border)); }

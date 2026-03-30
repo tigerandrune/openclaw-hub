@@ -263,9 +263,6 @@
   "setup.profiles.multiUser": "Mehrere Personen",
   "setup.profiles.multiUserDesc": "Jede Person erhält eigenes Theme, Widgets und Einstellungen",
   "setup.profiles.changeLater": "Sie können dies jederzeit in den Einstellungen ändern",
-  "setup.step7.title": "Alles fertig!",
-  "setup.step7.subtitle": "Hier ist, was wir konfiguriert haben",
-  "setup.step7.privacy": "Ihre Daten bleiben auf Ihrem Rechner. Keine Telemetrie, keine externen Aufrufe.",
   "widget.channels": "Aktive Kanäle",
   "widget.model": "Aktuelles Modell",
   "settings.plugins": "Plugins",
@@ -278,5 +275,17 @@
   "commandPalette.hint": "Tippen Sie, um zu suchen",
   "commandPalette.navigate": "navigieren",
   "commandPalette.select": "auswählen",
-  "commandPalette.toggle": "umschalten"
+  "commandPalette.toggle": "umschalten",
+  "setup.stepActions.title": "Schnellaktionen anheften",
+  "setup.stepActions.subtitle": "Diese Verknüpfungen erscheinen auf Ihrer Startseite.",
+  "setup.stepActions.hint": "Sie können diese jederzeit in den Einstellungen ändern",
+  "setup.step8.title": "Alles eingerichtet!",
+  "setup.step8.subtitle": "Hier ist, was wir konfiguriert haben",
+  "setup.step8.privacy": "Alles bleibt auf Ihrem Gerät. Keine Daten verlassen es, keine Konten nötig, kein Tracking. Nie.",
+  "setup.summary.quickActions": "Schnellaktionen",
+  "setup.summary.pinned": "angeheftet",
+  "setup.summary.nonePinned": "Keine angeheftet",
+  "setup.summary.multiUser": "Mehrere Benutzer",
+  "setup.summary.enabled": "Aktiviert",
+  "setup.summary.justMe": "Nur ich"
 }

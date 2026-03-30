@@ -263,9 +263,6 @@
   "setup.profiles.multiUser": "Multiple people",
   "setup.profiles.multiUserDesc": "Each person gets their own theme, widgets, and settings",
   "setup.profiles.changeLater": "You can change this anytime in Settings",
-  "setup.step7.title": "You're all set!",
-  "setup.step7.subtitle": "Here's what we've configured",
-  "setup.step7.privacy": "Your data stays on your machine. Zero telemetry, zero external calls.",
   "widget.channels": "Active Channels",
   "widget.model": "Current Model",
   "settings.plugins": "Plugins",
@@ -278,5 +275,17 @@
   "commandPalette.hint": "Start typing to search",
   "commandPalette.navigate": "navigate",
   "commandPalette.select": "select",
-  "commandPalette.toggle": "toggle"
+  "commandPalette.toggle": "toggle",
+  "setup.stepActions.title": "Pin quick actions",
+  "setup.stepActions.subtitle": "These shortcuts appear on your home page for one-tap access.",
+  "setup.stepActions.hint": "You can change these anytime in Settings",
+  "setup.step8.title": "You're all set!",
+  "setup.step8.subtitle": "Here's what we've configured",
+  "setup.step8.privacy": "Everything stays on your machine. No data leaves, no accounts required, no tracking. Ever.",
+  "setup.summary.quickActions": "Quick Actions",
+  "setup.summary.pinned": "pinned",
+  "setup.summary.nonePinned": "None pinned",
+  "setup.summary.multiUser": "Multi-user",
+  "setup.summary.enabled": "Enabled",
+  "setup.summary.justMe": "Just me"
 }

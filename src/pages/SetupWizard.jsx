@@ -4,6 +4,7 @@ import { useConfig } from '../context/ConfigContext';
 import { useTheme } from '../context/ThemeContext';
 import { useI18n } from '../context/I18nContext';
 import { languages, detectLanguage } from '../i18n';
+import { useApi } from '../hooks/useApi';
 import {
   ArrowRight, ArrowLeft, Check, Cpu, Activity,
   DollarSign, Layout, Server, FileText, Zap,
@@ -408,6 +409,63 @@ function StepSidebar({ value, onChange }) {
 }
 
 // Step 5 – Summary
+function StepActions({ selected, onToggle }) {
+  const { t } = useI18n();
+  const { data: actions } = useApi('/api/actions');
+
+  const availableActions = actions || [
+    { id: 'restart-gateway', label: 'Restart Gateway', description: 'Restart the OpenClaw gateway service', icon: '🔄' },
+    { id: 'gateway-status', label: 'Gateway Status', description: 'Check gateway service status', icon: '📊' },
+    { id: 'check-logs', label: 'Check Logs', description: 'View recent gateway logs', icon: '📝' },
+  ];
+
+  return (
+    <StepShell
+      title={t('setup.stepActions.title')}
+      subtitle={t('setup.stepActions.subtitle')}
+    >
+      <div className="grid gap-3">
+        {availableActions.map(action => {
+          const active = selected.includes(action.id);
+          return (
+            <button
+              key={action.id}
+              onClick={() => onToggle(action.id)}
+              className="flex items-center gap-3 p-3 rounded-xl border text-left transition-all"
+              style={{
+                background: active ? 'rgba(var(--accent-rgb), 0.08)' : 'var(--surface)',
+                borderColor: active ? 'var(--accent)' : 'var(--border)',
+              }}
+            >
+              <span className="text-lg flex-shrink-0">{action.icon || '⚡'}</span>
+              <div className="flex-1 min-w-0">
+                <div className="text-sm font-medium" style={{ color: 'var(--text)' }}>
+                  {action.label}
+                </div>
+                <div className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
+                  {action.description}
+                </div>
+              </div>
+              <div
+                className="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0"
+                style={{
+                  borderColor: active ? 'var(--accent)' : 'var(--border)',
+                  background: active ? 'var(--accent)' : 'transparent',
+                }}
+              >
+                {active && <Check size={12} style={{ color: '#000' }} />}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+      <p className="text-xs text-center mt-3" style={{ color: 'var(--text-muted)' }}>
+        {t('setup.stepActions.hint')}
+      </p>
+    </StepShell>
+  );
+}
+
 function StepProfiles({ value, onChange }) {
   const { t } = useI18n();
   const options = [
@@ -480,8 +538,8 @@ function StepSummary({ wizardState }) {
 
   return (
     <StepShell
-      title={t('setup.step7.title')}
-      subtitle={t('setup.step7.subtitle')}
+      title={t('setup.step8.title')}
+      subtitle={t('setup.step8.subtitle')}
     >
       <div className="flex flex-col gap-3">
         <SummaryRow label={t('setup.summary.name')} value={wizardState.name} />
@@ -504,12 +562,24 @@ function StepSummary({ wizardState }) {
             </div>
           }
         />
+        <SummaryRow
+          label={t('setup.summary.quickActions')}
+          value={
+            wizardState.quickActions?.length
+              ? <span className="text-sm" style={{ color: 'var(--text)' }}>{wizardState.quickActions.length} {t('setup.summary.pinned')}</span>
+              : <span className="text-sm" style={{ color: 'var(--text-muted)' }}>{t('setup.summary.nonePinned')}</span>
+          }
+        />
+        <SummaryRow
+          label={t('setup.summary.multiUser')}
+          value={wizardState.multiUser ? t('setup.summary.enabled') : t('setup.summary.justMe')}
+        />
       </div>
 
       <div className="mt-6 p-4 rounded-xl flex items-center gap-3" style={{ background: 'rgba(var(--accent-rgb), 0.06)', border: '1px solid rgba(var(--accent-rgb), 0.15)' }}>
         <Sparkles size={16} style={{ color: 'var(--accent)', flexShrink: 0 }} />
         <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-          {t('setup.step7.privacy')}
+          {t('setup.step8.privacy')}
         </p>
       </div>
     </StepShell>
@@ -540,7 +610,7 @@ function getTimeOfDay() {
 
 // ── Main wizard ───────────────────────────────────────────────────────────────
 
-const STEPS = ['Name', 'Language', 'Theme', 'Widgets', 'Sidebar', 'Profiles', 'Summary'];
+const STEPS = ['Name', 'Language', 'Theme', 'Widgets', 'Sidebar', 'Actions', 'Profiles', 'Summary'];
 
 export default function SetupWizard({ initialConfig = null }) {
   const { saveConfig, config } = useConfig();
@@ -560,6 +630,7 @@ export default function SetupWizard({ initialConfig = null }) {
     accentColor: initial.accentColor || '#D4A853',
     widgets: initial.homeWidgets || initial.widgetOrder || ['health', 'gateway', 'notes', 'activity', 'bookmarks', 'heatmap', 'channels', 'model'],
     sidebarStyle: initial.sidebarStyle || 'full',
+    quickActions: initial.quickActions || [],
     multiUser: false,
   });
 
@@ -607,7 +678,7 @@ export default function SetupWizard({ initialConfig = null }) {
         enabledPages: ['home', 'activity', 'costs', 'services', 'notifications'],
         setupComplete: true,
         notes: '',
-        quickActions: [],
+        quickActions: wizState.quickActions,
         bookmarks: [],
       });
 
@@ -664,12 +735,23 @@ export default function SetupWizard({ initialConfig = null }) {
         />
       );
       case 5: return (
+        <StepActions
+          selected={wizState.quickActions}
+          onToggle={(id) => setWizState(s => ({
+            ...s,
+            quickActions: s.quickActions.includes(id)
+              ? s.quickActions.filter(a => a !== id)
+              : [...s.quickActions, id],
+          }))}
+        />
+      );
+      case 6: return (
         <StepProfiles
           value={wizState.multiUser}
           onChange={v => setWizState(s => ({ ...s, multiUser: v }))}
         />
       );
-      case 6: return <StepSummary wizardState={wizState} />;
+      case 7: return <StepSummary wizardState={wizState} />;
       default: return null;
     }
   };

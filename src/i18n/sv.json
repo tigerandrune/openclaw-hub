@@ -263,9 +263,6 @@
   "setup.profiles.multiUser": "Flera personer",
   "setup.profiles.multiUserDesc": "Varje person får eget tema, widgetar och inställningar",
   "setup.profiles.changeLater": "Du kan ändra detta när som helst i Inställningar",
-  "setup.step7.title": "Klart!",
-  "setup.step7.subtitle": "Här är vad vi har konfigurerat",
-  "setup.step7.privacy": "Din data stannar på din maskin. Ingen telemetri, inga externa anrop.",
   "widget.channels": "Aktiva kanaler",
   "widget.model": "Aktuell modell",
   "settings.plugins": "Plugins",
@@ -278,5 +275,17 @@
   "commandPalette.hint": "Börja skriva för att söka",
   "commandPalette.navigate": "navigera",
   "commandPalette.select": "välj",
-  "commandPalette.toggle": "växla"
+  "commandPalette.toggle": "växla",
+  "setup.stepActions.title": "Fäst snabbåtgärder",
+  "setup.stepActions.subtitle": "Dessa genvägar visas på din startsida för snabb åtkomst.",
+  "setup.stepActions.hint": "Du kan ändra dessa när som helst i Inställningar",
+  "setup.step8.title": "Allt klart!",
+  "setup.step8.subtitle": "Här är vad vi har konfigurerat",
+  "setup.step8.privacy": "Allt stannar på din maskin. Ingen data lämnar, inga konton krävs, ingen spårning. Aldrig.",
+  "setup.summary.quickActions": "Snabbåtgärder",
+  "setup.summary.pinned": "fästa",
+  "setup.summary.nonePinned": "Inga fästa",
+  "setup.summary.multiUser": "Flera användare",
+  "setup.summary.enabled": "Aktiverad",
+  "setup.summary.justMe": "Bara jag"
 }

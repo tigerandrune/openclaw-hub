@@ -263,9 +263,6 @@
   "setup.profiles.multiUser": "複数の人",
   "setup.profiles.multiUserDesc": "各人が独自のテーマ、ウィジェット、設定を取得",
   "setup.profiles.changeLater": "設定でいつでも変更できます",
-  "setup.step7.title": "準備完了！",
-  "setup.step7.subtitle": "設定内容の確認",
-  "setup.step7.privacy": "データはあなたのマシンに留まります。テレメトリゼロ、外部呼び出しゼロ。",
   "widget.channels": "アクティブチャンネル",
   "widget.model": "現在のモデル",
   "settings.plugins": "プラグイン",
@@ -278,5 +275,17 @@
   "commandPalette.hint": "入力して検索",
   "commandPalette.navigate": "移動",
   "commandPalette.select": "選択",
-  "commandPalette.toggle": "切替"
+  "commandPalette.toggle": "切替",
+  "setup.stepActions.title": "クイックアクションをピン留め",
+  "setup.stepActions.subtitle": "これらのショートカットがホームページに表示されます。",
+  "setup.stepActions.hint": "設定でいつでも変更できます",
+  "setup.step8.title": "準備完了！",
+  "setup.step8.subtitle": "設定内容はこちらです",
+  "setup.step8.privacy": "すべてがあなたのマシンに留まります。データは外部に送信されず、アカウント不要、追跡なし。",
+  "setup.summary.quickActions": "クイックアクション",
+  "setup.summary.pinned": "個ピン留め",
+  "setup.summary.nonePinned": "ピン留めなし",
+  "setup.summary.multiUser": "マルチユーザー",
+  "setup.summary.enabled": "有効",
+  "setup.summary.justMe": "自分だけ"
 }

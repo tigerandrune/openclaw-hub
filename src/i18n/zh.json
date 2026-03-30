@@ -263,9 +263,6 @@
   "setup.profiles.multiUser": "多人使用",
   "setup.profiles.multiUserDesc": "每个人都有自己的主题、小组件和设置",
   "setup.profiles.changeLater": "您可以随时在设置中更改",
-  "setup.step7.title": "全部完成！",
-  "setup.step7.subtitle": "以下是我们的配置",
-  "setup.step7.privacy": "您的数据保留在您的机器上。零遥测，零外部调用。",
   "widget.channels": "活跃频道",
   "widget.model": "当前模型",
   "settings.plugins": "插件",
@@ -278,5 +275,17 @@
   "commandPalette.hint": "开始输入以搜索",
   "commandPalette.navigate": "导航",
   "commandPalette.select": "选择",
-  "commandPalette.toggle": "切换"
+  "commandPalette.toggle": "切换",
+  "setup.stepActions.title": "固定快捷操作",
+  "setup.stepActions.subtitle": "这些快捷方式将显示在您的主页上。",
+  "setup.stepActions.hint": "您可以随时在设置中更改",
+  "setup.step8.title": "全部就绪！",
+  "setup.step8.subtitle": "以下是我们配置的内容",
+  "setup.step8.privacy": "一切都保留在您的设备上。无数据外传，无需账户，无跟踪。永远不会。",
+  "setup.summary.quickActions": "快捷操作",
+  "setup.summary.pinned": "个已固定",
+  "setup.summary.nonePinned": "未固定",
+  "setup.summary.multiUser": "多用户",
+  "setup.summary.enabled": "已启用",
+  "setup.summary.justMe": "仅自己"
 }

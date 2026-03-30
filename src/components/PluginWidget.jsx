@@ -156,7 +156,7 @@ export default function PluginWidget({ pluginId, manifest }) {
 
   return (
     <div
-      className="widget-card p-4 rounded-xl border"
+      className={`widget-card widget-size-${size} p-4 rounded-xl border`}
       style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}
     >
       {/* Plugin header */}

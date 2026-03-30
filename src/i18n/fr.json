@@ -263,9 +263,6 @@
   "setup.profiles.multiUser": "Plusieurs personnes",
   "setup.profiles.multiUserDesc": "Chaque personne a son propre thème, widgets et paramètres",
   "setup.profiles.changeLater": "Vous pouvez changer cela à tout moment dans les Paramètres",
-  "setup.step7.title": "C'est prêt !",
-  "setup.step7.subtitle": "Voici ce que nous avons configuré",
-  "setup.step7.privacy": "Vos données restent sur votre machine. Zéro télémétrie, zéro appels externes.",
   "widget.channels": "Canaux actifs",
   "widget.model": "Modèle actuel",
   "settings.plugins": "Plugins",
@@ -278,5 +275,17 @@
   "commandPalette.hint": "Commencez à taper pour chercher",
   "commandPalette.navigate": "naviguer",
   "commandPalette.select": "sélectionner",
-  "commandPalette.toggle": "basculer"
+  "commandPalette.toggle": "basculer",
+  "setup.stepActions.title": "Épingler les actions rapides",
+  "setup.stepActions.subtitle": "Ces raccourcis apparaissent sur votre page d'accueil.",
+  "setup.stepActions.hint": "Vous pouvez les modifier à tout moment dans les Paramètres",
+  "setup.step8.title": "Tout est prêt !",
+  "setup.step8.subtitle": "Voici ce que nous avons configuré",
+  "setup.step8.privacy": "Tout reste sur votre machine. Aucune donnée ne sort, aucun compte requis, aucun suivi. Jamais.",
+  "setup.summary.quickActions": "Actions rapides",
+  "setup.summary.pinned": "épinglées",
+  "setup.summary.nonePinned": "Aucune épinglée",
+  "setup.summary.multiUser": "Multi-utilisateur",
+  "setup.summary.enabled": "Activé",
+  "setup.summary.justMe": "Juste moi"
 }
