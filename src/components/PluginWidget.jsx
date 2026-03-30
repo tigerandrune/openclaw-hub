@@ -106,9 +106,17 @@ function setupPluginAPI(pluginId) {
 
   const cleanups = [];
 
+  // Get current language from localStorage config or HTML lang
+  let language = 'en';
+  try {
+    const cfg = JSON.parse(localStorage.getItem('hub-config') || '{}');
+    language = cfg.language || document.documentElement.lang || 'en';
+  } catch {}
+
   window.__OPENCLAW_PLUGIN_API__ = {
     pluginId,
     theme,
+    language,
     hubData: {}, // TODO: populate from discover API
     getPluginConfig: (id) => {
       try {

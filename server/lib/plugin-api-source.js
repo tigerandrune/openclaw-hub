@@ -8,6 +8,30 @@ export function useTheme() {
   return api.theme;
 }
 
+/**
+ * Returns the current Hub language code (e.g. 'en', 'sv', 'de').
+ * Plugins use this to pick from their own translation strings.
+ */
+export function useLanguage() {
+  const api = window.__OPENCLAW_PLUGIN_API__;
+  if (!api) return 'en';
+  return api.language || 'en';
+}
+
+/**
+ * Helper: create a t() function from a translations object.
+ * Usage:
+ *   const translations = { en: { title: 'Clock' }, sv: { title: 'Klocka' } };
+ *   const t = useTranslations(translations);
+ *   t('title') → 'Klocka' (if Hub language is Swedish)
+ */
+export function useTranslations(translations) {
+  const lang = useLanguage();
+  const strings = translations[lang] || translations['en'] || {};
+  const fallback = translations['en'] || {};
+  return (key) => strings[key] ?? fallback[key] ?? key;
+}
+
 export function useConfig(pluginId) {
   const api = window.__OPENCLAW_PLUGIN_API__;
   if (!api) throw new Error('Plugin API not available');
