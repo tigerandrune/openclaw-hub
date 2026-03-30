@@ -30,18 +30,15 @@ export default function Activity() {
   };
 
   const getAgentColor = (agent) => {
-    const colors = {
-      main: '#D4A853',
-      atlas: '#7EB8DA',
-      forge: '#f97316',
-      pixel: '#a855f7',
-      scout: '#22c55e',
-      echo: '#6b7280',
-      critic: '#ec4899',
-      bolt: '#eab308',
-      shield: '#ef4444',
-    };
-    return colors[agent] || '#6b7280';
+    // Generate a consistent color from agent name — works for any team setup
+    if (agent === 'main') return '#D4A853';
+    const palette = [
+      '#7EB8DA', '#f97316', '#a855f7', '#22c55e', '#ec4899',
+      '#eab308', '#ef4444', '#06b6d4', '#8b5cf6', '#14b8a6',
+    ];
+    let hash = 0;
+    for (const ch of agent) hash = ((hash << 5) - hash + ch.charCodeAt(0)) | 0;
+    return palette[Math.abs(hash) % palette.length];
   };
 
   const getDateGroup = (timestamp) => {

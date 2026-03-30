@@ -48,7 +48,7 @@ export default function SystemHealthWidget() {
   const { t } = useI18n();
 
   return (
-    <div className="surface p-5 flex flex-col gap-4 animate-slide-up">
+    <div className="widget-card surface p-5 flex flex-col gap-4 animate-slide-up">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="p-1.5 rounded-lg" style={{ background: 'rgba(var(--accent-rgb), 0.12)' }}>

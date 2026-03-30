@@ -120,28 +120,26 @@ body {
 /* ── Widget grid ── */
 
 .widget-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  columns: 2;
+  column-gap: 16px;
 }
 
-@media (max-width: 1023px) {
-  .widget-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.widget-grid > * {
+  break-inside: avoid;
+  margin-bottom: 16px;
 }
 
 @media (max-width: 640px) {
   .widget-grid {
-    grid-template-columns: 1fr;
+    columns: 1;
   }
 }
 
 /* ── Widget sizes (for plugins) ── */
-.widget-size-small  { grid-column: span 1; }
-.widget-size-medium { grid-column: span 1; }
-.widget-size-large  { grid-column: span 2; }
-.widget-size-full   { grid-column: 1 / -1; }
+.widget-size-small  { /* default single column */ }
+.widget-size-medium { /* default single column */ }
+.widget-size-large  { column-span: all; }
+.widget-size-full   { column-span: all; }
 
 @media (max-width: 640px) {
   .widget-size-large,
@@ -161,6 +159,13 @@ body {
 .widget-grid.edit-mode .widget-card {
   border-style: dashed;
   border-color: var(--accent);
+  cursor: grab;
+}
+.widget-grid.edit-mode .widget-card:active {
+  cursor: grabbing;
+}
+.widget-grid:not(.edit-mode) .widget-card {
+  cursor: default;
 }
 
 /* ── Progress bar ── */

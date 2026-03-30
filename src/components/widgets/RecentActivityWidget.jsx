@@ -29,18 +29,17 @@ export default function RecentActivityWidget() {
   };
 
   const getChannelBadgeColor = (channel) => {
-    const colors = {
-      discord: '#5865F2',
-      telegram: '#0088cc',
-      cli: '#6b7280',
-      web: '#22c55e',
-      api: '#f97316',
-    };
-    return colors[channel] || '#6b7280';
+    // Known brand colors for common channels, hash-based for anything else
+    const known = { discord: '#5865F2', telegram: '#0088cc', whatsapp: '#25D366', signal: '#3A76F0' };
+    if (known[channel]) return known[channel];
+    const palette = ['#6b7280', '#22c55e', '#f97316', '#8b5cf6', '#06b6d4', '#ec4899'];
+    let hash = 0;
+    for (const ch of channel) hash = ((hash << 5) - hash + ch.charCodeAt(0)) | 0;
+    return palette[Math.abs(hash) % palette.length];
   };
 
   return (
-    <div className="surface p-5 flex flex-col gap-4 animate-slide-up">
+    <div className="widget-card surface p-5 flex flex-col gap-4 animate-slide-up">
       <div className="flex items-center gap-2">
         <div className="p-1.5 rounded-lg" style={{ background: 'rgba(var(--accent-rgb), 0.12)' }}>
           <Activity size={14} style={{ color: 'var(--accent)' }} />

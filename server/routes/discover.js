@@ -78,32 +78,50 @@ function getModelInfo() {
 
 function getMemoryStatus() {
   const ocConfig = safeRead(join(OC_DIR, 'openclaw.json'));
-  const memBackend = ocConfig?.memory?.backend ?? null;
-  const memPlugin = ocConfig?.plugins?.slots?.memory ?? null;
-  const lancedbPath = join(OC_DIR, 'memory', 'lancedb');
-  const hasLancedb = existsSync(lancedbPath);
-  const kmPath = join(homedir(), '.km');
-  const hasKm = existsSync(kmPath);
-
-  // Build status — only include what's actually configured/found
   const status = { active: false, services: [] };
 
+  // 1. Memory backend from config (qmd, sqlite, etc.)
+  const memBackend = ocConfig?.memory?.backend ?? null;
   if (memBackend) {
     status.active = true;
     status.services.push({ name: memBackend, type: 'backend', status: 'active' });
   }
+
+  // 2. Memory plugin slot — show whatever is configured, verify it exists
+  const memPlugin = ocConfig?.plugins?.slots?.memory ?? null;
   if (memPlugin) {
-    // Only show plugin if the underlying service exists
-    if (memPlugin.includes('lancedb') && !hasLancedb) {
-      // Configured but not installed — skip silently for fresh users
-    } else {
+    // Try to verify the plugin's backing store exists
+    const knownChecks = {
+      'memory-lancedb': join(OC_DIR, 'memory', 'lancedb'),
+      'memory-sqlite': join(OC_DIR, 'memory', 'memory.db'),
+    };
+    const checkPath = knownChecks[memPlugin];
+    if (!checkPath || existsSync(checkPath)) {
+      // Unknown plugin = assume it works; known plugin = verify path exists
       status.active = true;
       status.services.push({ name: memPlugin, type: 'plugin', status: 'active' });
     }
   }
-  if (hasKm) {
-    status.active = true;
-    status.services.push({ name: 'km', type: 'knowledge', status: 'active' });
+
+  // 3. Any other memory-related plugins from plugins.entries
+  const entries = ocConfig?.plugins?.entries ?? {};
+  for (const [name, cfg] of Object.entries(entries)) {
+    if (name.startsWith('memory-') && name !== memPlugin && cfg?.enabled !== false) {
+      status.active = true;
+      status.services.push({ name, type: 'plugin', status: 'active' });
+    }
+  }
+
+  // 4. Local knowledge tools (auto-detect by directory presence)
+  const knowledgeTools = [
+    { name: 'km', label: 'KM (Knowledge Manager)', path: join(homedir(), '.km') },
+    { name: 'brv', label: 'ByteRover', path: join(homedir(), '.brv') },
+  ];
+  for (const tool of knowledgeTools) {
+    if (existsSync(tool.path)) {
+      status.active = true;
+      status.services.push({ name: tool.label, type: 'knowledge', status: 'active' });
+    }
   }
 
   return status;

@@ -22,7 +22,7 @@ export default function GatewayWidget() {
   const online = data?.online ?? false;
 
   return (
-    <div className="surface p-5 flex flex-col gap-4 animate-slide-up">
+    <div className="widget-card surface p-5 flex flex-col gap-4 animate-slide-up">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div

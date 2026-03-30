@@ -173,7 +173,7 @@ function PM2Tab() {
           {t('services.pm2Unavailable')}
         </p>
         <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-          Install PM2 to manage Node.js processes
+          {t('services.pm2InstallHint')}
         </p>
       </div>
     );
@@ -486,12 +486,8 @@ function MemoryTab() {
   }
 
   const mem = data?.memoryStatus || {};
-  const items = [
-    { label: t('memory.backend'), value: mem.backend || t('memory.notConfigured'), active: !!mem.backend, icon: Brain },
-    { label: t('memory.plugin'), value: mem.plugin || t('memory.notConfigured'), active: !!mem.plugin, icon: Database },
-    { label: 'LanceDB', value: mem.lancedb ? t('memory.available') : t('memory.notFound'), active: mem.lancedb, icon: HardDrive },
-    { label: 'KM (Knowledge Manager)', value: mem.km ? t('memory.available') : t('memory.notFound'), active: mem.km, icon: Brain },
-  ];
+  const services = mem.services || [];
+  const iconMap = { backend: Brain, plugin: Database, knowledge: Brain };
 
   return (
     <div className="space-y-3">
@@ -513,22 +509,29 @@ function MemoryTab() {
         </div>
       </div>
 
-      {items.map((item, i) => {
-        const Icon = item.icon;
+      {services.length === 0 && (
+        <div className="p-4 rounded-xl border text-center" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
+          <p className="text-sm" style={{ color: 'var(--text-muted)' }}>{t('memory.noServices')}</p>
+        </div>
+      )}
+
+      {services.map((svc, i) => {
+        const Icon = iconMap[svc.type] || Database;
+        const active = svc.status === 'active';
         return (
           <div
             key={i}
             className="p-3 rounded-xl border flex items-center gap-3"
             style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}
           >
-            <Icon size={16} style={{ color: item.active ? '#22c55e' : 'var(--text-muted)' }} />
+            <Icon size={16} style={{ color: active ? '#22c55e' : 'var(--text-muted)' }} />
             <div className="flex-1 min-w-0">
-              <div className="text-xs font-medium" style={{ color: 'var(--text)' }}>{item.label}</div>
-              <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{item.value}</div>
+              <div className="text-xs font-medium" style={{ color: 'var(--text)' }}>{svc.name}</div>
+              <div className="text-xs capitalize" style={{ color: 'var(--text-muted)' }}>{svc.type}</div>
             </div>
             <span
               className="w-2 h-2 rounded-full flex-shrink-0"
-              style={{ background: item.active ? '#22c55e' : 'var(--text-muted)' }}
+              style={{ background: active ? '#22c55e' : 'var(--text-muted)' }}
             />
           </div>
         );
