@@ -1,16 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, Home, Activity, DollarSign, Layout, Server, Bell, Settings, X } from 'lucide-react';
+import { Search, Home, Activity, DollarSign, Server, Bell, Settings, X } from 'lucide-react';
 import { useI18n } from '../context/I18nContext';
 
-const ACTIONS = [
-  { id: 'nav-home',          label: 'Go to Home',          icon: Home,        action: 'nav', path: '/', group: 'Navigate' },
-  { id: 'nav-activity',      label: 'Go to Activity',      icon: Activity,    action: 'nav', path: '/activity', group: 'Navigate' },
-  { id: 'nav-costs',         label: 'Go to Costs',         icon: DollarSign,  action: 'nav', path: '/costs', group: 'Navigate' },
-  { id: 'nav-kanban',        label: 'Go to Tasks',         icon: Layout,      action: 'nav', path: '/kanban', group: 'Navigate' },
-  { id: 'nav-services',      label: 'Go to Services',      icon: Server,      action: 'nav', path: '/services', group: 'Navigate' },
-  { id: 'nav-notifications', label: 'Go to Alerts',        icon: Bell,        action: 'nav', path: '/notifications', group: 'Navigate' },
-  { id: 'nav-settings',      label: 'Open Settings',       icon: Settings,    action: 'nav', path: '/settings', group: 'Navigate' },
+const getActions = (t) => [
+  { id: 'nav-home',          label: `${t('cmd.goTo')} ${t('nav.home')}`,     icon: Home,        action: 'nav', path: '/', group: t('cmd.navigate') },
+  { id: 'nav-activity',      label: `${t('cmd.goTo')} ${t('nav.activity')}`, icon: Activity,    action: 'nav', path: '/activity', group: t('cmd.navigate') },
+  { id: 'nav-costs',         label: `${t('cmd.goTo')} ${t('nav.costs')}`,    icon: DollarSign,  action: 'nav', path: '/costs', group: t('cmd.navigate') },
+  { id: 'nav-services',      label: `${t('cmd.goTo')} ${t('nav.services')}`, icon: Server,      action: 'nav', path: '/services', group: t('cmd.navigate') },
+  { id: 'nav-notifications', label: `${t('cmd.goTo')} ${t('nav.alerts')}`,   icon: Bell,        action: 'nav', path: '/notifications', group: t('cmd.navigate') },
+  { id: 'nav-settings',      label: `${t('cmd.open')} ${t('nav.settings')}`, icon: Settings,    action: 'nav', path: '/settings', group: t('cmd.navigate') },
 ];
 
 function fuzzyMatch(query, str) {
@@ -26,7 +25,8 @@ export default function CommandPalette({ open, onClose }) {
   const navigate = useNavigate();
   const { t } = useI18n();
 
-  const results = ACTIONS.filter(a => fuzzyMatch(query, a.label));
+  const actions = getActions(t);
+  const results = actions.filter(a => fuzzyMatch(query, a.label));
 
   useEffect(() => {
     if (open) {

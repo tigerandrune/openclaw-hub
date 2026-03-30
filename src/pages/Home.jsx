@@ -1,15 +1,20 @@
+import { useState } from 'react';
 import { useConfig } from '../context/ConfigContext';
 import { useI18n } from '../context/I18nContext';
+import { useApi } from '../hooks/useApi';
+import { Zap, RotateCcw, FileText, Activity, Loader2 } from 'lucide-react';
 import SystemHealthWidget from '../components/widgets/SystemHealthWidget';
 import GatewayWidget from '../components/widgets/GatewayWidget';
 import NotesWidget from '../components/widgets/NotesWidget';
 import RecentActivityWidget from '../components/widgets/RecentActivityWidget';
+import BookmarksWidget from '../components/widgets/BookmarksWidget';
 
 const WIDGET_MAP = {
-  health:   SystemHealthWidget,
-  gateway:  GatewayWidget,
-  notes:    NotesWidget,
-  activity: RecentActivityWidget,
+  health:    SystemHealthWidget,
+  gateway:   GatewayWidget,
+  notes:     NotesWidget,
+  activity:  RecentActivityWidget,
+  bookmarks: BookmarksWidget,
 };
 
 function getGreetingKey() {
@@ -24,6 +29,10 @@ function getGreetingKey() {
 export default function Home() {
   const { config } = useConfig();
   const { t, lang } = useI18n();
+  const [actionStates, setActionStates] = useState({});
+  const [toastMessage, setToastMessage] = useState('');
+  const { data: availableActions } = useApi('/api/actions');
+  
   const widgetOrder = config?.widgetOrder ?? config?.homeWidgets ?? ['health', 'gateway', 'notes', 'activity'];
   const enabledWidgets = widgetOrder.filter(id => WIDGET_MAP[id]);
 
@@ -37,6 +46,47 @@ export default function Home() {
     day: 'numeric',
   });
 
+  const enabledQuickActions = config?.quickActions || [];
+  const quickActions = availableActions?.actions?.filter(action => 
+    enabledQuickActions.includes(action.id)
+  ) || [];
+
+  const handleQuickAction = async (actionId) => {
+    setActionStates(prev => ({ ...prev, [actionId]: true }));
+    
+    try {
+      const response = await fetch(`/api/actions/${actionId}/execute`, {
+        method: 'POST'
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok) {
+        showToast(t('actions.success'), 'success');
+      } else {
+        showToast(`${t('actions.failed')}: ${result.error || 'Unknown error'}`, 'error');
+      }
+    } catch (err) {
+      showToast(`${t('actions.failed')}: ${err.message}`, 'error');
+    } finally {
+      setActionStates(prev => ({ ...prev, [actionId]: false }));
+    }
+  };
+
+  const showToast = (message, type) => {
+    setToastMessage({ text: message, type });
+    setTimeout(() => setToastMessage(''), 3000);
+  };
+
+  const getActionIcon = (actionId) => {
+    switch (actionId) {
+      case 'restart-gateway': return RotateCcw;
+      case 'check-logs': return FileText;
+      case 'gateway-status': return Activity;
+      default: return Zap;
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6 animate-fade-in">
       {/* Greeting */}
@@ -48,6 +98,47 @@ export default function Home() {
           {subline} · {t('home.subtitle')}
         </p>
       </div>
+
+      {/* Quick Actions */}
+      {quickActions.length > 0 && (
+        <div className="space-y-3">
+          <h2 className="text-lg font-semibold" style={{ color: 'var(--text)' }}>
+            {t('actions.title')}
+          </h2>
+          <div className="flex flex-wrap gap-3">
+            {quickActions.map(action => {
+              const Icon = getActionIcon(action.id);
+              const isLoading = actionStates[action.id];
+              
+              return (
+                <button
+                  key={action.id}
+                  onClick={() => handleQuickAction(action.id)}
+                  disabled={isLoading}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg border transition-all hover:bg-opacity-80 disabled:opacity-60"
+                  style={{ 
+                    background: 'var(--surface)', 
+                    borderColor: 'var(--border)',
+                    color: 'var(--text)'
+                  }}
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" />
+                      {t('actions.executing')}
+                    </>
+                  ) : (
+                    <>
+                      <Icon size={16} />
+                      {t(`actions.${action.id.replace('-', '')}`) || action.name}
+                    </>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Widget grid */}
       <div className="widget-grid">
@@ -68,6 +159,19 @@ export default function Home() {
           <p className="text-xs" style={{ color: 'var(--text-muted)', opacity: 0.6 }}>
             Go to Settings → re-run setup to pick widgets.
           </p>
+        </div>
+      )}
+
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div 
+          className="fixed bottom-4 right-4 px-4 py-2 rounded-lg shadow-lg animate-fade-in z-50"
+          style={{ 
+            background: toastMessage.type === 'success' ? '#22c55e' : '#ef4444',
+            color: '#fff'
+          }}
+        >
+          {toastMessage.text}
         </div>
       )}
     </div>

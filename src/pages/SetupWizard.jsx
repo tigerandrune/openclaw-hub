@@ -50,6 +50,7 @@ const WIDGETS = [
   { id: 'notes',    label: 'Quick Notes',      icon: FileText,   desc: 'Personal scratchpad' },
   { id: 'costs',    label: 'Cost Summary',     icon: DollarSign, desc: 'Spending at a glance' },
   { id: 'services', label: 'Services',         icon: Server,     desc: 'PM2 processes and plugins' },
+  { id: 'bookmarks', label: 'Bookmarks',       icon: FileText,   desc: 'Quick-access links' },
 ];
 
 // ── Wizard slide variants ─────────────────────────────────────────────────────
@@ -480,21 +481,24 @@ function getTimeOfDay() {
 
 const STEPS = ['Name', 'Language', 'Theme', 'Widgets', 'Sidebar', 'Summary'];
 
-export default function SetupWizard() {
-  const { saveConfig } = useConfig();
+export default function SetupWizard({ initialConfig = null }) {
+  const { saveConfig, config } = useConfig();
   const { setTheme, setAccentColor } = useTheme();
+  
+  // Use initial config (for redo flow) or current config or defaults
+  const initial = initialConfig || config || {};
 
   const [step, setStep] = useState(0);
   const [dir, setDir] = useState(1);
   const [saving, setSaving] = useState(false);
 
   const [wizState, setWizState] = useState({
-    name: '',
-    language: detectLanguage(),
-    theme: 'dark',
-    accentColor: '#D4A853',
-    widgets: ['health', 'gateway', 'notes', 'activity'],
-    sidebarStyle: 'full',
+    name: initial.name || '',
+    language: initial.language || detectLanguage(),
+    theme: initial.theme || 'dark',
+    accentColor: initial.accentColor || '#D4A853',
+    widgets: initial.homeWidgets || initial.widgetOrder || ['health', 'gateway', 'notes', 'activity'],
+    sidebarStyle: initial.sidebarStyle || 'full',
   });
 
   const canAdvance = () => {

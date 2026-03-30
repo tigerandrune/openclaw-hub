@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
-  Home, Activity, DollarSign, Layout, Server,
+  Home, Activity, DollarSign, Server,
   Bell, Settings, ChevronLeft, ChevronRight,
   Terminal,
 } from 'lucide-react';
@@ -12,7 +12,6 @@ const navItems = [
   { id: 'home',          labelKey: 'nav.home',     icon: Home,        path: '/' },
   { id: 'activity',      labelKey: 'nav.activity', icon: Activity,    path: '/activity' },
   { id: 'costs',         labelKey: 'nav.costs',    icon: DollarSign,  path: '/costs' },
-  { id: 'kanban',        labelKey: 'nav.tasks',    icon: Layout,      path: '/kanban' },
   { id: 'services',      labelKey: 'nav.services', icon: Server,      path: '/services' },
   { id: 'notifications', labelKey: 'nav.alerts',   icon: Bell,        path: '/notifications' },
 ];

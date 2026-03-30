@@ -1,20 +1,22 @@
 import { NavLink, useLocation } from 'react-router-dom';
-import { Home, Activity, Layout, Server, Settings } from 'lucide-react';
+import { Home, Activity, DollarSign, Server, Settings } from 'lucide-react';
+import { useI18n } from '../context/I18nContext';
 
 const items = [
-  { label: 'Home',     icon: Home,     path: '/' },
-  { label: 'Activity', icon: Activity, path: '/activity' },
-  { label: 'Tasks',    icon: Layout,   path: '/kanban' },
-  { label: 'Services', icon: Server,   path: '/services' },
-  { label: 'Settings', icon: Settings, path: '/settings' },
+  { labelKey: 'nav.home',     icon: Home,       path: '/' },
+  { labelKey: 'nav.activity', icon: Activity,   path: '/activity' },
+  { labelKey: 'nav.costs',    icon: DollarSign, path: '/costs' },
+  { labelKey: 'nav.services', icon: Server,     path: '/services' },
+  { labelKey: 'nav.settings', icon: Settings,   path: '/settings' },
 ];
 
 export default function BottomNav() {
+  const { t } = useI18n();
   const location = useLocation();
 
   return (
     <nav className="bottom-nav">
-      {items.map(({ label, icon: Icon, path }) => {
+      {items.map(({ labelKey, icon: Icon, path }) => {
         const isActive = path === '/'
           ? location.pathname === '/'
           : location.pathname.startsWith(path);
@@ -29,7 +31,7 @@ export default function BottomNav() {
             }}
           >
             <Icon size={20} />
-            <span style={{ fontSize: 10 }}>{label}</span>
+            <span style={{ fontSize: 10 }}>{t(labelKey)}</span>
           </NavLink>
         );
       })}
