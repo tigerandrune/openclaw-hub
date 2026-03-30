@@ -16,6 +16,7 @@ export function useApi(endpoint, interval = null) {
 
   const fetchData = useCallback(async () => {
     try {
+      setLoading(true);
       const res = await fetch(endpoint);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();

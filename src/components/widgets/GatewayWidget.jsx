@@ -47,7 +47,7 @@ export default function GatewayWidget() {
         <div className="h-12 rounded animate-pulse" style={{ background: 'var(--surface2)' }} />
       )}
 
-      {error && (
+      {error && !data && (
         <p className="text-xs" style={{ color: '#ef4444' }}>{t('widget.gateway.error')}</p>
       )}
 

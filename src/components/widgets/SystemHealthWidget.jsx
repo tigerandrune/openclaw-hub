@@ -66,7 +66,7 @@ export default function SystemHealthWidget() {
         </button>
       </div>
 
-      {error && (
+      {error && !data && (
         <p className="text-xs" style={{ color: '#ef4444' }}>
           {t('widget.systemHealth.failed')}
         </p>
