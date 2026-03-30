@@ -6,9 +6,10 @@ OpenClaw Hub supports multiple user profiles on a single instance. Each profile 
 
 ## Use Cases
 
-- **Family/household**: Partner, kids, or roommates sharing one OpenClaw server
-- **Team**: Small dev team with one shared instance, each person wants their own dashboard layout
+- **Family/household**: Multiple people sharing one OpenClaw server
+- **Team**: Small dev team with a shared instance, each person wants their own dashboard layout
 - **Demos**: Quick profile switching for showing different configurations
+- **Role separation**: Admin vs daily user with different widget priorities
 
 ## Architecture
 
@@ -18,8 +19,8 @@ Each profile is a separate JSON config file:
 
 ```
 ~/.openclaw/hub-config.json          # default profile (backwards compatible)
-~/.openclaw/hub-config-tiger.json    # named profile
-~/.openclaw/hub-config-tuva.json     # named profile
+~/.openclaw/hub-config-alice.json    # named profile
+~/.openclaw/hub-config-bob.json      # named profile
 ```
 
 A profile index file tracks available profiles:
@@ -31,8 +32,8 @@ A profile index file tracks available profiles:
 ```json
 {
   "profiles": [
-    { "id": "default", "name": "Tiger", "avatar": "T", "createdAt": "2026-03-30T20:00:00Z" },
-    { "id": "tuva", "name": "Tuva", "avatar": "T", "createdAt": "2026-03-30T22:00:00Z" }
+    { "id": "default", "name": "Admin", "avatar": "A", "createdAt": "2026-03-30T20:00:00Z" },
+    { "id": "alice", "name": "Alice", "avatar": "A", "createdAt": "2026-03-30T22:00:00Z" }
   ],
   "defaultProfile": "default"
 }
@@ -44,8 +45,8 @@ Each profile config contains the same structure as the current `hub-config.json`
 
 ```json
 {
-  "name": "Tiger",
-  "dashboardTitle": "Tiger's Command Center",
+  "name": "Admin",
+  "dashboardTitle": "My Dashboard",
   "theme": "dark",
   "language": "en",
   "sidebarStyle": "full",
@@ -72,8 +73,8 @@ Active profile is determined by (in priority order):
 | Profile ID | Config File |
 |-----------|------------|
 | `default` | `hub-config.json` |
-| `tiger`   | `hub-config-tiger.json` |
-| `tuva`    | `hub-config-tuva.json` |
+| `alice`   | `hub-config-alice.json` |
+| `bob`     | `hub-config-bob.json` |
 
 The `default` profile uses the original filename for backwards compatibility. Existing single-user installs keep working with zero changes.
 
@@ -193,7 +194,7 @@ Functions to add:
 ### URL Behavior
 
 - Switching profiles updates localStorage but does NOT change the URL by default
-- Sharing a profile link: append `?profile=tuva` to any page URL
+- Sharing a profile link: append `?profile=alice` to any page URL
 - The `?profile` param takes precedence over localStorage (allows bookmarking)
 
 ## Migration & Backwards Compatibility
