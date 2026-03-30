@@ -7,29 +7,31 @@ let cache = null;
 let cacheTs = 0;
 const CACHE_TTL = 30000; // 30 seconds
 
-// Alert rule definitions
+// Alert rule definitions — titleKey/descKey are i18n keys resolved on the frontend
 const RULES = {
   cpu: [
-    { threshold: 90, severity: 'critical', title: 'Critical CPU Usage', id: 'cpu-critical' },
-    { threshold: 75, severity: 'warning', title: 'High CPU Usage', id: 'cpu-high' }
+    { threshold: 90, severity: 'critical', titleKey: 'alerts.rule.cpu.critical', id: 'cpu-critical' },
+    { threshold: 75, severity: 'warning', titleKey: 'alerts.rule.cpu.high', id: 'cpu-high' }
   ],
   memory: [
-    { threshold: 90, severity: 'critical', title: 'Critical Memory Usage', id: 'memory-critical' },
-    { threshold: 80, severity: 'warning', title: 'High Memory Usage', id: 'memory-high' }
+    { threshold: 90, severity: 'critical', titleKey: 'alerts.rule.memory.critical', id: 'memory-critical' },
+    { threshold: 80, severity: 'warning', titleKey: 'alerts.rule.memory.high', id: 'memory-high' }
   ],
   disk: [
-    { threshold: 95, severity: 'critical', title: 'Critical Disk Usage', id: 'disk-critical' },
-    { threshold: 85, severity: 'warning', title: 'High Disk Usage', id: 'disk-high' },
-    { threshold: 75, severity: 'info', title: 'Elevated Disk Usage', id: 'disk-elevated' }
+    { threshold: 95, severity: 'critical', titleKey: 'alerts.rule.disk.critical', id: 'disk-critical' },
+    { threshold: 85, severity: 'warning', titleKey: 'alerts.rule.disk.high', id: 'disk-high' },
+    { threshold: 75, severity: 'info', titleKey: 'alerts.rule.disk.elevated', id: 'disk-elevated' }
   ]
 };
+
+const SELF_PORT = process.env.PORT || 3100;
 
 async function fetchInternalAPI(endpoint) {
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 5000);
     
-    const response = await fetch(`http://127.0.0.1:3100${endpoint}`, {
+    const response = await fetch(`http://127.0.0.1:${SELF_PORT}${endpoint}`, {
       signal: controller.signal
     });
     
@@ -68,8 +70,8 @@ function checkResourceAlerts(value, resourceName, rules) {
         rule.id,
         rule.severity,
         'system',
-        rule.title,
-        `${resourceName} usage is at ${value}%`,
+        rule.titleKey, // i18n key — frontend resolves
+        null, // description generated on frontend from value + component
         value,
         rule.threshold,
         resourceName.toLowerCase()
@@ -143,8 +145,8 @@ router.get('/', async (_req, res) => {
         'system-offline',
         'critical',
         'system',
-        'System Stats Unavailable',
-        'Unable to fetch system statistics',
+        'alerts.rule.system.offline',
+        null,
         null,
         null,
         'system'
@@ -160,8 +162,8 @@ router.get('/', async (_req, res) => {
           'gateway-offline',
           'critical',
           'gateway',
-          'Gateway Offline',
-          'OpenClaw gateway is not responding',
+          'alerts.rule.gateway.offline',
+          null,
           null,
           null,
           'gateway'
@@ -178,8 +180,8 @@ router.get('/', async (_req, res) => {
         'gateway-unavailable',
         'critical',
         'gateway',
-        'Gateway Check Failed',
-        'Unable to check gateway status',
+        'alerts.rule.gateway.unavailable',
+        null,
         null,
         null,
         'gateway'
@@ -201,8 +203,8 @@ router.get('/', async (_req, res) => {
             `pm2-${process.name}-down`,
             'critical',
             'services',
-            'PM2 Process Down',
-            `Process ${process.name} is not running (status: ${process.status})`,
+            'alerts.rule.process.down',
+            null,
             null,
             null,
             process.name
@@ -215,8 +217,8 @@ router.get('/', async (_req, res) => {
             `pm2-${process.name}-restarts`,
             'warning',
             'services',
-            'High Restart Count',
-            `Process ${process.name} has restarted ${restartCount} times`,
+            'alerts.rule.process.restarts',
+            null,
             restartCount,
             10,
             process.name
@@ -243,8 +245,8 @@ router.get('/', async (_req, res) => {
         'pm2-check-failed',
         'warning',
         'services',
-        'PM2 Check Failed',
-        'Unable to check PM2 process status',
+        'alerts.rule.pm2.checkFailed',
+        null,
         null,
         null,
         'pm2'

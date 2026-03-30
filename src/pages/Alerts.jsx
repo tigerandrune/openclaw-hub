@@ -83,7 +83,7 @@ export default function Alerts() {
             <div className="flex-1">
               <h2 className="text-lg font-semibold" style={{ color: 'var(--text)' }}>
                 {hasAlerts
-                  ? `${data.alerts.length} ${data.alerts.length === 1 ? 'alert' : 'alerts'}`
+                  ? t('alerts.count', { count: data.alerts.length })
                   : t('alerts.allClear')
                 }
               </h2>
@@ -127,7 +127,7 @@ export default function Alerts() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
                           <span className="font-medium" style={{ color: 'var(--text)' }}>
-                            {alert.title}
+                            {t(alert.title)}
                           </span>
                           <span
                             className="text-[10px] font-bold uppercase px-1.5 py-0.5 rounded"
@@ -137,7 +137,12 @@ export default function Alerts() {
                           </span>
                         </div>
                         <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-                          {alert.description}
+                          {alert.description || (alert.component && alert.value != null
+                            ? t('alerts.usageAt', { component: alert.component.toUpperCase(), value: alert.value })
+                            : alert.component
+                              ? t('alerts.componentIssue', { component: alert.component })
+                              : ''
+                          )}
                         </p>
                       </div>
                       {alert.value !== undefined && (

@@ -289,5 +289,21 @@
   "setup.summary.nonePinned": "Keine angeheftet",
   "setup.summary.multiUser": "Mehrere Benutzer",
   "setup.summary.enabled": "Aktiviert",
-  "setup.summary.justMe": "Nur ich"
+  "setup.summary.justMe": "Nur ich",
+  "alerts.count": "{count} Warnung(en)",
+  "alerts.usageAt": "{component}-Auslastung bei {value}%",
+  "alerts.componentIssue": "{component} antwortet nicht",
+  "alerts.rule.cpu.critical": "Kritische CPU-Auslastung",
+  "alerts.rule.cpu.high": "Hohe CPU-Auslastung",
+  "alerts.rule.memory.critical": "Kritische Speicherauslastung",
+  "alerts.rule.memory.high": "Hohe Speicherauslastung",
+  "alerts.rule.disk.critical": "Kritische Festplattenauslastung",
+  "alerts.rule.disk.high": "Hohe Festplattenauslastung",
+  "alerts.rule.disk.elevated": "Erhöhte Festplattenauslastung",
+  "alerts.rule.system.offline": "Systemstatistik nicht verfügbar",
+  "alerts.rule.gateway.offline": "Gateway offline",
+  "alerts.rule.gateway.unavailable": "Gateway-Prüfung fehlgeschlagen",
+  "alerts.rule.process.down": "Prozess gestoppt",
+  "alerts.rule.process.restarts": "Hohe Neustartanzahl",
+  "alerts.rule.pm2.checkFailed": "PM2-Prüfung fehlgeschlagen"
 }

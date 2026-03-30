@@ -289,5 +289,21 @@
   "setup.summary.nonePinned": "Ninguna fijada",
   "setup.summary.multiUser": "Multiusuario",
   "setup.summary.enabled": "Activado",
-  "setup.summary.justMe": "Solo yo"
+  "setup.summary.justMe": "Solo yo",
+  "alerts.count": "{count} alerta(s)",
+  "alerts.usageAt": "Uso de {component} al {value}%",
+  "alerts.componentIssue": "{component} no responde",
+  "alerts.rule.cpu.critical": "Uso crítico de CPU",
+  "alerts.rule.cpu.high": "Alto uso de CPU",
+  "alerts.rule.memory.critical": "Uso crítico de memoria",
+  "alerts.rule.memory.high": "Alto uso de memoria",
+  "alerts.rule.disk.critical": "Uso crítico de disco",
+  "alerts.rule.disk.high": "Alto uso de disco",
+  "alerts.rule.disk.elevated": "Uso elevado de disco",
+  "alerts.rule.system.offline": "Estadísticas del sistema no disponibles",
+  "alerts.rule.gateway.offline": "Gateway fuera de línea",
+  "alerts.rule.gateway.unavailable": "Verificación de gateway fallida",
+  "alerts.rule.process.down": "Proceso detenido",
+  "alerts.rule.process.restarts": "Alto número de reinicios",
+  "alerts.rule.pm2.checkFailed": "Verificación de PM2 fallida"
 }

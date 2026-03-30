@@ -289,5 +289,21 @@
   "setup.summary.nonePinned": "Inga fästa",
   "setup.summary.multiUser": "Flera användare",
   "setup.summary.enabled": "Aktiverad",
-  "setup.summary.justMe": "Bara jag"
+  "setup.summary.justMe": "Bara jag",
+  "alerts.count": "{count} varning(ar)",
+  "alerts.usageAt": "{component}-användning är {value}%",
+  "alerts.componentIssue": "{component} svarar inte",
+  "alerts.rule.cpu.critical": "Kritisk CPU-användning",
+  "alerts.rule.cpu.high": "Hög CPU-användning",
+  "alerts.rule.memory.critical": "Kritisk minnesanvändning",
+  "alerts.rule.memory.high": "Hög minnesanvändning",
+  "alerts.rule.disk.critical": "Kritisk diskanvändning",
+  "alerts.rule.disk.high": "Hög diskanvändning",
+  "alerts.rule.disk.elevated": "Förhöjd diskanvändning",
+  "alerts.rule.system.offline": "Systemstatistik otillgänglig",
+  "alerts.rule.gateway.offline": "Gateway offline",
+  "alerts.rule.gateway.unavailable": "Gateway-kontroll misslyckades",
+  "alerts.rule.process.down": "Process nere",
+  "alerts.rule.process.restarts": "Högt antal omstarter",
+  "alerts.rule.pm2.checkFailed": "PM2-kontroll misslyckades"
 }

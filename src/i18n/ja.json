@@ -289,5 +289,21 @@
   "setup.summary.nonePinned": "ピン留めなし",
   "setup.summary.multiUser": "マルチユーザー",
   "setup.summary.enabled": "有効",
-  "setup.summary.justMe": "自分だけ"
+  "setup.summary.justMe": "自分だけ",
+  "alerts.count": "{count} alert(s)",
+  "alerts.usageAt": "{component} usage is at {value}%",
+  "alerts.componentIssue": "{component} is not responding",
+  "alerts.rule.cpu.critical": "Critical CPU Usage",
+  "alerts.rule.cpu.high": "High CPU Usage",
+  "alerts.rule.memory.critical": "Critical Memory Usage",
+  "alerts.rule.memory.high": "High Memory Usage",
+  "alerts.rule.disk.critical": "Critical Disk Usage",
+  "alerts.rule.disk.high": "High Disk Usage",
+  "alerts.rule.disk.elevated": "Elevated Disk Usage",
+  "alerts.rule.system.offline": "System Stats Unavailable",
+  "alerts.rule.gateway.offline": "Gateway Offline",
+  "alerts.rule.gateway.unavailable": "Gateway Check Failed",
+  "alerts.rule.process.down": "Process Down",
+  "alerts.rule.process.restarts": "High Restart Count",
+  "alerts.rule.pm2.checkFailed": "PM2 Check Failed"
 }

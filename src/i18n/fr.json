@@ -289,5 +289,21 @@
   "setup.summary.nonePinned": "Aucune épinglée",
   "setup.summary.multiUser": "Multi-utilisateur",
   "setup.summary.enabled": "Activé",
-  "setup.summary.justMe": "Juste moi"
+  "setup.summary.justMe": "Juste moi",
+  "alerts.count": "{count} alerte(s)",
+  "alerts.usageAt": "Utilisation {component} à {value}%",
+  "alerts.componentIssue": "{component} ne répond pas",
+  "alerts.rule.cpu.critical": "Utilisation CPU critique",
+  "alerts.rule.cpu.high": "Utilisation CPU élevée",
+  "alerts.rule.memory.critical": "Utilisation mémoire critique",
+  "alerts.rule.memory.high": "Utilisation mémoire élevée",
+  "alerts.rule.disk.critical": "Utilisation disque critique",
+  "alerts.rule.disk.high": "Utilisation disque élevée",
+  "alerts.rule.disk.elevated": "Utilisation disque élevée",
+  "alerts.rule.system.offline": "Statistiques système indisponibles",
+  "alerts.rule.gateway.offline": "Passerelle hors ligne",
+  "alerts.rule.gateway.unavailable": "Vérification passerelle échouée",
+  "alerts.rule.process.down": "Processus arrêté",
+  "alerts.rule.process.restarts": "Nombre élevé de redémarrages",
+  "alerts.rule.pm2.checkFailed": "Vérification PM2 échouée"
 }
