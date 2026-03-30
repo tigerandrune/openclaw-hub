@@ -7,7 +7,10 @@
     "dev": "concurrently -n \"api,vite\" -c \"cyan,magenta\" \"node server/index.js\" \"vite\"",
     "build": "vite build",
     "preview": "vite preview",
-    "start": "node server/index.js"
+    "start": "node server/index.js",
+    "test": "node test/run.js",
+    "test:verbose": "node test/run.js --verbose",
+    "test:diagnose": "node test/run.js --diagnose --verbose"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

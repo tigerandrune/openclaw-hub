@@ -24,6 +24,7 @@ const PORT = process.env.PORT || 3100;
 
 // In production, static files are served same-origin so CORS isn't needed.
 // In dev (Vite on :5173), allow all origins for convenience.
+app.disable('x-powered-by');
 app.use(cors());
 app.use(express.json());
 
