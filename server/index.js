@@ -27,6 +27,18 @@ const PORT = process.env.PORT || 3100;
 app.use(cors());
 app.use(express.json());
 
+// Security headers — this dashboard may run on exposed networks
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('Referrer-Policy', 'no-referrer');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  // CSP: allow self + inline styles (needed for theme vars) + blob: for plugin compilation
+  res.setHeader('Content-Security-Policy', "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none';");
+  next();
+});
+
 // API routes
 app.use('/api/config', configRoutes);
 app.use('/api/profiles', profilesRoutes);
