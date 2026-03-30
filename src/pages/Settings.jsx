@@ -5,7 +5,7 @@ import { useTheme } from '../context/ThemeContext';
 import { useApi } from '../hooks/useApi';
 import { version as APP_VERSION } from '../../package.json';
 import { languages } from '../i18n';
-import { Check, ChevronUp, ChevronDown, RotateCcw, Palette, Zap, Plus, Trash2, Users } from 'lucide-react';
+import { Check, ChevronUp, ChevronDown, RotateCcw, Palette, Zap, Plus, Trash2, Users, Download, Upload } from 'lucide-react';
 
 const THEMES = [
   {
@@ -476,6 +476,65 @@ export default function Settings() {
             </button>
           </div>
           
+          {/* Export / Import Config */}
+          <div className="flex items-center justify-between p-4 rounded-lg border" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
+            <div>
+              <div className="font-medium text-sm" style={{ color: 'var(--text)' }}>
+                {t('settings.exportImport')}
+              </div>
+              <div className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
+                {t('settings.exportImportDesc')}
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => {
+                  const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `openclaw-hub-config-${new Date().toISOString().slice(0, 10)}.json`;
+                  a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border text-xs font-medium transition-colors"
+                style={{ background: 'var(--surface2)', borderColor: 'var(--border)', color: 'var(--text)' }}
+              >
+                <Download size={14} />
+                {t('settings.export')}
+              </button>
+              <label
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border text-xs font-medium transition-colors cursor-pointer"
+                style={{ background: 'var(--surface2)', borderColor: 'var(--border)', color: 'var(--text)' }}
+              >
+                <Upload size={14} />
+                {t('settings.import')}
+                <input
+                  type="file"
+                  accept=".json"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                      try {
+                        const imported = JSON.parse(ev.target.result);
+                        if (typeof imported === 'object' && imported !== null) {
+                          saveConfig(imported);
+                          window.location.reload();
+                        }
+                      } catch {
+                        alert(t('settings.importError'));
+                      }
+                    };
+                    reader.readAsText(file);
+                  }}
+                />
+              </label>
+            </div>
+          </div>
+
           <div className="flex items-center justify-between p-4 rounded-lg border" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
             <div>
               <div className="font-medium text-sm" style={{ color: 'var(--text)' }}>

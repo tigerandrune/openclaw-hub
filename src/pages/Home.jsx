@@ -27,6 +27,8 @@ import NotesWidget from '../components/widgets/NotesWidget';
 import RecentActivityWidget from '../components/widgets/RecentActivityWidget';
 import BookmarksWidget from '../components/widgets/BookmarksWidget';
 import HeatmapWidget from '../components/widgets/HeatmapWidget';
+import ChannelsWidget from '../components/widgets/ChannelsWidget';
+import ModelWidget from '../components/widgets/ModelWidget';
 
 const WIDGET_MAP = {
   health:    SystemHealthWidget,
@@ -35,6 +37,8 @@ const WIDGET_MAP = {
   activity:  RecentActivityWidget,
   bookmarks: BookmarksWidget,
   heatmap:   HeatmapWidget,
+  channels:  ChannelsWidget,
+  model:     ModelWidget,
 };
 
 function getGreetingKey() {

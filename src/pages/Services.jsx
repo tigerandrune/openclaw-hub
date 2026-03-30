@@ -13,13 +13,17 @@ import {
   Package,
   Zap,
   CheckCircle,
-  XCircle
+  XCircle,
+  Database,
+  Brain,
+  HardDrive
 } from 'lucide-react';
 
 const TABS = [
   { id: 'pm2', labelKey: 'services.pm2', icon: Server },
   { id: 'plugins', labelKey: 'services.plugins', icon: Package },
   { id: 'skills', labelKey: 'services.skills', icon: Zap },
+  { id: 'memory', labelKey: 'services.memory', icon: Database },
 ];
 
 export default function Services() {
@@ -64,6 +68,7 @@ export default function Services() {
         {activeTab === 'pm2' && <PM2Tab />}
         {activeTab === 'plugins' && <PluginsTab />}
         {activeTab === 'skills' && <SkillsTab />}
+        {activeTab === 'memory' && <MemoryTab />}
       </div>
     </div>
   );
@@ -463,6 +468,71 @@ function LoadingSkeleton() {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+function MemoryTab() {
+  const { t } = useI18n();
+  const { data, loading } = useApi('/api/discover');
+
+  if (loading && !data) {
+    return (
+      <div className="space-y-3">
+        {[1, 2, 3].map(i => (
+          <div key={i} className="h-16 rounded-xl animate-pulse" style={{ background: 'var(--surface)' }} />
+        ))}
+      </div>
+    );
+  }
+
+  const mem = data?.memoryStatus || {};
+  const items = [
+    { label: t('memory.backend'), value: mem.backend || t('memory.notConfigured'), active: !!mem.backend, icon: Brain },
+    { label: t('memory.plugin'), value: mem.plugin || t('memory.notConfigured'), active: !!mem.plugin, icon: Database },
+    { label: 'LanceDB', value: mem.lancedb ? t('memory.available') : t('memory.notFound'), active: mem.lancedb, icon: HardDrive },
+    { label: 'KM (Knowledge Manager)', value: mem.km ? t('memory.available') : t('memory.notFound'), active: mem.km, icon: Brain },
+  ];
+
+  return (
+    <div className="space-y-3">
+      <div
+        className="p-4 rounded-xl border flex items-center gap-3"
+        style={{
+          background: mem.active ? 'rgba(34,197,94,0.08)' : 'rgba(239,68,68,0.08)',
+          borderColor: mem.active ? 'rgba(34,197,94,0.2)' : 'rgba(239,68,68,0.2)',
+        }}
+      >
+        <Database size={20} style={{ color: mem.active ? '#22c55e' : '#ef4444' }} />
+        <div>
+          <div className="text-sm font-semibold" style={{ color: 'var(--text)' }}>
+            {mem.active ? t('memory.active') : t('memory.inactive')}
+          </div>
+          <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
+            {mem.active ? t('memory.activeDesc') : t('memory.inactiveDesc')}
+          </div>
+        </div>
+      </div>
+
+      {items.map((item, i) => {
+        const Icon = item.icon;
+        return (
+          <div
+            key={i}
+            className="p-3 rounded-xl border flex items-center gap-3"
+            style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}
+          >
+            <Icon size={16} style={{ color: item.active ? '#22c55e' : 'var(--text-muted)' }} />
+            <div className="flex-1 min-w-0">
+              <div className="text-xs font-medium" style={{ color: 'var(--text)' }}>{item.label}</div>
+              <div className="text-xs" style={{ color: 'var(--text-muted)' }}>{item.value}</div>
+            </div>
+            <span
+              className="w-2 h-2 rounded-full flex-shrink-0"
+              style={{ background: item.active ? '#22c55e' : 'var(--text-muted)' }}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }

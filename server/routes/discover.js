@@ -53,6 +53,46 @@ function listPlugins() {
   }
 }
 
+function getChannels() {
+  const ocConfig = safeRead(join(OC_DIR, 'openclaw.json'));
+  if (!ocConfig?.channels) return [];
+  const channels = [];
+  for (const [name, cfg] of Object.entries(ocConfig.channels)) {
+    if (cfg && typeof cfg === 'object') {
+      channels.push({
+        id: name,
+        name: name.charAt(0).toUpperCase() + name.slice(1),
+        enabled: cfg.enabled !== false,
+      });
+    }
+  }
+  return channels;
+}
+
+function getModelInfo() {
+  const ocConfig = safeRead(join(OC_DIR, 'openclaw.json'));
+  const primary = ocConfig?.agents?.defaults?.model?.primary ?? null;
+  const fallbacks = ocConfig?.agents?.defaults?.model?.fallbacks ?? [];
+  return { primary, fallbacks };
+}
+
+function getMemoryStatus() {
+  const ocConfig = safeRead(join(OC_DIR, 'openclaw.json'));
+  const memBackend = ocConfig?.memory?.backend ?? null;
+  const memPlugin = ocConfig?.plugins?.slots?.memory ?? null;
+  const lancedbPath = join(OC_DIR, 'memory', 'lancedb');
+  const hasLancedb = existsSync(lancedbPath);
+  const kmPath = join(homedir(), '.km');
+  const hasKm = existsSync(kmPath);
+  return {
+    backend: memBackend,
+    plugin: memPlugin,
+    lancedb: hasLancedb,
+    km: hasKm,
+    active: !!(memBackend || memPlugin),
+  };
+}
+
 function listSkills() {
   const skillsDir = join(OC_DIR, 'skills');
   if (!existsSync(skillsDir)) return [];
@@ -74,8 +114,10 @@ router.get('/', (_req, res) => {
     pm2: checkPm2(),
     gateway: gatewayOnline,
     sessions: countSessions(),
-    channels: [],
+    channels: getChannels(),
     model: primaryModel,
+    modelInfo: getModelInfo(),
+    memoryStatus: getMemoryStatus(),
     plugins: listPlugins(),
     skills: listSkills(),
     memory: existsSync(join(OC_DIR, 'memory')),

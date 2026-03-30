@@ -7,7 +7,7 @@ import { languages, detectLanguage } from '../i18n';
 import {
   ArrowRight, ArrowLeft, Check, Cpu, Activity,
   DollarSign, Layout, Server, FileText, Zap,
-  AlignLeft, AlignJustify, Sparkles,
+  AlignLeft, AlignJustify, Sparkles, Radio,
 } from 'lucide-react';
 
 // ── Step data ─────────────────────────────────────────────────────────────────
@@ -52,6 +52,8 @@ const WIDGETS = [
   { id: 'services', label: 'Services',         icon: Server,     desc: 'PM2 processes and plugins' },
   { id: 'bookmarks', label: 'Bookmarks',       icon: FileText,   desc: 'Quick-access links' },
   { id: 'heatmap',   label: 'Activity Heatmap', icon: Activity,   desc: 'GitHub-style activity grid' },
+  { id: 'channels',  label: 'Active Channels',  icon: Radio,      desc: 'Connected messaging platforms' },
+  { id: 'model',     label: 'Current Model',    icon: Cpu,        desc: 'AI model and fallback chain' },
 ];
 
 // ── Wizard slide variants ─────────────────────────────────────────────────────
@@ -406,6 +408,64 @@ function StepSidebar({ value, onChange }) {
 }
 
 // Step 5 – Summary
+function StepProfiles({ value, onChange }) {
+  const { t } = useI18n();
+  const options = [
+    {
+      id: false,
+      label: t('setup.profiles.justMe'),
+      desc: t('setup.profiles.justMeDesc'),
+      icon: '👤',
+    },
+    {
+      id: true,
+      label: t('setup.profiles.multiUser'),
+      desc: t('setup.profiles.multiUserDesc'),
+      icon: '👥',
+    },
+  ];
+
+  return (
+    <StepShell
+      title={t('setup.profiles.title')}
+      subtitle={t('setup.profiles.subtitle')}
+    >
+      <div className="flex flex-col gap-3">
+        {options.map(opt => {
+          const selected = value === opt.id;
+          return (
+            <button
+              key={String(opt.id)}
+              onClick={() => onChange(opt.id)}
+              className="flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left cursor-pointer bg-transparent"
+              style={{
+                borderColor: selected ? 'var(--accent)' : 'var(--border)',
+                background: selected ? 'rgba(var(--accent-rgb), 0.06)' : 'var(--surface)',
+              }}
+            >
+              <span className="text-2xl flex-shrink-0">{opt.icon}</span>
+              <div className="flex-1">
+                <div className="text-sm font-semibold" style={{ color: 'var(--text)' }}>
+                  {opt.label}
+                </div>
+                <div className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
+                  {opt.desc}
+                </div>
+              </div>
+              {selected && (
+                <Check size={18} style={{ color: 'var(--accent)' }} className="flex-shrink-0" />
+              )}
+            </button>
+          );
+        })}
+      </div>
+      <p className="text-xs mt-4 text-center" style={{ color: 'var(--text-muted)', opacity: 0.7 }}>
+        {t('setup.profiles.changeLater')}
+      </p>
+    </StepShell>
+  );
+}
+
 function StepSummary({ wizardState }) {
   const { t } = useI18n();
   const enabledWidgets = WIDGETS.filter(w => wizardState.widgets.includes(w.id));
@@ -420,8 +480,8 @@ function StepSummary({ wizardState }) {
 
   return (
     <StepShell
-      title={t('setup.step6.title')}
-      subtitle={t('setup.step6.subtitle')}
+      title={t('setup.step7.title')}
+      subtitle={t('setup.step7.subtitle')}
     >
       <div className="flex flex-col gap-3">
         <SummaryRow label={t('setup.summary.name')} value={wizardState.name} />
@@ -449,7 +509,7 @@ function StepSummary({ wizardState }) {
       <div className="mt-6 p-4 rounded-xl flex items-center gap-3" style={{ background: 'rgba(var(--accent-rgb), 0.06)', border: '1px solid rgba(var(--accent-rgb), 0.15)' }}>
         <Sparkles size={16} style={{ color: 'var(--accent)', flexShrink: 0 }} />
         <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-          {t('setup.step6.privacy')}
+          {t('setup.step7.privacy')}
         </p>
       </div>
     </StepShell>
@@ -480,7 +540,7 @@ function getTimeOfDay() {
 
 // ── Main wizard ───────────────────────────────────────────────────────────────
 
-const STEPS = ['Name', 'Language', 'Theme', 'Widgets', 'Sidebar', 'Summary'];
+const STEPS = ['Name', 'Language', 'Theme', 'Widgets', 'Sidebar', 'Profiles', 'Summary'];
 
 export default function SetupWizard({ initialConfig = null }) {
   const { saveConfig, config } = useConfig();
@@ -498,8 +558,9 @@ export default function SetupWizard({ initialConfig = null }) {
     language: initial.language || detectLanguage(),
     theme: initial.theme || 'dark',
     accentColor: initial.accentColor || '#D4A853',
-    widgets: initial.homeWidgets || initial.widgetOrder || ['health', 'gateway', 'notes', 'activity', 'bookmarks', 'heatmap'],
+    widgets: initial.homeWidgets || initial.widgetOrder || ['health', 'gateway', 'notes', 'activity', 'bookmarks', 'heatmap', 'channels', 'model'],
     sidebarStyle: initial.sidebarStyle || 'full',
+    multiUser: false,
   });
 
   const canAdvance = () => {
@@ -543,12 +604,24 @@ export default function SetupWizard({ initialConfig = null }) {
         sidebarStyle: wizState.sidebarStyle,
         homeWidgets: wizState.widgets,
         widgetOrder: wizState.widgets,
-        enabledPages: ['home', 'activity', 'costs', 'kanban', 'services', 'notifications'],
+        enabledPages: ['home', 'activity', 'costs', 'services', 'notifications'],
         setupComplete: true,
         notes: '',
         quickActions: [],
         bookmarks: [],
       });
+
+      // If multi-user enabled, ensure profiles are set up
+      if (wizState.multiUser) {
+        try {
+          // Create default profile with current user's name
+          await fetch('/api/profiles', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: 'default', name: wizState.name.trim() }),
+          });
+        } catch { /* profile may already exist */ }
+      }
       // ConfigContext reload will re-render App → main layout
       window.location.reload();
     } catch {
@@ -590,7 +663,13 @@ export default function SetupWizard({ initialConfig = null }) {
           onChange={v => setWizState(s => ({ ...s, sidebarStyle: v }))}
         />
       );
-      case 5: return <StepSummary wizardState={wizState} />;
+      case 5: return (
+        <StepProfiles
+          value={wizState.multiUser}
+          onChange={v => setWizState(s => ({ ...s, multiUser: v }))}
+        />
+      );
+      case 6: return <StepSummary wizardState={wizState} />;
       default: return null;
     }
   };
