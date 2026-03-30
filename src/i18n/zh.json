@@ -221,5 +221,15 @@
   "profiles.name": "配置文件名",
   "profiles.namePlaceholder": "输入名称",
   "profiles.create": "创建",
-  "profiles.cancel": "取消"
+  "profiles.cancel": "取消",
+  "settings.redoWizard.desc": "使用当前值重新开始设置",
+  "settings.redoWizard.button": "重新设置",
+  "settings.appVersion": "应用版本",
+  "settings.appEdition": "OpenClaw Hub",
+  "settings.configureDesc": "配置您的 OpenClaw Hub 体验",
+  "home.noWidgets": "未启用任何小组件。",
+  "home.noWidgets.hint": "前往设置→重新运行设置以选择小组件。",
+  "home.dragToReorder": "拖动以重新排列",
+  "layout.search": "搜索 (Ctrl+K)",
+  "services.mem": "MEM"
 }

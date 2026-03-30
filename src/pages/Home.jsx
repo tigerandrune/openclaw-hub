@@ -45,7 +45,7 @@ function getGreetingKey() {
   return 'greeting.night';
 }
 
-function SortableWidget({ id, children, editMode }) {
+function SortableWidget({ id, children, editMode, t }) {
   const {
     attributes,
     listeners,
@@ -69,7 +69,7 @@ function SortableWidget({ id, children, editMode }) {
           {...listeners}
           className="absolute top-2 right-2 z-10 p-1.5 rounded-md cursor-grab active:cursor-grabbing transition-all hover:scale-110"
           style={{ background: 'var(--surface2)', color: 'var(--text-muted)' }}
-          title="Drag to reorder"
+          title={t('home.dragToReorder')}
         >
           <GripVertical size={14} />
         </div>
@@ -244,7 +244,7 @@ export default function Home() {
             {enabledWidgets.map(id => {
               const Widget = WIDGET_MAP[id];
               return (
-                <SortableWidget key={id} id={id} editMode={editMode}>
+                <SortableWidget key={id} id={id} editMode={editMode} t={t}>
                   <Widget />
                 </SortableWidget>
               );
@@ -259,10 +259,10 @@ export default function Home() {
           style={{ borderColor: 'var(--border)', borderStyle: 'dashed' }}
         >
           <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-            No widgets enabled.
+            {t('home.noWidgets')}
           </p>
           <p className="text-xs" style={{ color: 'var(--text-muted)', opacity: 0.6 }}>
-            Go to Settings → re-run setup to pick widgets.
+            {t('home.noWidgets.hint')}
           </p>
         </div>
       )}

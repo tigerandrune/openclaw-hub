@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import BottomNav from './BottomNav';
 import CommandPalette from './CommandPalette';
+import { useI18n } from '../context/I18nContext';
 
 export default function Layout({ children }) {
   const [cmdOpen, setCmdOpen] = useState(false);
+  const { t } = useI18n();
 
   useEffect(() => {
     const handler = (e) => {
@@ -36,7 +38,7 @@ export default function Layout({ children }) {
             onClick={() => setCmdOpen(true)}
             className="p-2 rounded-lg transition-colors"
             style={{ background: 'var(--surface2)', color: 'var(--text-muted)' }}
-            title="Search (Ctrl+K)"
+            title={t('layout.search')}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>

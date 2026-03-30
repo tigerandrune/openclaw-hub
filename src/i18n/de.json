@@ -221,5 +221,15 @@
   "profiles.name": "Profilname",
   "profiles.namePlaceholder": "Name eingeben",
   "profiles.create": "Erstellen",
-  "profiles.cancel": "Abbrechen"
+  "profiles.cancel": "Abbrechen",
+  "settings.redoWizard.desc": "Setup mit aktuellen Werten neu starten",
+  "settings.redoWizard.button": "Setup wiederholen",
+  "settings.appVersion": "App-Version",
+  "settings.appEdition": "OpenClaw Hub",
+  "settings.configureDesc": "Konfigurieren Sie Ihr OpenClaw Hub-Erlebnis",
+  "home.noWidgets": "Keine Widgets aktiviert.",
+  "home.noWidgets.hint": "Gehen Sie zu Einstellungen → Setup erneut ausführen.",
+  "home.dragToReorder": "Ziehen zum Neuordnen",
+  "layout.search": "Suche (Strg+K)",
+  "services.mem": "MEM"
 }

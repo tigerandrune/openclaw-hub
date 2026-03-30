@@ -82,12 +82,12 @@ export default function BookmarksWidget() {
     setNewUrl('');
   };
 
-  const getFavicon = (url) => {
+  const getDomainLetter = (url) => {
     try {
-      const domain = new URL(url).hostname;
-      return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
+      const domain = new URL(url).hostname.replace('www.', '');
+      return domain[0].toUpperCase();
     } catch {
-      return null;
+      return '?';
     }
   };
 
@@ -249,7 +249,7 @@ export default function BookmarksWidget() {
       {urlBookmarks.length > 0 && (
         <div className="grid grid-cols-2 gap-2">
           {urlBookmarks.map((bm) => {
-            const favicon = getFavicon(bm.url);
+            const letter = getDomainLetter(bm.url);
             return (
               <a
                 key={bm.id}
@@ -259,11 +259,12 @@ export default function BookmarksWidget() {
                 className="group flex items-center gap-2.5 p-2.5 rounded-lg transition-all hover:scale-[1.02]"
                 style={{ background: 'var(--background)', textDecoration: 'none' }}
               >
-                {favicon ? (
-                  <img src={favicon} alt="" width={16} height={16} className="rounded-sm flex-shrink-0" />
-                ) : (
-                  <ExternalLink size={14} style={{ color: 'var(--text-muted)' }} className="flex-shrink-0" />
-                )}
+                <div
+                  className="w-5 h-5 rounded flex items-center justify-center text-xs font-bold flex-shrink-0"
+                  style={{ background: 'var(--accent)', color: '#000', fontSize: 10 }}
+                >
+                  {letter}
+                </div>
                 <span className="text-xs font-medium truncate" style={{ color: 'var(--text)' }}>
                   {bm.name}
                 </span>

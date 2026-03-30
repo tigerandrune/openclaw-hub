@@ -221,5 +221,15 @@
   "profiles.name": "プロフィール名",
   "profiles.namePlaceholder": "名前を入力",
   "profiles.create": "作成",
-  "profiles.cancel": "キャンセル"
+  "profiles.cancel": "キャンセル",
+  "settings.redoWizard.desc": "現在の値でセットアップをやり直す",
+  "settings.redoWizard.button": "セットアップをやり直す",
+  "settings.appVersion": "アプリバージョン",
+  "settings.appEdition": "OpenClaw Hub",
+  "settings.configureDesc": "OpenClaw Hubの設定をカスタマイズ",
+  "home.noWidgets": "ウィジェットが有効化されていません。",
+  "home.noWidgets.hint": "設定→セットアップをやり直してウィジェットを選択してください。",
+  "home.dragToReorder": "ドラッグして並べ替え",
+  "layout.search": "検索 (Ctrl+K)",
+  "services.mem": "MEM"
 }

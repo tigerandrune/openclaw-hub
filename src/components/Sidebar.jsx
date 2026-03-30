@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   Home, Activity, DollarSign, Server,
@@ -24,6 +24,19 @@ export default function Sidebar() {
   const [collapsed, setCollapsed] = useState(prefersCompact);
   const [profiles, setProfiles] = useState([]);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef(null);
+
+  // Close profile menu on outside click
+  useEffect(() => {
+    if (!profileMenuOpen) return;
+    const handler = (e) => {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(e.target)) {
+        setProfileMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, [profileMenuOpen]);
 
   useEffect(() => {
     fetch('/api/profiles')
@@ -118,7 +131,7 @@ export default function Sidebar() {
 
         {/* Profile switcher — only when 2+ profiles exist */}
         {profiles.length > 1 && (
-          <div className="relative mt-1">
+          <div className="relative mt-1" ref={profileMenuRef}>
             <button
               onClick={() => setProfileMenuOpen(o => !o)}
               className="flex items-center gap-2 w-full px-3 py-2 rounded-lg transition-colors cursor-pointer border-0 bg-transparent"

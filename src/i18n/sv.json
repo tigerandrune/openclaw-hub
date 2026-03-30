@@ -221,5 +221,15 @@
   "profiles.name": "Profilnamn",
   "profiles.namePlaceholder": "Ange ett namn",
   "profiles.create": "Skapa",
-  "profiles.cancel": "Avbryt"
+  "profiles.cancel": "Avbryt",
+  "settings.redoWizard.desc": "Starta om installationen med nuvarande värden ifyllda",
+  "settings.redoWizard.button": "Gör om inställning",
+  "settings.appVersion": "Appversion",
+  "settings.appEdition": "OpenClaw Hub",
+  "settings.configureDesc": "Konfigurera din OpenClaw Hub-upplevelse",
+  "home.noWidgets": "Inga widgetar aktiverade.",
+  "home.noWidgets.hint": "Gå till Inställningar → kör om inställningen för att välja widgetar.",
+  "home.dragToReorder": "Dra för att ordna om",
+  "layout.search": "Sök (Ctrl+K)",
+  "services.mem": "MEM"
 }

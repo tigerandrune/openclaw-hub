@@ -21,7 +21,9 @@ const __dirname = dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3100;
 
-app.use(cors({ origin: 'http://localhost:5173' }));
+// In production, static files are served same-origin so CORS isn't needed.
+// In dev (Vite on :5173), allow all origins for convenience.
+app.use(cors());
 app.use(express.json());
 
 // API routes

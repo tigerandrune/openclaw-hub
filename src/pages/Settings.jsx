@@ -3,6 +3,7 @@ import { useConfig } from '../context/ConfigContext';
 import { useI18n } from '../context/I18nContext';
 import { useTheme } from '../context/ThemeContext';
 import { useApi } from '../hooks/useApi';
+import { version as APP_VERSION } from '../../package.json';
 import { languages } from '../i18n';
 import { Check, ChevronUp, ChevronDown, RotateCcw, Palette, Zap, Plus, Trash2, Users } from 'lucide-react';
 
@@ -147,7 +148,7 @@ export default function Settings() {
           {t('settings.title')}
         </h1>
         <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
-          Configure your OpenClaw Hub experience
+          {t('settings.configureDesc')}
         </p>
       </div>
 
@@ -462,7 +463,7 @@ export default function Settings() {
                 {t('settings.redoWizard')}
               </div>
               <div className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
-                Restart setup with current values pre-filled
+                {t('settings.redoWizard.desc')}
               </div>
             </div>
             <button
@@ -471,21 +472,21 @@ export default function Settings() {
               style={{ background: 'var(--surface2)', borderColor: 'var(--border)', color: 'var(--text)' }}
             >
               <RotateCcw size={16} />
-              Redo Setup
+              {t('settings.redoWizard.button')}
             </button>
           </div>
           
           <div className="flex items-center justify-between p-4 rounded-lg border" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
             <div>
               <div className="font-medium text-sm" style={{ color: 'var(--text)' }}>
-                App Version
+                {t('settings.appVersion')}
               </div>
               <div className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
-                OpenClaw Hub Phase 2
+                {t('settings.appEdition')}
               </div>
             </div>
             <span className="text-sm px-2 py-1 rounded" style={{ background: 'rgba(var(--accent-rgb), 0.12)', color: 'var(--accent)' }}>
-              v2.0.0
+              v{APP_VERSION}
             </span>
           </div>
         </div>

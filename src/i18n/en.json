@@ -221,5 +221,15 @@
   "profiles.name": "Profile name",
   "profiles.namePlaceholder": "Enter a name",
   "profiles.create": "Create",
-  "profiles.cancel": "Cancel"
+  "profiles.cancel": "Cancel",
+  "settings.redoWizard.desc": "Restart setup with current values pre-filled",
+  "settings.redoWizard.button": "Redo Setup",
+  "settings.appVersion": "App Version",
+  "settings.appEdition": "OpenClaw Hub",
+  "settings.configureDesc": "Configure your OpenClaw Hub experience",
+  "home.noWidgets": "No widgets enabled.",
+  "home.noWidgets.hint": "Go to Settings → re-run setup to pick widgets.",
+  "home.dragToReorder": "Drag to reorder",
+  "layout.search": "Search (Ctrl+K)",
+  "services.mem": "MEM"
 }

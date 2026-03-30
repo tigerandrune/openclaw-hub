@@ -217,7 +217,7 @@ function PM2Tab() {
                     <span>{process.cpu}%</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <span>MEM</span>
+                    <span>{t('services.mem')}</span>
                     <span>{formatMemory(process.memory)}</span>
                   </div>
                   <div className="flex items-center gap-1">
