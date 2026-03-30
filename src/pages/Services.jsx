@@ -76,7 +76,7 @@ export default function Services() {
 
 function PM2Tab() {
   const { t } = useI18n();
-  const { data, loading, error, refetch } = useApi('/api/services/pm2', 10000); // Auto-refresh every 10s
+  const { data, loading, error, refetch } = useApi('/api/services/pm2', 30000); // Auto-refresh every 30s
   const [actionStates, setActionStates] = useState({});
 
   const handleAction = async (processName, action) => {

@@ -2,6 +2,8 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 
 /**
  * Fetches a JSON API endpoint and optionally polls at an interval.
+ * Pauses polling when the tab is not visible (saves CPU).
+ * 
  * @param {string} endpoint - e.g. '/api/system'
  * @param {number|null} interval - polling interval in ms, or null for no polling
  */
@@ -10,6 +12,7 @@ export function useApi(endpoint, interval = null) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const mountedRef = useRef(true);
+  const timerRef = useRef(null);
 
   const fetchData = useCallback(async () => {
     try {
@@ -31,14 +34,38 @@ export function useApi(endpoint, interval = null) {
     mountedRef.current = true;
     fetchData();
 
-    let timer;
+    function startPolling() {
+      stopPolling();
+      if (interval && !document.hidden) {
+        timerRef.current = setInterval(fetchData, interval);
+      }
+    }
+
+    function stopPolling() {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    }
+
+    function onVisibilityChange() {
+      if (document.hidden) {
+        stopPolling();
+      } else {
+        fetchData(); // Refresh immediately when tab becomes visible
+        startPolling();
+      }
+    }
+
     if (interval) {
-      timer = setInterval(fetchData, interval);
+      startPolling();
+      document.addEventListener('visibilitychange', onVisibilityChange);
     }
 
     return () => {
       mountedRef.current = false;
-      if (timer) clearInterval(timer);
+      stopPolling();
+      document.removeEventListener('visibilitychange', onVisibilityChange);
     };
   }, [fetchData, interval]);
 
