@@ -305,5 +305,6 @@
   "alerts.rule.gateway.unavailable": "Verificación de gateway fallida",
   "alerts.rule.process.down": "Proceso detenido",
   "alerts.rule.process.restarts": "Alto número de reinicios",
-  "alerts.rule.pm2.checkFailed": "Verificación de PM2 fallida"
+  "alerts.rule.pm2.checkFailed": "Verificación de PM2 fallida",
+  "alerts.processInfo": "{component} se ha reiniciado {value} veces"
 }

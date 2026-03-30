@@ -305,5 +305,6 @@
   "alerts.rule.gateway.unavailable": "Gateway Check Failed",
   "alerts.rule.process.down": "Process Down",
   "alerts.rule.process.restarts": "High Restart Count",
-  "alerts.rule.pm2.checkFailed": "PM2 Check Failed"
+  "alerts.rule.pm2.checkFailed": "PM2 Check Failed",
+  "alerts.processInfo": "{component} has restarted {value} times"
 }

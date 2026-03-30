@@ -138,7 +138,9 @@ export default function Alerts() {
                         </div>
                         <p className="text-sm" style={{ color: 'var(--text-muted)' }}>
                           {alert.description || (alert.component && alert.value != null
-                            ? t('alerts.usageAt', { component: alert.component.toUpperCase(), value: alert.value })
+                            ? alert.category === 'services'
+                              ? t('alerts.processInfo', { component: alert.component, value: alert.value })
+                              : t('alerts.usageAt', { component: alert.component.toUpperCase(), value: alert.value })
                             : alert.component
                               ? t('alerts.componentIssue', { component: alert.component })
                               : ''
@@ -148,7 +150,9 @@ export default function Alerts() {
                       {alert.value !== undefined && (
                         <div className="text-right flex-shrink-0">
                           <div className="text-lg font-bold" style={{ color: sev.color }}>
-                            {typeof alert.value === 'number' ? `${alert.value}%` : alert.value}
+                            {typeof alert.value === 'number'
+                              ? alert.category === 'services' ? alert.value : `${alert.value}%`
+                              : alert.value}
                           </div>
                           {alert.threshold && (
                             <div className="text-xs" style={{ color: 'var(--text-muted)' }}>

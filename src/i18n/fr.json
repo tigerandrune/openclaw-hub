@@ -305,5 +305,6 @@
   "alerts.rule.gateway.unavailable": "Vérification passerelle échouée",
   "alerts.rule.process.down": "Processus arrêté",
   "alerts.rule.process.restarts": "Nombre élevé de redémarrages",
-  "alerts.rule.pm2.checkFailed": "Vérification PM2 échouée"
+  "alerts.rule.pm2.checkFailed": "Vérification PM2 échouée",
+  "alerts.processInfo": "{component} a redémarré {value} fois"
 }

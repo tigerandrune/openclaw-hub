@@ -305,5 +305,6 @@
   "alerts.rule.gateway.unavailable": "Gateway-kontroll misslyckades",
   "alerts.rule.process.down": "Process nere",
   "alerts.rule.process.restarts": "Högt antal omstarter",
-  "alerts.rule.pm2.checkFailed": "PM2-kontroll misslyckades"
+  "alerts.rule.pm2.checkFailed": "PM2-kontroll misslyckades",
+  "alerts.processInfo": "{component} har startats om {value} gånger"
 }
