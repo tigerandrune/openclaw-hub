@@ -17,9 +17,13 @@ export function useApi(endpoint, interval = null) {
   const fetchData = useCallback(async () => {
     try {
       setLoading(true);
+      const start = Date.now();
       const res = await fetch(endpoint);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const json = await res.json();
+      // Minimum 400ms loading so the spinner is visible on fast responses
+      const elapsed = Date.now() - start;
+      if (elapsed < 400) await new Promise(r => setTimeout(r, 400 - elapsed));
       if (mountedRef.current) {
         setData(json);
         setError(null);
