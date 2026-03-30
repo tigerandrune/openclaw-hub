@@ -11,6 +11,7 @@ import Services from './pages/Services';
 import Activity from './pages/Activity';
 import Costs from './pages/Costs';
 import Alerts from './pages/Alerts';
+import CommandPalette from './components/CommandPalette';
 
 // Stub removed — all pages now implemented
 
@@ -44,6 +45,7 @@ export default function App() {
 
   return (
     <Layout>
+      <CommandPalette />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/activity" element={<Activity />} />

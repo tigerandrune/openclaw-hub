@@ -71,8 +71,8 @@
   "widget.notes.saved": "已保存",
   "widget.recentActivity": "最近活动",
   "widget.recentActivity.empty": "暂无最近活动",
-  "commandPalette.placeholder": "搜索命令...",
-  "commandPalette.noResults": "无结果",
+  "commandPalette.placeholder": "搜索命令、页面、操作...",
+  "commandPalette.noResults": "未找到结果",
   "common.refresh": "刷新",
   "common.save": "保存",
   "common.cancel": "取消",
@@ -274,5 +274,9 @@
   "plugins.installHint": "将文件夹放入 ~/.openclaw/hub-plugins/ 即可开始",
   "plugins.noPermissions": "无权限",
   "plugins.remove": "移除",
-  "plugins.addToHome": "添加到主页"
+  "plugins.addToHome": "添加到主页",
+  "commandPalette.hint": "开始输入以搜索",
+  "commandPalette.navigate": "导航",
+  "commandPalette.select": "选择",
+  "commandPalette.toggle": "切换"
 }

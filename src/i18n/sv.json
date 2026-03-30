@@ -71,8 +71,8 @@
   "widget.notes.saved": "Sparat",
   "widget.recentActivity": "Senaste aktivitet",
   "widget.recentActivity.empty": "Ingen senaste aktivitet",
-  "commandPalette.placeholder": "Sök kommandon...",
-  "commandPalette.noResults": "Inga resultat",
+  "commandPalette.placeholder": "Sök kommandon, sidor, åtgärder...",
+  "commandPalette.noResults": "Inga resultat hittades",
   "common.refresh": "Uppdatera",
   "common.save": "Spara",
   "common.cancel": "Avbryt",
@@ -274,5 +274,9 @@
   "plugins.installHint": "Lägg en mapp i ~/.openclaw/hub-plugins/ för att komma igång",
   "plugins.noPermissions": "Inga behörigheter",
   "plugins.remove": "Ta bort",
-  "plugins.addToHome": "Lägg till på hem"
+  "plugins.addToHome": "Lägg till på hem",
+  "commandPalette.hint": "Börja skriva för att söka",
+  "commandPalette.navigate": "navigera",
+  "commandPalette.select": "välj",
+  "commandPalette.toggle": "växla"
 }

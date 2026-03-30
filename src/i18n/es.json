@@ -71,7 +71,7 @@
   "widget.notes.saved": "Guardado",
   "widget.recentActivity": "Actividad reciente",
   "widget.recentActivity.empty": "Sin actividad reciente",
-  "commandPalette.placeholder": "Buscar comandos...",
+  "commandPalette.placeholder": "Buscar comandos, páginas, acciones...",
   "commandPalette.noResults": "Sin resultados",
   "common.refresh": "Actualizar",
   "common.save": "Guardar",
@@ -274,5 +274,9 @@
   "plugins.installHint": "Coloca una carpeta en ~/.openclaw/hub-plugins/ para empezar",
   "plugins.noPermissions": "Sin permisos",
   "plugins.remove": "Quitar",
-  "plugins.addToHome": "Añadir al inicio"
+  "plugins.addToHome": "Añadir al inicio",
+  "commandPalette.hint": "Empieza a escribir para buscar",
+  "commandPalette.navigate": "navegar",
+  "commandPalette.select": "seleccionar",
+  "commandPalette.toggle": "alternar"
 }

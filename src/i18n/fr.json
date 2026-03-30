@@ -71,8 +71,8 @@
   "widget.notes.saved": "Enregistré",
   "widget.recentActivity": "Activité récente",
   "widget.recentActivity.empty": "Aucune activité récente",
-  "commandPalette.placeholder": "Rechercher des commandes...",
-  "commandPalette.noResults": "Aucun résultat",
+  "commandPalette.placeholder": "Rechercher commandes, pages, actions...",
+  "commandPalette.noResults": "Aucun résultat trouvé",
   "common.refresh": "Actualiser",
   "common.save": "Enregistrer",
   "common.cancel": "Annuler",
@@ -274,5 +274,9 @@
   "plugins.installHint": "Déposez un dossier dans ~/.openclaw/hub-plugins/ pour commencer",
   "plugins.noPermissions": "Aucune permission",
   "plugins.remove": "Retirer",
-  "plugins.addToHome": "Ajouter à l'accueil"
+  "plugins.addToHome": "Ajouter à l'accueil",
+  "commandPalette.hint": "Commencez à taper pour chercher",
+  "commandPalette.navigate": "naviguer",
+  "commandPalette.select": "sélectionner",
+  "commandPalette.toggle": "basculer"
 }

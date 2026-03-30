@@ -71,8 +71,8 @@
   "widget.notes.saved": "保存済み",
   "widget.recentActivity": "最近のアクティビティ",
   "widget.recentActivity.empty": "最近のアクティビティはありません",
-  "commandPalette.placeholder": "コマンドを検索...",
-  "commandPalette.noResults": "結果なし",
+  "commandPalette.placeholder": "コマンド、ページ、アクションを検索...",
+  "commandPalette.noResults": "結果が見つかりません",
   "common.refresh": "更新",
   "common.save": "保存",
   "common.cancel": "キャンセル",
@@ -274,5 +274,9 @@
   "plugins.installHint": "~/.openclaw/hub-plugins/ にフォルダを置いて開始",
   "plugins.noPermissions": "権限なし",
   "plugins.remove": "削除",
-  "plugins.addToHome": "ホームに追加"
+  "plugins.addToHome": "ホームに追加",
+  "commandPalette.hint": "入力して検索",
+  "commandPalette.navigate": "移動",
+  "commandPalette.select": "選択",
+  "commandPalette.toggle": "切替"
 }
