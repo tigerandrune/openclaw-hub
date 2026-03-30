@@ -1,0 +1,17 @@
+{
+  "id": "clock",
+  "name": "Clock",
+  "description": "Shows the current time. That's it.",
+  "author": "tigerandrune",
+  "version": "1.0.0",
+  "size": "small",
+  "permissions": [],
+  "settings": {
+    "format": {
+      "type": "select",
+      "label": "Time format",
+      "options": ["12h", "24h"],
+      "default": "24h"
+    }
+  }
+}

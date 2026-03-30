@@ -87,12 +87,19 @@ export default function MyPlugin() {
 
 See [docs/creating-plugins.md](docs/creating-plugins.md) for the full guide.
 
-### Included Examples
+### Example Plugin
 
-| Plugin | Description |
-|--------|-------------|
-| **Clock** | Current time with 12/24h toggle, 8-language support |
-| **Kanban** | Drag-and-drop task board with persistent storage |
+The `examples/plugins/clock/` directory contains a complete example plugin — a clock widget with 12/24h toggle and 8-language support. Copy it to get started:
+
+```bash
+cp -r examples/plugins/clock ~/.openclaw/hub-plugins/clock
+```
+
+### Community Plugins
+
+| Plugin | Description | Repo |
+|--------|-------------|------|
+| **Kanban Board** | Drag-and-drop task board | [openclaw-hub-kanban](https://github.com/openclaw/openclaw-hub-kanban) |
 
 ## Widget Sizes
 
