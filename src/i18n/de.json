@@ -1,0 +1,66 @@
+{
+  "greeting.morning": "Guten Morgen",
+  "greeting.afternoon": "Guten Tag",
+  "greeting.evening": "Guten Abend",
+  "greeting.night": "Gute Nacht",
+
+  "nav.home": "Start",
+  "nav.activity": "Aktivität",
+  "nav.costs": "Kosten",
+  "nav.tasks": "Aufgaben",
+  "nav.services": "Dienste",
+  "nav.alerts": "Meldungen",
+  "nav.settings": "Einstellungen",
+
+  "setup.welcome": "Willkommen bei OpenClaw Hub",
+  "setup.step1.title": "Wie sollen wir dich nennen?",
+  "setup.step1.placeholder": "Dein Name",
+  "setup.step1.preview": "So begrüßen wir dich",
+  "setup.step2.title": "Wähle deine Sprache",
+  "setup.step2.subtitle": "Du kannst das jederzeit in den Einstellungen ändern",
+  "setup.step3.title": "Wähle deinen Stil",
+  "setup.step4.title": "Was interessiert dich?",
+  "setup.step5.title": "Seitenleisten-Stil",
+  "setup.step6.title": "Alles fertig!",
+  "setup.step6.subtitle": "Du kannst alles in den Einstellungen ändern",
+  "setup.letsgo": "Los geht's",
+  "setup.next": "Weiter",
+  "setup.back": "Zurück",
+
+  "theme.dark": "Dunkel",
+  "theme.light": "Hell",
+  "theme.norse": "Nordisch",
+
+  "sidebar.full": "Icons + Text",
+  "sidebar.compact": "Nur Icons",
+
+  "widget.systemHealth": "Systemzustand",
+  "widget.systemHealth.cpu": "Prozessor",
+  "widget.systemHealth.memory": "Speicher",
+  "widget.systemHealth.disk": "Festplatte",
+  "widget.systemHealth.cores": "Kerne",
+  "widget.systemHealth.failed": "Systemstatistiken konnten nicht geladen werden",
+
+  "widget.gateway": "Gateway",
+  "widget.gateway.online": "Online",
+  "widget.gateway.offline": "Offline",
+  "widget.gateway.model": "Modell",
+  "widget.gateway.channels": "Kanäle",
+  "widget.gateway.port": "Port",
+
+  "widget.notes": "Schnellnotizen",
+  "widget.notes.placeholder": "Schreib etwas...",
+  "widget.notes.saved": "Gespeichert",
+
+  "widget.recentActivity": "Letzte Aktivität",
+  "widget.recentActivity.empty": "Keine letzte Aktivität",
+
+  "commandPalette.placeholder": "Befehle suchen...",
+  "commandPalette.noResults": "Keine Ergebnisse",
+
+  "common.refresh": "Aktualisieren",
+  "common.save": "Speichern",
+  "common.cancel": "Abbrechen",
+  "common.loading": "Wird geladen...",
+  "common.error": "Etwas ist schiefgelaufen"
+}

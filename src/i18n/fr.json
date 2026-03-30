@@ -1,0 +1,66 @@
+{
+  "greeting.morning": "Bonjour",
+  "greeting.afternoon": "Bon après-midi",
+  "greeting.evening": "Bonsoir",
+  "greeting.night": "Bonne nuit",
+
+  "nav.home": "Accueil",
+  "nav.activity": "Activité",
+  "nav.costs": "Coûts",
+  "nav.tasks": "Tâches",
+  "nav.services": "Services",
+  "nav.alerts": "Alertes",
+  "nav.settings": "Paramètres",
+
+  "setup.welcome": "Bienvenue sur OpenClaw Hub",
+  "setup.step1.title": "Comment devons-nous vous appeler ?",
+  "setup.step1.placeholder": "Votre nom",
+  "setup.step1.preview": "Voici comment nous vous saluerons",
+  "setup.step2.title": "Choisissez votre langue",
+  "setup.step2.subtitle": "Vous pouvez changer cela à tout moment dans les Paramètres",
+  "setup.step3.title": "Choisissez votre style",
+  "setup.step4.title": "Qu'est-ce qui vous intéresse ?",
+  "setup.step5.title": "Style de la barre latérale",
+  "setup.step6.title": "Tout est prêt !",
+  "setup.step6.subtitle": "Vous pouvez tout modifier dans les Paramètres",
+  "setup.letsgo": "C'est parti",
+  "setup.next": "Suivant",
+  "setup.back": "Retour",
+
+  "theme.dark": "Sombre",
+  "theme.light": "Clair",
+  "theme.norse": "Nordique",
+
+  "sidebar.full": "Icônes + Texte",
+  "sidebar.compact": "Icônes seules",
+
+  "widget.systemHealth": "Santé système",
+  "widget.systemHealth.cpu": "Processeur",
+  "widget.systemHealth.memory": "Mémoire",
+  "widget.systemHealth.disk": "Disque",
+  "widget.systemHealth.cores": "cœurs",
+  "widget.systemHealth.failed": "Impossible de charger les statistiques",
+
+  "widget.gateway": "Passerelle",
+  "widget.gateway.online": "En ligne",
+  "widget.gateway.offline": "Hors ligne",
+  "widget.gateway.model": "Modèle",
+  "widget.gateway.channels": "Canaux",
+  "widget.gateway.port": "Port",
+
+  "widget.notes": "Notes rapides",
+  "widget.notes.placeholder": "Écrivez quelque chose...",
+  "widget.notes.saved": "Enregistré",
+
+  "widget.recentActivity": "Activité récente",
+  "widget.recentActivity.empty": "Aucune activité récente",
+
+  "commandPalette.placeholder": "Rechercher des commandes...",
+  "commandPalette.noResults": "Aucun résultat",
+
+  "common.refresh": "Actualiser",
+  "common.save": "Enregistrer",
+  "common.cancel": "Annuler",
+  "common.loading": "Chargement...",
+  "common.error": "Quelque chose s'est mal passé"
+}

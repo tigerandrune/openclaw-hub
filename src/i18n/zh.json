@@ -1,0 +1,66 @@
+{
+  "greeting.morning": "早上好",
+  "greeting.afternoon": "下午好",
+  "greeting.evening": "晚上好",
+  "greeting.night": "晚安",
+
+  "nav.home": "首页",
+  "nav.activity": "活动",
+  "nav.costs": "费用",
+  "nav.tasks": "任务",
+  "nav.services": "服务",
+  "nav.alerts": "通知",
+  "nav.settings": "设置",
+
+  "setup.welcome": "欢迎使用 OpenClaw Hub",
+  "setup.step1.title": "我们该怎么称呼你？",
+  "setup.step1.placeholder": "你的名字",
+  "setup.step1.preview": "我们会这样跟你打招呼",
+  "setup.step2.title": "选择你的语言",
+  "setup.step2.subtitle": "你可以随时在设置中更改",
+  "setup.step3.title": "选择你的风格",
+  "setup.step4.title": "你关心什么？",
+  "setup.step5.title": "侧边栏样式",
+  "setup.step6.title": "一切就绪！",
+  "setup.step6.subtitle": "你可以在设置中随时更改",
+  "setup.letsgo": "开始吧",
+  "setup.next": "下一步",
+  "setup.back": "返回",
+
+  "theme.dark": "深色",
+  "theme.light": "浅色",
+  "theme.norse": "北欧",
+
+  "sidebar.full": "图标 + 文字",
+  "sidebar.compact": "仅图标",
+
+  "widget.systemHealth": "系统健康",
+  "widget.systemHealth.cpu": "处理器",
+  "widget.systemHealth.memory": "内存",
+  "widget.systemHealth.disk": "磁盘",
+  "widget.systemHealth.cores": "核心",
+  "widget.systemHealth.failed": "无法加载系统信息",
+
+  "widget.gateway": "网关",
+  "widget.gateway.online": "在线",
+  "widget.gateway.offline": "离线",
+  "widget.gateway.model": "模型",
+  "widget.gateway.channels": "频道",
+  "widget.gateway.port": "端口",
+
+  "widget.notes": "快速笔记",
+  "widget.notes.placeholder": "写点什么...",
+  "widget.notes.saved": "已保存",
+
+  "widget.recentActivity": "最近活动",
+  "widget.recentActivity.empty": "暂无活动",
+
+  "commandPalette.placeholder": "搜索命令...",
+  "commandPalette.noResults": "没有结果",
+
+  "common.refresh": "刷新",
+  "common.save": "保存",
+  "common.cancel": "取消",
+  "common.loading": "加载中...",
+  "common.error": "出了点问题"
+}

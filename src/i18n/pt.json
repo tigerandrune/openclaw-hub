@@ -1,0 +1,66 @@
+{
+  "greeting.morning": "Bom dia",
+  "greeting.afternoon": "Boa tarde",
+  "greeting.evening": "Boa noite",
+  "greeting.night": "Boa noite",
+
+  "nav.home": "Início",
+  "nav.activity": "Atividade",
+  "nav.costs": "Custos",
+  "nav.tasks": "Tarefas",
+  "nav.services": "Serviços",
+  "nav.alerts": "Alertas",
+  "nav.settings": "Configurações",
+
+  "setup.welcome": "Bem-vindo ao OpenClaw Hub",
+  "setup.step1.title": "Como devemos te chamar?",
+  "setup.step1.placeholder": "Seu nome",
+  "setup.step1.preview": "É assim que vamos te cumprimentar",
+  "setup.step2.title": "Escolha seu idioma",
+  "setup.step2.subtitle": "Você pode mudar isso a qualquer momento nas Configurações",
+  "setup.step3.title": "Escolha seu estilo",
+  "setup.step4.title": "O que te interessa?",
+  "setup.step5.title": "Estilo da barra lateral",
+  "setup.step6.title": "Tudo pronto!",
+  "setup.step6.subtitle": "Você pode mudar tudo nas Configurações",
+  "setup.letsgo": "Vamos lá",
+  "setup.next": "Próximo",
+  "setup.back": "Voltar",
+
+  "theme.dark": "Escuro",
+  "theme.light": "Claro",
+  "theme.norse": "Nórdico",
+
+  "sidebar.full": "Ícones + Texto",
+  "sidebar.compact": "Só ícones",
+
+  "widget.systemHealth": "Saúde do sistema",
+  "widget.systemHealth.cpu": "Processador",
+  "widget.systemHealth.memory": "Memória",
+  "widget.systemHealth.disk": "Disco",
+  "widget.systemHealth.cores": "núcleos",
+  "widget.systemHealth.failed": "Falha ao carregar estatísticas do sistema",
+
+  "widget.gateway": "Gateway",
+  "widget.gateway.online": "Online",
+  "widget.gateway.offline": "Offline",
+  "widget.gateway.model": "Modelo",
+  "widget.gateway.channels": "Canais",
+  "widget.gateway.port": "Porta",
+
+  "widget.notes": "Notas rápidas",
+  "widget.notes.placeholder": "Escreva algo...",
+  "widget.notes.saved": "Salvo",
+
+  "widget.recentActivity": "Atividade recente",
+  "widget.recentActivity.empty": "Nenhuma atividade recente",
+
+  "commandPalette.placeholder": "Pesquisar comandos...",
+  "commandPalette.noResults": "Nenhum resultado",
+
+  "common.refresh": "Atualizar",
+  "common.save": "Salvar",
+  "common.cancel": "Cancelar",
+  "common.loading": "Carregando...",
+  "common.error": "Algo deu errado"
+}

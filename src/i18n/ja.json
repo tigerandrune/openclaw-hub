@@ -1,0 +1,66 @@
+{
+  "greeting.morning": "おはようございます",
+  "greeting.afternoon": "こんにちは",
+  "greeting.evening": "こんばんは",
+  "greeting.night": "おやすみなさい",
+
+  "nav.home": "ホーム",
+  "nav.activity": "アクティビティ",
+  "nav.costs": "コスト",
+  "nav.tasks": "タスク",
+  "nav.services": "サービス",
+  "nav.alerts": "アラート",
+  "nav.settings": "設定",
+
+  "setup.welcome": "OpenClaw Hubへようこそ",
+  "setup.step1.title": "あなたの名前は？",
+  "setup.step1.placeholder": "お名前",
+  "setup.step1.preview": "このように挨拶します",
+  "setup.step2.title": "言語を選択",
+  "setup.step2.subtitle": "設定でいつでも変更できます",
+  "setup.step3.title": "テーマを選択",
+  "setup.step4.title": "何に興味がありますか？",
+  "setup.step5.title": "サイドバーのスタイル",
+  "setup.step6.title": "準備完了！",
+  "setup.step6.subtitle": "設定でいつでも変更できます",
+  "setup.letsgo": "始めましょう",
+  "setup.next": "次へ",
+  "setup.back": "戻る",
+
+  "theme.dark": "ダーク",
+  "theme.light": "ライト",
+  "theme.norse": "ノルド",
+
+  "sidebar.full": "アイコン＋テキスト",
+  "sidebar.compact": "アイコンのみ",
+
+  "widget.systemHealth": "システム状態",
+  "widget.systemHealth.cpu": "CPU",
+  "widget.systemHealth.memory": "メモリ",
+  "widget.systemHealth.disk": "ディスク",
+  "widget.systemHealth.cores": "コア",
+  "widget.systemHealth.failed": "システム情報を取得できませんでした",
+
+  "widget.gateway": "ゲートウェイ",
+  "widget.gateway.online": "オンライン",
+  "widget.gateway.offline": "オフライン",
+  "widget.gateway.model": "モデル",
+  "widget.gateway.channels": "チャンネル",
+  "widget.gateway.port": "ポート",
+
+  "widget.notes": "メモ",
+  "widget.notes.placeholder": "何か書いてください...",
+  "widget.notes.saved": "保存しました",
+
+  "widget.recentActivity": "最近のアクティビティ",
+  "widget.recentActivity.empty": "最近のアクティビティはありません",
+
+  "commandPalette.placeholder": "コマンドを検索...",
+  "commandPalette.noResults": "結果なし",
+
+  "common.refresh": "更新",
+  "common.save": "保存",
+  "common.cancel": "キャンセル",
+  "common.loading": "読み込み中...",
+  "common.error": "エラーが発生しました"
+}

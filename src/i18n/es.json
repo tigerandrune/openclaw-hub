@@ -1,0 +1,66 @@
+{
+  "greeting.morning": "Buenos días",
+  "greeting.afternoon": "Buenas tardes",
+  "greeting.evening": "Buenas tardes",
+  "greeting.night": "Buenas noches",
+
+  "nav.home": "Inicio",
+  "nav.activity": "Actividad",
+  "nav.costs": "Costos",
+  "nav.tasks": "Tareas",
+  "nav.services": "Servicios",
+  "nav.alerts": "Alertas",
+  "nav.settings": "Ajustes",
+
+  "setup.welcome": "Bienvenido a OpenClaw Hub",
+  "setup.step1.title": "¿Cómo te llamamos?",
+  "setup.step1.placeholder": "Tu nombre",
+  "setup.step1.preview": "Así es como te saludaremos",
+  "setup.step2.title": "Elige tu idioma",
+  "setup.step2.subtitle": "Puedes cambiarlo en cualquier momento en Ajustes",
+  "setup.step3.title": "Elige tu estilo",
+  "setup.step4.title": "¿Qué te interesa?",
+  "setup.step5.title": "Estilo de barra lateral",
+  "setup.step6.title": "¡Todo listo!",
+  "setup.step6.subtitle": "Puedes cambiar todo en Ajustes",
+  "setup.letsgo": "Vamos",
+  "setup.next": "Siguiente",
+  "setup.back": "Atrás",
+
+  "theme.dark": "Oscuro",
+  "theme.light": "Claro",
+  "theme.norse": "Nórdico",
+
+  "sidebar.full": "Iconos + Texto",
+  "sidebar.compact": "Solo iconos",
+
+  "widget.systemHealth": "Salud del sistema",
+  "widget.systemHealth.cpu": "Procesador",
+  "widget.systemHealth.memory": "Memoria",
+  "widget.systemHealth.disk": "Disco",
+  "widget.systemHealth.cores": "núcleos",
+  "widget.systemHealth.failed": "No se pudieron cargar las estadísticas",
+
+  "widget.gateway": "Pasarela",
+  "widget.gateway.online": "En línea",
+  "widget.gateway.offline": "Sin conexión",
+  "widget.gateway.model": "Modelo",
+  "widget.gateway.channels": "Canales",
+  "widget.gateway.port": "Puerto",
+
+  "widget.notes": "Notas rápidas",
+  "widget.notes.placeholder": "Escribe algo...",
+  "widget.notes.saved": "Guardado",
+
+  "widget.recentActivity": "Actividad reciente",
+  "widget.recentActivity.empty": "Sin actividad reciente",
+
+  "commandPalette.placeholder": "Buscar comandos...",
+  "commandPalette.noResults": "Sin resultados",
+
+  "common.refresh": "Actualizar",
+  "common.save": "Guardar",
+  "common.cancel": "Cancelar",
+  "common.loading": "Cargando...",
+  "common.error": "Algo salió mal"
+}
