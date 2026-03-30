@@ -34,7 +34,8 @@ export default function RecentActivityWidget() {
     if (known[channel]) return known[channel];
     const palette = ['#6b7280', '#22c55e', '#f97316', '#8b5cf6', '#06b6d4', '#ec4899'];
     let hash = 0;
-    for (const ch of channel) hash = ((hash << 5) - hash + ch.charCodeAt(0)) | 0;
+    const str = String(channel);
+    for (const ch of str) hash = ((hash << 5) - hash + ch.charCodeAt(0)) | 0;
     return palette[Math.abs(hash) % palette.length];
   };
 

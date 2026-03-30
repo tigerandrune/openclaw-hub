@@ -37,7 +37,8 @@ export default function Activity() {
       '#eab308', '#ef4444', '#06b6d4', '#8b5cf6', '#14b8a6',
     ];
     let hash = 0;
-    for (const ch of agent) hash = ((hash << 5) - hash + ch.charCodeAt(0)) | 0;
+    const str = String(agent);
+    for (const ch of str) hash = ((hash << 5) - hash + ch.charCodeAt(0)) | 0;
     return palette[Math.abs(hash) % palette.length];
   };
 
