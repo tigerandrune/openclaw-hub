@@ -211,5 +211,15 @@
   "settings.budget.enable": "跟踪月度预算",
   "settings.budget.desc": "在费用页面显示支出仪表",
   "settings.budget.amount": "月度限额",
-  "settings.budget.perMonth": "每月"
+  "settings.budget.perMonth": "每月",
+  "profiles.title": "配置文件",
+  "profiles.switch": "切换",
+  "profiles.new": "新建配置文件",
+  "profiles.manage": "管理配置文件",
+  "profiles.delete": "删除",
+  "profiles.active": "活跃",
+  "profiles.name": "配置文件名",
+  "profiles.namePlaceholder": "输入名称",
+  "profiles.create": "创建",
+  "profiles.cancel": "取消"
 }

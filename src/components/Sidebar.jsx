@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
   Home, Activity, DollarSign, Server,
   Bell, Settings, ChevronLeft, ChevronRight,
-  Terminal,
+  Terminal, ChevronDown, Plus, Users,
 } from 'lucide-react';
 import { useConfig } from '../context/ConfigContext';
 import { useI18n } from '../context/I18nContext';
@@ -17,11 +17,20 @@ const navItems = [
 ];
 
 export default function Sidebar() {
-  const { config } = useConfig();
+  const { config, activeProfile, switchProfile } = useConfig();
   const { t } = useI18n();
   const location = useLocation();
   const prefersCompact = config?.sidebarStyle === 'compact';
   const [collapsed, setCollapsed] = useState(prefersCompact);
+  const [profiles, setProfiles] = useState([]);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    fetch('/api/profiles')
+      .then(r => r.json())
+      .then(data => setProfiles(data.profiles || []))
+      .catch(() => {});
+  }, [activeProfile]);
 
   const enabledPages = config?.enabledPages ?? navItems.map(n => n.id);
   const visible = navItems.filter(n => enabledPages.includes(n.id));
@@ -107,7 +116,74 @@ export default function Sidebar() {
           }
         </button>
 
-        {!collapsed && config?.name && (
+        {/* Profile switcher — only when 2+ profiles exist */}
+        {profiles.length > 1 && (
+          <div className="relative mt-1">
+            <button
+              onClick={() => setProfileMenuOpen(o => !o)}
+              className="flex items-center gap-2 w-full px-3 py-2 rounded-lg transition-colors cursor-pointer border-0 bg-transparent"
+              style={{ background: profileMenuOpen ? 'var(--surface2)' : 'transparent' }}
+              title={collapsed ? (config?.name || t('profiles.switch')) : undefined}
+            >
+              <div
+                className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
+                style={{ background: 'var(--accent)', color: '#000' }}
+              >
+                {(config?.name || 'U')[0].toUpperCase()}
+              </div>
+              {!collapsed && (
+                <>
+                  <span className="text-xs font-medium truncate flex-1 text-left" style={{ color: 'var(--text)' }}>
+                    {config?.name || activeProfile}
+                  </span>
+                  <ChevronDown size={12} style={{
+                    color: 'var(--text-muted)',
+                    transform: profileMenuOpen ? 'rotate(180deg)' : 'none',
+                    transition: 'transform 0.2s',
+                  }} />
+                </>
+              )}
+            </button>
+
+            {profileMenuOpen && (
+              <div
+                className="absolute bottom-full left-0 right-0 mb-1 rounded-lg border overflow-hidden shadow-lg z-50"
+                style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}
+              >
+                {profiles.map(p => (
+                  <button
+                    key={p.id}
+                    onClick={() => { switchProfile(p.id); setProfileMenuOpen(false); }}
+                    className="flex items-center gap-2 w-full px-3 py-2 text-left border-0 cursor-pointer transition-colors"
+                    style={{
+                      background: p.id === activeProfile ? 'var(--surface2)' : 'transparent',
+                      color: 'var(--text)',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.background = 'var(--surface2)'}
+                    onMouseLeave={e => e.currentTarget.style.background = p.id === activeProfile ? 'var(--surface2)' : 'transparent'}
+                  >
+                    <div
+                      className="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
+                      style={{
+                        background: p.id === activeProfile ? 'var(--accent)' : 'var(--border)',
+                        color: p.id === activeProfile ? '#000' : 'var(--text-muted)',
+                      }}
+                    >
+                      {p.avatar || p.name[0].toUpperCase()}
+                    </div>
+                    <span className="text-xs font-medium truncate">{p.name}</span>
+                    {p.id === activeProfile && (
+                      <span className="ml-auto text-xs" style={{ color: 'var(--accent)' }}>✓</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Single-user avatar (no switcher needed) */}
+        {profiles.length <= 1 && !collapsed && config?.name && (
           <div
             className="flex items-center gap-2 px-3 py-2 rounded-lg mt-1"
             style={{ background: 'var(--surface2)' }}

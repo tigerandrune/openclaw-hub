@@ -4,7 +4,7 @@ import { useI18n } from '../context/I18nContext';
 import { useTheme } from '../context/ThemeContext';
 import { useApi } from '../hooks/useApi';
 import { languages } from '../i18n';
-import { Check, ChevronUp, ChevronDown, RotateCcw, Palette, Zap } from 'lucide-react';
+import { Check, ChevronUp, ChevronDown, RotateCcw, Palette, Zap, Plus, Trash2, Users } from 'lucide-react';
 
 const THEMES = [
   {
@@ -450,6 +450,9 @@ export default function Settings() {
         </div>
       </SettingsSection>
 
+      {/* Profiles Section */}
+      <ProfilesSection t={t} savedIndicator={savedIndicator} />
+
       {/* System Section */}
       <SettingsSection title={t('settings.system')}>
         <div className="space-y-4">
@@ -488,6 +491,170 @@ export default function Settings() {
         </div>
       </SettingsSection>
     </div>
+  );
+}
+
+function ProfilesSection({ t }) {
+  const { activeProfile, switchProfile } = useConfig();
+  const [profiles, setProfiles] = useState([]);
+  const [showCreate, setShowCreate] = useState(false);
+  const [newName, setNewName] = useState('');
+  const [creating, setCreating] = useState(false);
+  const [deleting, setDeleting] = useState(null);
+
+  const loadProfiles = () => {
+    fetch('/api/profiles')
+      .then(r => r.json())
+      .then(data => setProfiles(data.profiles || []))
+      .catch(() => {});
+  };
+
+  useEffect(() => { loadProfiles(); }, [activeProfile]);
+
+  const handleCreate = async () => {
+    if (!newName.trim()) return;
+    setCreating(true);
+    const id = newName.trim().toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').slice(0, 32);
+    try {
+      const res = await fetch('/api/profiles', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, name: newName.trim() }),
+      });
+      if (res.ok) {
+        setNewName('');
+        setShowCreate(false);
+        loadProfiles();
+        switchProfile(id);
+      }
+    } catch { /* ignore */ }
+    setCreating(false);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await fetch(`/api/profiles/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setDeleting(null);
+        loadProfiles();
+      }
+    } catch { /* ignore */ }
+  };
+
+  // Only show this section if profiles exist (they always will after first load)
+  return (
+    <SettingsSection title={t('profiles.title')}>
+      <div className="space-y-3">
+        {profiles.map(p => (
+          <div
+            key={p.id}
+            className="flex items-center gap-3 p-3 rounded-lg border"
+            style={{
+              background: p.id === activeProfile ? 'var(--surface2)' : 'var(--surface)',
+              borderColor: p.id === activeProfile ? 'var(--accent)' : 'var(--border)',
+            }}
+          >
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
+              style={{
+                background: p.id === activeProfile ? 'var(--accent)' : 'var(--border)',
+                color: p.id === activeProfile ? '#000' : 'var(--text-muted)',
+              }}
+            >
+              {p.avatar || p.name[0].toUpperCase()}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-medium truncate" style={{ color: 'var(--text)' }}>
+                {p.name}
+              </div>
+              <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                {p.id === activeProfile ? t('profiles.active') : p.id}
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {p.id !== activeProfile && (
+                <button
+                  onClick={() => switchProfile(p.id)}
+                  className="text-xs px-2 py-1 rounded border transition-colors"
+                  style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
+                >
+                  {t('profiles.switch')}
+                </button>
+              )}
+              {p.id !== 'default' && p.id !== activeProfile && (
+                deleting === p.id ? (
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => handleDelete(p.id)}
+                      className="text-xs px-2 py-1 rounded"
+                      style={{ background: '#ef4444', color: '#fff' }}
+                    >
+                      {t('profiles.delete')}
+                    </button>
+                    <button
+                      onClick={() => setDeleting(null)}
+                      className="text-xs px-2 py-1 rounded border"
+                      style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
+                    >
+                      {t('profiles.cancel')}
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setDeleting(p.id)}
+                    className="p-1 rounded transition-colors"
+                    style={{ color: 'var(--text-muted)' }}
+                    title={t('profiles.delete')}
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                )
+              )}
+            </div>
+          </div>
+        ))}
+
+        {/* Create new profile */}
+        {showCreate ? (
+          <div className="flex items-center gap-2 p-3 rounded-lg border" style={{ borderColor: 'var(--border)' }}>
+            <input
+              type="text"
+              value={newName}
+              onChange={e => setNewName(e.target.value)}
+              placeholder={t('profiles.namePlaceholder')}
+              className="flex-1 px-3 py-2 rounded-lg border bg-transparent text-sm"
+              style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
+              onKeyDown={e => e.key === 'Enter' && handleCreate()}
+              autoFocus
+            />
+            <button
+              onClick={handleCreate}
+              disabled={!newName.trim() || creating}
+              className="px-3 py-2 rounded-lg text-sm font-medium disabled:opacity-50"
+              style={{ background: 'var(--accent)', color: '#000' }}
+            >
+              {t('profiles.create')}
+            </button>
+            <button
+              onClick={() => { setShowCreate(false); setNewName(''); }}
+              className="px-3 py-2 rounded-lg text-sm border"
+              style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
+            >
+              {t('profiles.cancel')}
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => setShowCreate(true)}
+            className="flex items-center gap-2 w-full p-3 rounded-lg border border-dashed transition-colors cursor-pointer bg-transparent"
+            style={{ borderColor: 'var(--border)', color: 'var(--text-muted)' }}
+          >
+            <Plus size={16} />
+            <span className="text-sm">{t('profiles.new')}</span>
+          </button>
+        )}
+      </div>
+    </SettingsSection>
   );
 }
 

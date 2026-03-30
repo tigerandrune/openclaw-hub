@@ -211,5 +211,15 @@
   "settings.budget.enable": "Monatsbudget verfolgen",
   "settings.budget.desc": "Ausgabenanzeige auf der Kostenseite anzeigen",
   "settings.budget.amount": "Monatslimit",
-  "settings.budget.perMonth": "pro Monat"
+  "settings.budget.perMonth": "pro Monat",
+  "profiles.title": "Profile",
+  "profiles.switch": "Wechseln",
+  "profiles.new": "Neues Profil",
+  "profiles.manage": "Profile verwalten",
+  "profiles.delete": "Löschen",
+  "profiles.active": "Aktiv",
+  "profiles.name": "Profilname",
+  "profiles.namePlaceholder": "Name eingeben",
+  "profiles.create": "Erstellen",
+  "profiles.cancel": "Abbrechen"
 }

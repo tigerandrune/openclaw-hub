@@ -211,5 +211,15 @@
   "settings.budget.enable": "Spåra månadsbudget",
   "settings.budget.desc": "Visa en förbrukningsindikator på kostnadssidan",
   "settings.budget.amount": "Månadsgräns",
-  "settings.budget.perMonth": "per månad"
+  "settings.budget.perMonth": "per månad",
+  "profiles.title": "Profiler",
+  "profiles.switch": "Byt",
+  "profiles.new": "Ny profil",
+  "profiles.manage": "Hantera profiler",
+  "profiles.delete": "Ta bort",
+  "profiles.active": "Aktiv",
+  "profiles.name": "Profilnamn",
+  "profiles.namePlaceholder": "Ange ett namn",
+  "profiles.create": "Skapa",
+  "profiles.cancel": "Avbryt"
 }

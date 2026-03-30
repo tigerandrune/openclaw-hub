@@ -211,5 +211,15 @@
   "settings.budget.enable": "Acompanhar orçamento mensal",
   "settings.budget.desc": "Mostrar um indicador de gastos na página de custos",
   "settings.budget.amount": "Limite mensal",
-  "settings.budget.perMonth": "por mês"
+  "settings.budget.perMonth": "por mês",
+  "profiles.title": "Perfis",
+  "profiles.switch": "Trocar",
+  "profiles.new": "Novo perfil",
+  "profiles.manage": "Gerenciar perfis",
+  "profiles.delete": "Excluir",
+  "profiles.active": "Ativo",
+  "profiles.name": "Nome do perfil",
+  "profiles.namePlaceholder": "Digite um nome",
+  "profiles.create": "Criar",
+  "profiles.cancel": "Cancelar"
 }

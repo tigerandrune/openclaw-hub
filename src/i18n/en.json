@@ -211,5 +211,15 @@
   "settings.budget.enable": "Track monthly budget",
   "settings.budget.desc": "Show a spending gauge on the Costs page",
   "settings.budget.amount": "Monthly limit",
-  "settings.budget.perMonth": "per month"
+  "settings.budget.perMonth": "per month",
+  "profiles.title": "Profiles",
+  "profiles.switch": "Switch",
+  "profiles.new": "New Profile",
+  "profiles.manage": "Manage profiles",
+  "profiles.delete": "Delete",
+  "profiles.active": "Active",
+  "profiles.name": "Profile name",
+  "profiles.namePlaceholder": "Enter a name",
+  "profiles.create": "Create",
+  "profiles.cancel": "Cancel"
 }

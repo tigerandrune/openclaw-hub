@@ -211,5 +211,15 @@
   "settings.budget.enable": "月間予算を追跡",
   "settings.budget.desc": "コストページに支出ゲージを表示",
   "settings.budget.amount": "月間上限",
-  "settings.budget.perMonth": "月あたり"
+  "settings.budget.perMonth": "月あたり",
+  "profiles.title": "プロフィール",
+  "profiles.switch": "切替",
+  "profiles.new": "新規プロフィール",
+  "profiles.manage": "プロフィール管理",
+  "profiles.delete": "削除",
+  "profiles.active": "アクティブ",
+  "profiles.name": "プロフィール名",
+  "profiles.namePlaceholder": "名前を入力",
+  "profiles.create": "作成",
+  "profiles.cancel": "キャンセル"
 }

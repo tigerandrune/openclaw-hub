@@ -5,6 +5,7 @@ import { dirname, join } from 'path';
 import { existsSync } from 'fs';
 
 import configRoutes from './routes/config.js';
+import profilesRoutes from './routes/profiles.js';
 import systemRoutes from './routes/system.js';
 import gatewayRoutes from './routes/gateway.js';
 import discoverRoutes from './routes/discover.js';
@@ -25,6 +26,7 @@ app.use(express.json());
 
 // API routes
 app.use('/api/config', configRoutes);
+app.use('/api/profiles', profilesRoutes);
 app.use('/api/system', systemRoutes);
 app.use('/api/gateway', gatewayRoutes);
 app.use('/api/discover', discoverRoutes);
