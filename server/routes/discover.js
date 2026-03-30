@@ -84,13 +84,29 @@ function getMemoryStatus() {
   const hasLancedb = existsSync(lancedbPath);
   const kmPath = join(homedir(), '.km');
   const hasKm = existsSync(kmPath);
-  return {
-    backend: memBackend,
-    plugin: memPlugin,
-    lancedb: hasLancedb,
-    km: hasKm,
-    active: !!(memBackend || memPlugin),
-  };
+
+  // Build status — only include what's actually configured/found
+  const status = { active: false, services: [] };
+
+  if (memBackend) {
+    status.active = true;
+    status.services.push({ name: memBackend, type: 'backend', status: 'active' });
+  }
+  if (memPlugin) {
+    // Only show plugin if the underlying service exists
+    if (memPlugin.includes('lancedb') && !hasLancedb) {
+      // Configured but not installed — skip silently for fresh users
+    } else {
+      status.active = true;
+      status.services.push({ name: memPlugin, type: 'plugin', status: 'active' });
+    }
+  }
+  if (hasKm) {
+    status.active = true;
+    status.services.push({ name: 'km', type: 'knowledge', status: 'active' });
+  }
+
+  return status;
 }
 
 function listSkills() {
