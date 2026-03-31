@@ -1,5 +1,31 @@
 # Changelog
 
+## 2.1.0 — 2026-03-31
+
+### Added
+- **Alert indicators**: Red/yellow badge on sidebar Bell icon and home page banner linking to Alerts
+- **Loading states**: App shell spinner before React loads, skeleton placeholders on Home page
+- **Widget error boundaries**: Crashed widgets show retry button instead of blanking the page
+- **Mobile bottom nav**: 5-tab bar with alert badge, safe area insets for notched phones
+- **Sidebar signature**: "Made with ♥ by Tiger × Rune"
+- **Screenshots**: 4 real screenshots in README (home, alerts, services, settings)
+
+### Fixed
+- Alert titles use proper casing ("Cpu usage" not "CPU USAGE")
+- Down processes say "not running" instead of "not responding"
+- Restart count thresholds show count, not percentage
+- Drag-and-drop grabs entire widget card, not just grip icon
+- Non-string channel/agent values no longer crash activity widgets
+- CSP allows `data:` URIs for bundled fonts
+- Security advisory link points to correct repo
+
+### Cleaned
+- Removed debug `console.log`s from PluginWidget
+- Removed unused imports (`Plus`, `Users`)
+- Removed dead `.bottom-nav` CSS
+
+---
+
 ## 2.0.0 — 2026-03-31
 
 First public release.
