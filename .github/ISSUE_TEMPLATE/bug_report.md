@@ -5,6 +5,10 @@ title: "[Bug] "
 labels: bug
 ---
 
+> ⚠️ **Before posting:** Make sure your screenshots and logs don't contain API keys, tokens, passwords, session IDs, or any personal information. Redact anything sensitive.
+>
+> If the bug involves a security vulnerability, **do not open a public issue** — see [SECURITY.md](../../SECURITY.md).
+
 **What happened?**
 A clear description of the bug.
 
