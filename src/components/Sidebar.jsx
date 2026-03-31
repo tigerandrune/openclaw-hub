@@ -226,6 +226,15 @@ export default function Sidebar() {
             </span>
           </div>
         )}
+
+        {/* Signature */}
+        {!collapsed && (
+          <div className="px-3 pb-1 pt-2" style={{ opacity: 0.25 }}>
+            <p className="text-[10px] leading-tight" style={{ color: 'var(--text-muted)' }}>
+              Made with ♥ by Tiger × Rune
+            </p>
+          </div>
+        )}
       </div>
     </aside>
   );
