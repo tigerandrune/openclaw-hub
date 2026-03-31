@@ -71,13 +71,17 @@ function SortableWidget({ id, children, editMode, t, className = '' }) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} className={className} {...attributes}>
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={className}
+      {...attributes}
+      {...(editMode ? listeners : {})}
+    >
       {editMode && (
         <div
-          {...listeners}
-          className="absolute top-2 right-2 z-10 p-1.5 rounded-md cursor-grab active:cursor-grabbing transition-all hover:scale-110"
+          className="absolute top-2 right-2 z-10 p-1.5 rounded-md transition-all pointer-events-none"
           style={{ background: 'var(--surface2)', color: 'var(--text-muted)' }}
-          title={t('home.dragToReorder')}
         >
           <GripVertical size={14} />
         </div>
