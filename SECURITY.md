@@ -218,7 +218,7 @@ No secrets are stored by Hub itself. Gateway credentials, API keys, and tokens a
 
 Found a security issue? **Do not open a public issue.**
 
-- **Discord:** DM a maintainer in the [OpenClaw Discord](https://discord.com/invite/clawd)
+- **Discord:** DM `tigerlundberg` directly
 - **GitHub:** Open a [private security advisory](https://github.com/tigerandrune/openclaw-hub/security/advisories/new) (available when repo is public)
 
 Do not open a public issue for security vulnerabilities. We'll respond within 48 hours.
