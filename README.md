@@ -73,11 +73,11 @@ That's it. Pulls the latest, installs any new dependencies, rebuilds, and restar
 
 ---
 
-## Plugins
+## Plugins — Make It Yours
 
-This is the part we're most proud of.
+Hub is a starting point. The plugin system exists so you can add whatever you want to it.
 
-Plugins are just folders. Two files: a `manifest.json` and a `widget.jsx`. Drop them in `~/.openclaw/hub-plugins/`, and they show up in your dashboard. No restart needed.
+Want a weather widget? A note scratchpad? A quick link launcher? Build it. Plugins are just folders — a `manifest.json` and a `widget.jsx`. Drop them in `~/.openclaw/hub-plugins/`, and they show up in your dashboard. No restart needed.
 
 ```
 ~/.openclaw/hub-plugins/
