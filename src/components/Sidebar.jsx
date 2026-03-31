@@ -3,7 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import {
   Home, Activity, DollarSign, Server,
   Bell, Settings, ChevronLeft, ChevronRight,
-  Terminal, ChevronDown, Plus, Users,
+  Terminal, ChevronDown,
 } from 'lucide-react';
 import { useConfig } from '../context/ConfigContext';
 import { useI18n } from '../context/I18nContext';

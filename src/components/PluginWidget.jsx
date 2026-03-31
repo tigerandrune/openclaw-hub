@@ -134,13 +134,13 @@ function setupPluginAPI(pluginId) {
       }).catch(() => {});
     },
     notify: ({ title, message, type }) => {
-      console.log(`[plugin:${pluginId}] notification:`, { title, message, type });
+      // Plugin notification received
       // Future: hook into a toast system
     },
     registerCleanup: (fn) => cleanups.push(fn),
     registerAction: (id, label, handler) => {
       // Future: hook into command palette
-      console.log(`[plugin:${pluginId}] registered action:`, id, label);
+      // Plugin action registered
     },
   };
 
