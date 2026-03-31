@@ -2,7 +2,8 @@ import { useState, useCallback } from 'react';
 import { useConfig } from '../context/ConfigContext';
 import { useI18n } from '../context/I18nContext';
 import { useApi } from '../hooks/useApi';
-import { Zap, RotateCcw, FileText, Activity, Loader2, GripVertical, Lock, Unlock } from 'lucide-react';
+import { Zap, RotateCcw, FileText, Activity, Loader2, GripVertical, Lock, Unlock, AlertTriangle, XCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import {
   DndContext,
   closestCenter,
@@ -184,6 +185,9 @@ export default function Home() {
         </p>
       </div>
 
+      {/* Alert Banner */}
+      <AlertBanner />
+
       {/* Quick Actions */}
       {quickActions.length > 0 && (
         <div className="space-y-3">
@@ -320,5 +324,52 @@ export default function Home() {
         </div>
       )}
     </div>
+  );
+}
+
+function AlertBanner() {
+  const { t } = useI18n();
+  const { data } = useApi('/api/alerts', 60000);
+
+  if (!data?.alerts?.length) return null;
+
+  const critical = data.summary?.critical || 0;
+  const warning = data.summary?.warning || 0;
+  const isCritical = critical > 0;
+  const components = data.alerts
+    .filter(a => a.severity === 'critical' || a.severity === 'warning')
+    .map(a => a.component)
+    .filter(Boolean)
+    .map(c => c.charAt(0).toUpperCase() + c.slice(1));
+  const uniqueComponents = [...new Set(components)].slice(0, 3);
+  const label = uniqueComponents.join(', ');
+
+  return (
+    <Link
+      to="/notifications"
+      className="flex items-center gap-3 px-4 py-3 rounded-xl border transition-all hover:brightness-110"
+      style={{
+        background: isCritical ? 'rgba(239,68,68,0.08)' : 'rgba(245,158,11,0.08)',
+        borderColor: isCritical ? 'rgba(239,68,68,0.25)' : 'rgba(245,158,11,0.25)',
+        textDecoration: 'none',
+        color: 'inherit',
+      }}
+    >
+      {isCritical
+        ? <XCircle size={18} style={{ color: '#ef4444', flexShrink: 0 }} />
+        : <AlertTriangle size={18} style={{ color: '#f59e0b', flexShrink: 0 }} />
+      }
+      <div className="flex-1 min-w-0">
+        <span className="text-sm font-medium" style={{ color: 'var(--text)' }}>
+          {t('alerts.count', { count: critical + warning })}
+        </span>
+        {label && (
+          <span className="text-xs ml-2" style={{ color: 'var(--text-muted)' }}>
+            — {label}
+          </span>
+        )}
+      </div>
+      <span className="text-xs" style={{ color: 'var(--text-muted)' }}>→</span>
+    </Link>
   );
 }

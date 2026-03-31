@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useConfig } from '../context/ConfigContext';
 import { useI18n } from '../context/I18nContext';
+import { useApi } from '../hooks/useApi';
 
 const navItems = [
   { id: 'home',          labelKey: 'nav.home',     icon: Home,        path: '/' },
@@ -20,6 +21,8 @@ export default function Sidebar() {
   const { config, activeProfile, switchProfile } = useConfig();
   const { t } = useI18n();
   const location = useLocation();
+  const { data: alertData } = useApi('/api/alerts', 60000);
+  const alertSeverity = alertData?.summary?.critical > 0 ? 'critical' : alertData?.summary?.warning > 0 ? 'warning' : null;
   const prefersCompact = config?.sidebarStyle === 'compact';
   const [collapsed, setCollapsed] = useState(prefersCompact);
   const [profiles, setProfiles] = useState([]);
@@ -94,7 +97,18 @@ export default function Sidebar() {
               title={collapsed ? label : undefined}
               style={collapsed ? { justifyContent: 'center', padding: '8px 0' } : {}}
             >
-              <Icon size={18} className="flex-shrink-0" />
+              <span className="relative flex-shrink-0">
+                <Icon size={18} />
+                {id === 'notifications' && alertSeverity && (
+                  <span
+                    className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full border-2"
+                    style={{
+                      background: alertSeverity === 'critical' ? '#ef4444' : '#f59e0b',
+                      borderColor: 'var(--surface)',
+                    }}
+                  />
+                )}
+              </span>
               {!collapsed && <span>{label}</span>}
             </NavLink>
           );
