@@ -109,6 +109,22 @@ There's a complete example in [`examples/plugins/clock/`](examples/plugins/clock
 
 ---
 
+## Compatibility
+
+Hub runs anywhere OpenClaw runs:
+
+| Platform | Status |
+|----------|--------|
+| Linux (any distro) | ✅ Tested |
+| macOS | ✅ Supported |
+| Windows (WSL) | ✅ Supported |
+| Raspberry Pi (ARM) | ✅ Should work — no native deps |
+| Docker | ⚠️ Needs access to `~/.openclaw/` config |
+
+**Requirements:** Node.js 18+ and a running OpenClaw instance on the same machine.
+
+---
+
 ## Is It Secure?
 
 Hub ships with security headers (CSP, X-Frame-Options, the works), plugin sandboxing, and path traversal protection. It makes zero external requests — and the CSP enforces that at the browser level.
