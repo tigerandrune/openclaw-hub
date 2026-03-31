@@ -62,6 +62,15 @@ pm2 start server/index.js --name openclaw-hub
 pm2 save
 ```
 
+## Updating
+
+```bash
+cd openclaw-hub
+npm run update
+```
+
+That's it. Pulls the latest, installs any new dependencies, rebuilds, and restarts PM2 if you're using it. Your config is stored outside the repo (`~/.openclaw/hub-config.json`) so nothing gets overwritten.
+
 ---
 
 ## Plugins
