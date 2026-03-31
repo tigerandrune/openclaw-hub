@@ -5,6 +5,7 @@ import { useApi } from '../hooks/useApi';
 import { Zap, RotateCcw, FileText, Activity, Loader2, GripVertical, Lock, Unlock, AlertTriangle, XCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SkeletonDashboard } from '../components/Skeleton';
+import WidgetErrorBoundary from '../components/WidgetErrorBoundary';
 import {
   DndContext,
   closestCenter,
@@ -275,14 +276,18 @@ export default function Home() {
                 const manifest = (installedPlugins || []).find(p => p.id === pluginId);
                 return (
                   <SortableWidget key={id} id={id} editMode={editMode} t={t} className={`widget-size-${manifest?.size || 'medium'}`}>
-                    <PluginWidget pluginId={pluginId} manifest={manifest} />
+                    <WidgetErrorBoundary name={pluginId}>
+                      <PluginWidget pluginId={pluginId} manifest={manifest} />
+                    </WidgetErrorBoundary>
                   </SortableWidget>
                 );
               }
               const Widget = WIDGET_MAP[id];
               return (
                 <SortableWidget key={id} id={id} editMode={editMode} t={t}>
-                  <Widget />
+                  <WidgetErrorBoundary name={id}>
+                    <Widget />
+                  </WidgetErrorBoundary>
                 </SortableWidget>
               );
             })}
