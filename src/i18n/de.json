@@ -306,5 +306,6 @@
   "alerts.rule.process.down": "Prozess gestoppt",
   "alerts.rule.process.restarts": "Hohe Neustartanzahl",
   "alerts.rule.pm2.checkFailed": "PM2-Prüfung fehlgeschlagen",
-  "alerts.processInfo": "{component} wurde {value} mal neugestartet"
+  "alerts.processInfo": "{component} wurde {value} mal neugestartet",
+  "alerts.processDown": "{component} läuft nicht"
 }

@@ -306,5 +306,6 @@
   "alerts.rule.process.down": "Process nere",
   "alerts.rule.process.restarts": "Högt antal omstarter",
   "alerts.rule.pm2.checkFailed": "PM2-kontroll misslyckades",
-  "alerts.processInfo": "{component} har startats om {value} gånger"
+  "alerts.processInfo": "{component} har startats om {value} gånger",
+  "alerts.processDown": "{component} körs inte"
 }

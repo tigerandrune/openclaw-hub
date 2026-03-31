@@ -283,4 +283,40 @@ router.get('/', async (_req, res) => {
   }
 });
 
+// GET /api/alerts/test — fake alerts to verify all types render correctly
+router.get('/test', (_req, res) => {
+  const alerts = [
+    createAlert('cpu-critical', 'critical', 'system', 'alerts.rule.cpu.critical', null, 94, 90, 'cpu'),
+    createAlert('memory-high', 'warning', 'system', 'alerts.rule.memory.high', null, 83, 80, 'memory'),
+    createAlert('disk-elevated', 'info', 'system', 'alerts.rule.disk.elevated', null, 78, 75, 'disk'),
+    createAlert('gateway-offline', 'critical', 'gateway', 'alerts.rule.gateway.offline', null, null, null, 'gateway'),
+    createAlert('pm2-myapp-down', 'critical', 'services', 'alerts.rule.process.down', null, null, null, 'my-app'),
+    createAlert('pm2-worker-restarts', 'warning', 'services', 'alerts.rule.process.restarts', null, 42, 10, 'background-worker'),
+  ];
+
+  const checks = [
+    { name: 'CPU', status: 'critical', value: '94%' },
+    { name: 'Memory', status: 'warning', value: '83%' },
+    { name: 'Disk', status: 'info', value: '78%' },
+    { name: 'Gateway', status: 'critical', value: 'offline' },
+    { name: 'my-app', status: 'critical', value: 'stopped' },
+    { name: 'background-worker', status: 'warning', value: 'online' },
+    { name: 'web-server', status: 'healthy', value: 'online' },
+  ];
+
+  res.json({
+    alerts,
+    summary: {
+      critical: alerts.filter(a => a.severity === 'critical').length,
+      warning: alerts.filter(a => a.severity === 'warning').length,
+      info: alerts.filter(a => a.severity === 'info').length,
+      healthy: checks.filter(c => c.status === 'healthy').length,
+      total: checks.length,
+    },
+    checks,
+    timestamp: Date.now(),
+    _test: true,
+  });
+});
+
 export default router;

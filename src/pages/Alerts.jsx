@@ -140,9 +140,9 @@ export default function Alerts() {
                           {alert.description || (alert.component && alert.value != null
                             ? alert.category === 'services'
                               ? t('alerts.processInfo', { component: alert.component, value: alert.value })
-                              : t('alerts.usageAt', { component: alert.component.toUpperCase(), value: alert.value })
+                              : t('alerts.usageAt', { component: alert.component.charAt(0).toUpperCase() + alert.component.slice(1), value: alert.value })
                             : alert.component
-                              ? t('alerts.componentIssue', { component: alert.component })
+                              ? t('alerts.processDown', { component: alert.component })
                               : ''
                           )}
                         </p>
@@ -154,9 +154,9 @@ export default function Alerts() {
                               ? alert.category === 'services' ? alert.value : `${alert.value}%`
                               : alert.value}
                           </div>
-                          {alert.threshold && (
+                          {alert.threshold != null && (
                             <div className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                              {t('alerts.threshold')}: {alert.threshold}%
+                              {t('alerts.threshold')}: {alert.threshold}{alert.category !== 'services' ? '%' : ''}
                             </div>
                           )}
                         </div>
