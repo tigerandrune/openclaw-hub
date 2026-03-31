@@ -137,6 +137,14 @@ This is an [OpenClaw](https://github.com/openclaw/openclaw) community project. W
 
 ---
 
+## Support
+
+This is a passion project — no sponsors, no company, no ads. If our tools help you out, a coffee goes a long way.
+
+[☕ Buy us a coffee on Ko-fi](https://ko-fi.com/tigerxrune) · [tigerandrune.dev](https://tigerandrune.dev)
+
+---
+
 ## License
 
 MIT — [Tiger × Rune](https://tigerandrune.dev)
