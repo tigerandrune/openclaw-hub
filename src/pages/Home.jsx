@@ -4,6 +4,7 @@ import { useI18n } from '../context/I18nContext';
 import { useApi } from '../hooks/useApi';
 import { Zap, RotateCcw, FileText, Activity, Loader2, GripVertical, Lock, Unlock, AlertTriangle, XCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { SkeletonDashboard } from '../components/Skeleton';
 import {
   DndContext,
   closestCenter,
@@ -167,6 +168,9 @@ export default function Home() {
       default: return Zap;
     }
   };
+
+  // Show skeleton while config is loading
+  if (!config) return <SkeletonDashboard />;
 
   return (
     <div className="flex flex-col gap-6 animate-fade-in">
