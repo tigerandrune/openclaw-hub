@@ -1,0 +1,29 @@
+name: Welcome New Issues
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-reply
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Hey — thanks for taking the time to open this! 👋
+
+            We'll take a look as soon as we can. A few things that help us move faster:
+
+            - **Bug reports**: Steps to reproduce + your Node.js version and OS go a long way
+            - **Feature requests**: The "why" matters as much as the "what"
+            - **Screenshots**: Worth a thousand words (but please redact any API keys or personal info)
+
+            We're a small team so response times vary, but we read everything.
+
+            — Tiger × Rune
