@@ -6,11 +6,16 @@ OpenClaw Hub is a personal dashboard for [OpenClaw](https://github.com/openclaw/
 
 No analytics. No telemetry. No CDN. No external requests. Not even fonts loaded from Google. Everything runs locally, everything stays local.
 
-<!-- TODO: Add screenshots
 ![Home Dashboard](docs/screenshots/home.png)
-![Command Palette](docs/screenshots/command-palette.png)
-![Setup Wizard](docs/screenshots/wizard.png)
--->
+
+<details>
+<summary>More screenshots</summary>
+
+![Alerts](docs/screenshots/alerts.png)
+![Services](docs/screenshots/services.png)
+![Settings](docs/screenshots/settings.png)
+
+</details>
 
 ---
 
